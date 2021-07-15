@@ -1,0 +1,27 @@
+/* HEADER */
+header{
+    background-color: #101010;
+}
+
+.log_sign button {
+    background-color: #ec7532;
+    margin-left: 10px;
+}
+
+.log_in:link, .sign_up:link{
+    text-decoration: none;
+}
+
+.log_in:visited, .sign_up:visited{
+    color: white;
+}
+
+.log_in:hover, .sign_up:hover{
+    color: red;
+}
+
+.form-control:focus {
+    outline: 0 !important;
+    border-color: initial;
+    box-shadow: none;
+}
