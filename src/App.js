@@ -4,7 +4,6 @@ import data from './data';
 function App() {
   return (
     <div className="App">
-<<<<<<< HEAD
      <head>
     <link rel="stylesheet" href="style.css" />
     <link
@@ -23,21 +22,6 @@ function App() {
           <a href="cart.html">Cart</a>
           <a href="signin.html">Sign In</a>
         </div>
-=======
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Testing
-        </a>
->>>>>>> 5c27df23d5a4ae2e23a50321d36f6cd015e3306f
       </header>
       
       <main>
