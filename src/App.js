@@ -1,66 +1,85 @@
+import React, { Component } from 'react';
 import './App.css';
-import data from './data';
+import "./App.scss";
 
-function App() {
-  return (
-    <div className="App">
-     <head>
-    <link rel="stylesheet" href="style.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
-    <title>Need A Team Name Gaming</title>
-  </head>
-  <body>
-    <div className="grid-container">
-      <header className="row">
-        <div>
-          <a className="brand" href="index.html">Need A Team Name Gaming </a>
-        </div>
-        <div>
-          <a href="cart.html">Cart</a>
-          <a href="signin.html">Sign In</a>
-        </div>
-      </header>
-      
-      <main>
-        <div>
-        
-          <div className="row center">
-            {
-              data.products.map(product => (
-                <div  className="card">
-              <a href="product.html">
-               
-                <img className="medium" src="https://upload.wikimedia.org/wikipedia/vi/5/52/Assassin%27s_Creed_III.jpg" alt="product" />
-              </a>
-              <div className="card-body">
-                <a href="product.html">
-                  <h2 className= "product-name">Assasin's creed III</h2>
-                </a>
-                <div className="rating">
-                  <span> <i className="fa fa-star"></i> </span>
-                  <span> <i className="fa fa-star"></i> </span>
-                  <span> <i className="fa fa-star"></i> </span>
-                  <span> <i className="fa fa-star"></i> </span>
-                  <span> <i className="fa fa-star"></i> </span>
-                </div>
-                <div className="price">$120</div>
-              </div>
-            </div>
-              ))
-            }
-            
-            
-          </div>
-        </div>
-      </main>
-      <footer className="row center">All right reserved</footer>
-    </div>
-  </body>
-    </div>
-  );
-}
+import PageNotFound from './containers/PageNotFound';
 
-export default App;
+import { routesHome } from "./routes";
+import { connect } from "react-redux";
+import { Route, Switch, withRouter } from "react-router-dom";
+
+import HomeTemplate from "./containers/HomeTemplate";
+import LogInPage from './containers/HomeTemplate/LogInPage';
+// import AdminTemplate from "./containers/AdminTemplate";
+// import AuthPage from './containers/AdminTemplate/AuthPage';
+// import { actTryLogin } from "containers/AdminTemplate/AuthPage/modules/actions";
+
+class App extends Component {
+  showLayoutHome = (routes) => {
+    if (routes && routes.length > 0) {
+      return routes.map((item, index) => {
+        return (
+          <HomeTemplate
+            key={index}
+            exact={item.exact}
+            path={item.path}
+            Component={item.component}
+          />
+        );
+      });
+    };
+  };
+
+  //   showLayoutAdmin = (routes) => {
+  //     if (routes && routes.length > 0) {
+  //       return routes.map((item, index) => {
+  //         return (
+  //           <AdminTemplate
+  //             key={index}
+  //             exact={item.exact}
+  //             path={item.path}
+  //             Component={item.component}
+  //           />
+  //         );
+  //       });
+  //     };
+  //   };
+
+  // componentDidMount() {
+  //   this.props.fetchTryLogin(this.props.history);
+  // };
+
+  render() {
+    return (
+      <Switch Switch >
+        {/* - Home Page - localhost:3000 - HomePage */}
+        {/* <Route exact path="/" component={HomePage} /> */}
+
+        {/* - Page about - localhost:3000/about - AboutPage */}
+        {/* <Route path="/about" component={AboutPage} /> */}
+
+        {this.showLayoutHome(routesHome)}
+
+        {/* {this.showLayoutAdmin(routesAdmin)} */}
+
+        {/* Page Auth - Log In Page */}
+        <Route path="/log-in" component={LogInPage} />
+
+        {/* - Page Not Found - */}
+        <Route path="" component={PageNotFound} />
+      </Switch >
+    );
+  };
+};
+
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     fetchTryLogin: (history) => {
+//     //   dispatch(actTryLogin(history));
+//     },
+//   };
+// };
+
+const ConnectedComponent = connect(null, null)(App);
+
+export default withRouter(ConnectedComponent);
