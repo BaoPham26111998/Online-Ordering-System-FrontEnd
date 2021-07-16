@@ -1,0 +1,25 @@
+{
+    "compilerOptions": {
+        "target": "ES6",
+        "module": "esnext",
+        "baseUrl": "./src",
+        "paths": {
+            "routes/*": [
+                "./src/routes"
+            ],
+            "containers/*": [
+                "./src/containers"
+            ],
+            "components/*": [
+                "./src/components"
+            ]
+        }
+    },
+    "exclude": [
+        "node_modules",
+        "build",
+        "coverage",
+        "dist",
+        "lib"
+    ]
+}
