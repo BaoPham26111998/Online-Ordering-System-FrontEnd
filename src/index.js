@@ -12,6 +12,11 @@ import "bootstrap/dist/js/bootstrap.min.js";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 
+<<<<<<< HEAD
+=======
+// import "./scss/index.scss";
+
+>>>>>>> b626dcefd86621bc550399f08e440edb2d2ae4ea
 import { createStore, applyMiddleware, compose } from "redux";
 import { Provider } from "react-redux";
 import rootReducer from "./redux/reducers";
