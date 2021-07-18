@@ -68,19 +68,19 @@ html {
     font-weight: bold;
   }
   a.brand:hover {
-    background-image: linear-gradient(to left, rgb(255, 255, 255), rgb(83, 74, 133), rgb(38, 38, 90), rgb(148, 148, 187), rgb(38, 38, 90), rgb(83, 74, 133), rgb(255, 255, 255));   -webkit-background-clip: text;
+    background-image: linear-gradient(to left, rgb(255, 255, 255), rgb(83, 74, 133), rgb(37, 37, 182));   -webkit-background-clip: text;
     color: transparent;
     font-size: 3.5rem;
     font-weight: bold;
   }
 
-  a.cart{
+  a.register{
     color: #ffffff;
     font-size: 2rem;
     font-weight: bold;
   }
-  a.cart:hover {
-    background-image: linear-gradient(to left, rgb(255, 255, 255), rgb(83, 74, 133), rgb(38, 38, 90), rgb(148, 148, 187), rgb(38, 38, 90), rgb(83, 74, 133), rgb(255, 255, 255));   -webkit-background-clip: text;
+  a.register:hover {
+    background-image: linear-gradient(to left, rgb(255, 255, 255), rgb(83, 74, 133), rgb(37, 37, 182));   -webkit-background-clip: text;
     color: transparent;
     font-size: 2.5rem;
     font-weight: bold;
@@ -91,7 +91,7 @@ html {
     font-weight: bold;
   }
   a.signin:hover {
-    background-image: linear-gradient(to left, rgb(255, 255, 255), rgb(83, 74, 133), rgb(38, 38, 90), rgb(148, 148, 187), rgb(38, 38, 90), rgb(83, 74, 133), rgb(255, 255, 255));   -webkit-background-clip: text;
+    background-image: linear-gradient(to left, rgb(255, 255, 255), rgb(83, 74, 133), rgb(37, 37, 182));   -webkit-background-clip: text;
     color: transparent;
     font-size: 2.5rem;
     font-weight: bold;
@@ -107,6 +107,13 @@ html {
   }
   /* Image */
   img {
+    height: 30rem;
+    width: 20rem;
+    border-radius: 0.5rem;
+  }
+  img:hover {
+    height: 35rem;
+    width: 25rem;
     border-radius: 0.5rem;
   }
   img.medium {
@@ -121,6 +128,7 @@ html {
     border-radius: 0.5rem;
     margin: 1rem;
   }
+
   .card-body {
     padding: 1rem;
   }
@@ -130,10 +138,21 @@ html {
   .price {
     font-size: 2rem;
   }
-
-  .card:hover{
-      
+  
+  .game-name{
+    color: #241747;
+    font-size: 2rem;
+    font-weight: bold;
   }
+
+  .game-name:hover {
+    background-image: linear-gradient(to left, rgb(255, 255, 255), rgb(83, 74, 133), rgb(37, 37, 182));   -webkit-background-clip: text;
+    color: transparent;
+    font-size: 2.5rem;
+    font-weight: bold;
+  }
+
+  
   /* Rating */
   .rating span {
     color: #f0c040;

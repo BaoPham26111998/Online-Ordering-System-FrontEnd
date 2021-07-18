@@ -11,7 +11,7 @@ export default class PageNotFound extends PureComponent {
                 <a className="brand" href="index.html">Need A Team Name Gaming </a>
               </div>
               <div>
-                <a className="cart" href="cart.html">Cart</a>
+                <a className="register" href="Register.html">Register</a>
                 <a className="signin" href="signin.html">Sign In</a>
               </div>
             </header>
@@ -22,25 +22,38 @@ export default class PageNotFound extends PureComponent {
                 <div className="row center">
                   {
                     data.products.map(product => (
-                      <div  className="card">
-                    <a href="product.html">
-      
-                      <img className="medium" src="https://upload.wikimedia.org/wikipedia/vi/5/52/Assassin%27s_Creed_III.jpg" alt="product" />
-                    </a>
-                    <div className="card-body">
-                      <a href="product.html">
-                        <h2 className= "product-name">Assasin's creed III</h2>
-                      </a>
-                      <div className="rating">
-                        <span> <i className="fa fa-star"></i> </span>
-                        <span> <i className="fa fa-star"></i> </span>
-                        <span> <i className="fa fa-star"></i> </span>
-                        <span> <i className="fa fa-star"></i> </span>
-                        <span> <i className="fa fa-star"></i> </span>
+                        <div key={product._id} className="card">
+                        <a href={`/product/${product._id}`}>
+                          <img
+                            className="medium"
+                            src={product.image}
+                            alt={product.name}
+                          />
+                        </a>
+                        <div className="card-body">
+                          <a href={`/product/${product._id}`}>
+                            <h2 className="game-name" >{product.name}</h2>
+                          </a>
+                          <div className="rating">
+                            <span>
+                              <i className="fa fa-star"></i>
+                            </span>
+                            <span>
+                              <i className="fa fa-star"></i>
+                            </span>
+                            <span>
+                              <i className="fa fa-star"></i>
+                            </span>
+                            <span>
+                              <i className="fa fa-star"></i>
+                            </span>
+                            <span>
+                              <i className="fa fa-star"></i>
+                            </span>
+                          </div>
+                          <div className="price">${product.price}</div>
+                        </div>
                       </div>
-                      <div className="price">$120</div>
-                    </div>
-                  </div>
                     ))
                   }
       
