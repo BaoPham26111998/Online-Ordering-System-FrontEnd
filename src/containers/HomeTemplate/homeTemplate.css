@@ -1,45 +1,45 @@
 html {
-    font-size: 62.5%; /* 16px x 62.5 = 10px = 1rem */
-    box-sizing: border-box;
-  }
-  body {
-    margin: 0;
-    height: 100vh;
-    font-size: 1.6rem;
-    font-family: Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-  #root {
-    height: 100%;
-  }
-  
-  /* Layout */
-  .grid-container {
-    display: grid;
-    grid-template-areas:
-      'header'
-      'main'
-      'footer';
-    grid-template-columns: 1fr;
-    grid-template-rows: 5rem 1fr 5rem;
-    height: 100%;
-    background-color: #2a4158;
-  }
-  header {
-    grid-area: header;
-    background-color: #203040;
-  }
-  main {
-    grid-area: main;
-    padding: 1rem;
-    background-color: #2a4158;
-  }
-  footer {
-    grid-area: footer;
-    background-color: #203040;
-    color: #ffffff;
-  }
+  font-size: 62.5%; /* 16px x 62.5 = 10px = 1rem */
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  height: 100vh;
+  font-size: 1.6rem;
+  font-family: Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+#root {
+  height: 100%;
+}
+
+/* Layout */
+.grid-container {
+  display: grid;
+  grid-template-areas:
+    'header'
+    'main'
+    'footer';
+  grid-template-columns: 1fr;
+  grid-template-rows: 5rem 1fr 5rem;
+  height: 100%;
+  background-color: #2a4158;
+}
+header {
+  grid-area: header;
+  background-color: #203040;
+}
+main {
+  grid-area: main;
+  padding: 1rem;
+  background-color: #2a4158;
+}
+footer {
+  grid-area: footer;
+  background-color: #203040;
+  color: #ffffff;
+}
   /* Common */
   h1 {
     font-size: 1.8rem;
@@ -139,13 +139,13 @@ html {
     font-size: 2rem;
   }
   
-  .game-name{
+  h2.game-name{
     color: #241747;
     font-size: 2rem;
     font-weight: bold;
   }
 
-  .game-name:hover {
+  h2.game-name:hover {
     background-image: linear-gradient(to left, rgb(255, 255, 255), rgb(83, 74, 133), rgb(37, 37, 182));   -webkit-background-clip: text;
     color: transparent;
     font-size: 2.5rem;

@@ -1,8 +1,9 @@
 import React, { PureComponent } from 'react'
 import './homeTemplate.css';
-import data from './data.js';
+import data from 'productData.js';
 
-export default class PageNotFound extends PureComponent {
+
+export default class HomeTemplate extends PureComponent {
     render() {
         return (
             <div className="grid-container">
@@ -12,13 +13,11 @@ export default class PageNotFound extends PureComponent {
               </div>
               <div>
                 <a className="register" href="Register.html">Register</a>
-                <a className="signin" href="signin.html">Sign In</a>
+                <a className="signin" href="signin.html">Login</a>
               </div>
             </header>
-      
             <main>
               <div>
-      
                 <div className="row center">
                   {
                     data.products.map(product => (
@@ -56,8 +55,6 @@ export default class PageNotFound extends PureComponent {
                       </div>
                     ))
                   }
-      
-      
                 </div>
               </div>
             </main>
