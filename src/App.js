@@ -9,7 +9,6 @@ import { connect } from "react-redux";
 import { Route, Switch, withRouter } from "react-router-dom";
 
 import HomeTemplate from "./containers/HomeTemplate";
-// import ProductDetail from "./containers/HomeTemplate/ProductDetail";
 
 
 
