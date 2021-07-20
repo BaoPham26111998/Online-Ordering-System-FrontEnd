@@ -1,6 +1,9 @@
+
 import React, { Component } from 'react'
+
 import './homeTemplate.css';
 import data from 'productData.js';
+
 
 
 export default class HomeTemplate extends Component {
