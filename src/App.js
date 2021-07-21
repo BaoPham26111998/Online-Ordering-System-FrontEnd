@@ -11,19 +11,44 @@ import LogIn from "./containers/LogInPage";
 import Register from "./containers/RegisterPage";
 // import ProductDetail from "./containers/HomeTemplate/ProductDetail";
 
+import axios from 'axios'
+
 class App extends Component {
+  state = {}
+
+  componentDidMount = () => {
+    const config = {
+      headers: {
+        Authorization: 'Bearer ' + localStorage.getItem('token')
+      }
+    }
+
+    axios.get('user', config).then(
+      res => {
+        console.log(res)
+
+        this.setState({
+          user: res.data
+        })
+      },
+      err => {
+        console.log(err)
+      }
+    )
+  }
 
   render() {
     return (
       <Switch Switch >
         
-        <Route exact path="/" component={HomeTemplate} />
+        <Route exact path="/" component={() => <HomeTemplate user={this.state.user}/>} />
 
         <Route path="/login" component={LogIn} />
 
         <Route path="/register" component={Register} />
         
         <Route path="" component={PageNotFound} />
+
       </Switch >
     );
   };

@@ -17,6 +17,8 @@ import { Provider } from "react-redux";
 import rootReducer from "./redux/reducers";
 import thunk from "redux-thunk";
 
+import axios from 'axios'
+
 import { BrowserRouter } from "react-router-dom";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -26,6 +28,9 @@ const store = createStore(
   // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() (user composeEnhancers)
   composeEnhancers(applyMiddleware(thunk)),
 );
+
+axios.defaults.baseURL = 'http://localhost:3001/';
+axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token');
 
 ReactDOM.render(
   <Provider store={store}>
