@@ -6,7 +6,6 @@ body {
   margin: 0;
   height: 100vh;
   font-size: 1.6rem;
-  font-family: Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -24,7 +23,7 @@ body {
   grid-template-columns: 1fr;
   grid-template-rows: 5rem 1fr 5rem;
   height: 100%;
-  background-color: #2a4158;
+  
 }
 header {
   grid-area: header;
@@ -50,12 +49,6 @@ footer {
     padding: 1rem 0;
   }
   
-  a {
-    text-decoration: none;
-  }
-  a:hover {
-    color: #ff8000;
-  }
   
   /* Header */
   header a {
@@ -106,20 +99,19 @@ footer {
     justify-content: center;
   }
   /* Image */
-  img {
+
+  img.medium {
     height: 30rem;
-    width: 20rem;
+    width: 25rem;
     border-radius: 0.5rem;
   }
-  img:hover {
+  
+  img.medium:hover {
     height: 35rem;
     width: 25rem;
     border-radius: 0.5rem;
   }
-  img.medium {
-    max-width: 29rem;
-    width: 100%;
-  }
+  
   
   /* Card */
   .card {
@@ -155,6 +147,13 @@ footer {
   
   /* Rating */
   .rating span {
-    color: #f0c040;
-    margin: 0.1rem;
+    color: #ff1100;
+    margin: 0.2rem;
+  }
+  .rating span:last-child{
+    color: #fd0a0a;
+  }
+
+  .button.primary-block{
+    color: red;
   }
