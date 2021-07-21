@@ -1,14 +1,11 @@
 import React, { PureComponent } from 'react'
+import './pageNotFound.css';
 
 export default class PageNotFound extends PureComponent {
     render() {
         return (
             <div>
-                <div className="container">
-                    <div className="row">
-                        <h3>Page Not Found</h3>
-                    </div>
-                </div>
+                <h1>PageNotFound 404</h1>
             </div>
         )
     }
