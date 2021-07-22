@@ -9,6 +9,8 @@ import { Route, Switch, withRouter } from "react-router-dom";
 import HomeTemplate from "./containers/HomeTemplate";
 import LogIn from "./containers/LogInPage";
 import Register from "./containers/RegisterPage";
+import Forgot from 'containers/ForgotPasswordPage';
+import Reset from 'containers/ResetPassowordPage';
 // import ProductDetail from "./containers/HomeTemplate/ProductDetail";
 
 import axios from 'axios'
@@ -27,9 +29,7 @@ class App extends Component {
       res => {
         console.log(res)
 
-        this.setState({
-          user: res.data
-        })
+        this.setUser(res.data)
       },
       err => {
         console.log(err)
@@ -37,16 +37,26 @@ class App extends Component {
     )
   }
 
+  setUser = user => {
+    this.setState({
+      user: user
+    })
+  }
+
   render() {
     return (
       <Switch Switch >
-        
-        <Route exact path="/" component={() => <HomeTemplate user={this.state.user}/>} />
 
-        <Route path="/login" component={LogIn} />
+        <Route exact path="/" component={() => <HomeTemplate user={this.state.user} setUser={this.setUser}/>} />
 
-        <Route path="/register" component={Register} />
-        
+        <Route path="/login" component={() => <LogIn setUser={this.setUser}/>} />
+
+        <Route path="/register" component={Register}/>
+
+        <Route path="/forgot" component={Forgot}/>
+
+        <Route path="/reset/:id" component={Reset}/>
+
         <Route path="" component={PageNotFound} />
 
       </Switch >

@@ -1,32 +1,59 @@
 import React, { Component } from 'react'
 import axios from "axios";
+import { Link, Redirect } from 'react-router-dom';
 
 export default class LogIn extends Component {
+    state = {
+
+    }
+
     handleSubmit = e => {
         e.preventDefault(); 
 
         const data = {
-            first_name: this.firstName,
-            last_name: this.lastName,
             email: this.email,
             passsword: this.password,
-            confirm_password: this.confirmPassword
         }
 
-        axios.post("/login", data).then(res=>{
+        axios.post("login", data).then(res=>{
             console.log(res);
 
             localStorage.setItem('token', res.data.token)
+
+            this.setState({
+                loggedIn: true,
+
+            })
+
+            this.props.setUser(res.data.user);
+
         }).catch(err=>{
-            console.log(err)
+            this.setState({
+                mess: err.response.data.mess
+            })
         })
     }
 
     render() {
+        if(this.state.loggedIn){
+            return <Redirect to={'/'}/>
+        }
+
+        let error = '';
+
+        if(this.state.mess){
+            error = (
+                <div className="alert alert-danger" role="alert">
+                    {this.state.mess}
+                </div>
+            )
+        }
+
         return (
             <div className="auth-wrapper">
                 <div className="auth-inner">
                     <form onSubmit={this.handleSubmit}>
+                        {error}
                         <h2>Log In</h2>
 
                         <div className="form-group">
@@ -40,6 +67,9 @@ export default class LogIn extends Component {
                         </div>
 
                         <button className="btn btn-primary btn-block">Log In</button>
+                        <p className="forgot-password text-right">
+                            <Link to={'/forgot'}>Forgot Password?</Link>
+                        </p>
                     </form>
                 </div>
             </div>

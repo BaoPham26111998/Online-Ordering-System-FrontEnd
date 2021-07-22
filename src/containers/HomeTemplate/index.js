@@ -7,33 +7,12 @@ import axios from 'axios'
 import NavbarHome from 'components/NavbarHome'
 
 export default class HomeTemplate extends Component {
-  state = {}
-
-  componentDidMount() {
-    const config = {
-      headers: {
-        Authorization: 'Bearer ' + localStorage.getItem('token')
-      }
-    }
-
-    axios.get('user', config).then(
-      res => {
-        console.log(res)
-
-        this.setState({
-          user: res.data
-        })
-      },
-      err => {
-        console.log(err)
-      }
-    )
-  }
+  
 
   render() {
     return (
       <div className="grid-container">
-        <NavbarHome/>
+        <NavbarHome user={this.props.user} setUser={this.props.setUser}/>
         <main>
           <div>
             <div className="row center">

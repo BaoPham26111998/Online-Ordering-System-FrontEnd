@@ -29,7 +29,7 @@ const store = createStore(
   composeEnhancers(applyMiddleware(thunk)),
 );
 
-axios.defaults.baseURL = 'http://localhost:3001/';
+axios.defaults.baseURL = 'http://localhost:8080/';
 axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token');
 
 ReactDOM.render(
