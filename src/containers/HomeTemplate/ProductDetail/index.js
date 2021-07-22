@@ -1,3 +1,4 @@
+
 import Rating from 'components/rating';
 import data from 'productData.js'
 import React from 'react'
@@ -15,10 +16,7 @@ export default function ProductDetail(props) {
         <div>
           <a className="brand" href="/">Need A Team Name Gaming </a>
         </div>
-        <div>
-          <a className="register" href="Register.html">Register</a>
-          <a className="signin" href="signin.html">Login</a>
-        </div>
+        
       </header>
       
       <div>
@@ -51,8 +49,6 @@ export default function ProductDetail(props) {
                 <h3  className="detail-description">Description: 
                 <p className="detail-description">{product.description}</p></h3>
                 </div>
-                
-                
 
                 <h1 className="detail-price">Price : ${product.price}</h1>
 
