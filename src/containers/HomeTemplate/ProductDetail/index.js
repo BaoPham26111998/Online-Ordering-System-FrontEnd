@@ -2,7 +2,6 @@
 import Rating from 'components/rating';
 import data from 'productData.js'
 import React from 'react'
-// import { Link } from 'react-router-dom';
 import './productDetail.css';
 
 export default function ProductDetail(props) {
@@ -22,6 +21,7 @@ export default function ProductDetail(props) {
       <div>
         
         <div className="background">
+          
           <div className="productDetail-container">
             
             <div className="row">
