@@ -4,12 +4,15 @@ import styled from 'styled-components';
   
 export const Nav = styled.nav`
   background: #rgba(43, 40, 58, 0.692);
-  height: 95px;
+  // background: red;
+  height: 35px;
+  
   display: flex;
   justify-content: space-between;
 //   padding: 0.2rem calc((100vw - 1000px) / 2);
   margin-left: 8rem;
-  margin-right: 6rem;
+  margin-right: 8rem;
+  margin-top:2rem;
   z-index: 12;
   /* Third Nav */
   /* justify-content: flex-start; */
@@ -60,7 +63,10 @@ export const NavMenu = styled.div`
 export const NavBtn = styled.nav`
   display: flex;
   align-items: center;
-  margin-right: 24px;
+  position: absolute;
+  left: 115rem;
+  // margin-top:5rem;
+  // margin-bottom:5rem;
   /* Third Nav */
   /* justify-content: flex-end;
   width: 100vw; */
@@ -80,6 +86,7 @@ export const NavBtnLink = styled(Link)`
   transition: all 0.2s ease-in-out;
   text-decoration: none;
   font-size: 1rem;
+  
   /* Second Nav */
   margin-left: 24px;
   &:hover {
@@ -87,6 +94,6 @@ export const NavBtnLink = styled(Link)`
     background: #fff;
     color: red;
     font-weight: bold;
-    font-size: 1.5rem;
+    // font-size: 1.5rem;
   }
 `;

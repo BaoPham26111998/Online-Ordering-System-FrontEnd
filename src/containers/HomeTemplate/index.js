@@ -4,6 +4,7 @@ import Navbar from 'components/navbar';
 import './homeTemplate.css';
 import data from 'productData.js';
 import Product from 'components/product.js';
+import SearchBar from 'components/search';
 
 
 export default class HomeTemplate extends Component {
@@ -22,6 +23,7 @@ export default class HomeTemplate extends Component {
             <main>
               <div>
               <Navbar></Navbar>
+              <SearchBar></SearchBar>
                 {/* Product component */}
                 <div className="row center">
                   {

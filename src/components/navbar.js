@@ -4,8 +4,6 @@ import {
     NavLink,
     Bars,
     NavMenu,
-    NavBtn,
-    NavBtnLink,
   } from './navbarElements';
 
 
@@ -18,24 +16,22 @@ export default function Navbar() {
         <Bars />
   
         <NavMenu>
-          <NavLink to='/about' activeStyle>
-            About
+          <NavLink to='/account' activeStyle>
+            Account
           </NavLink>
-          <NavLink to='/events' activeStyle>
-            Events
+          <NavLink to='/cart' activeStyle>
+            Cart
           </NavLink>
-          <NavLink to='/annual' activeStyle>
-            Annual Report
+          <NavLink to='/transaction' activeStyle>
+            Transaction
           </NavLink>
-          <NavLink to='/team' activeStyle>
-            Teams
+          <NavLink to='/logout' activeStyle>
+            Logout
           </NavLink>
           
           
         </NavMenu>
-        <NavBtn>
-          <NavBtnLink to='/Search'>Advance Search</NavBtnLink>
-        </NavBtn>
+        
       </Nav>
         </div>
 
