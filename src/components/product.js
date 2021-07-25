@@ -1,27 +1,32 @@
 import React from "react";
-import Rating from './rating'
+import DataService from "services/index.js"
 
-export default function Product(props) {
-    const {product} = props
-    return (
 
-        <div key={product._id} className="card">
-            <a href={`/product/${product._id}`}>
-                <img
-                    className="medium"
-                    src={product.image}
-                    alt={product.name}
-                />
-            </a>
-            <div className="card-body">
-                <a href={`/product/${product._id}`}>
-                    <h2 className="game-name" >{product.name}</h2>
-                </a>
-                <Rating rating = {product.rating}
-                numReviews = {product.numReviews}></Rating>
-                <div className="price">${product.price}</div>
+class ProductComponent extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            items: []
+        }
+    }
+    componentDidMount() {
+        DataService.getItems().then((response) => {
+            this.setState({ items: response.data })
+        });
+    }
+    render() {
+        return (
+            <div className="row center">
+                <h1>GAME</h1>
+                {
+                    this.state.items.map(
+                        item =>
+                            <div>{item.title}</div>
+                    )
+                }
             </div>
-        </div>
-
-    )
+        )
+    }
 }
+
+export default ProductComponent
