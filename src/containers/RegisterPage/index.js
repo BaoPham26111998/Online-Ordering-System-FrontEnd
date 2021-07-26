@@ -8,8 +8,8 @@ export default class Register extends Component {
         e.preventDefault(); 
 
         const data = {
-            first_name: this.firstName,
-            last_name: this.lastName,
+            userName: this.userName,
+            name: this.name,
             email: this.email,
             passsword: this.password,
             confirm_password: this.confirmPassword
@@ -43,13 +43,13 @@ export default class Register extends Component {
                         <h2>Register</h2>
 
                         <div className="form-group">
-                            <label>First Name</label>
-                            <input type="text" className="form-control" placeholder="First Name" onChange={e => this.firstName = e.target.value}/>
+                            <label>Username</label>
+                            <input type="text" className="form-control" placeholder="Username" onChange={e => this.userName = e.target.value}/>
                         </div>
 
                         <div className="form-group">
-                            <label>Last Name</label>
-                            <input type="text" className="form-control" placeholder="Last Name" onChange={e => this.lastName = e.target.value}/>
+                            <label>Name</label>
+                            <input type="text" className="form-control" placeholder="Name" onChange={e => this.name = e.target.value}/>
                         </div>
 
                         <div className="form-group">

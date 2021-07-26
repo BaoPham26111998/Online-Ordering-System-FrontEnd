@@ -50,7 +50,7 @@ export default class Forgot extends Component {
                             <input type="email" className="form-control" placeholder="Email" onChange={e => this.email = e.target.value} />
                         </div>
 
-                        <button className="btn btn-primary btn-block">Log In</button>
+                        <button className="btn btn-primary btn-block">Submit</button>
                     </form>
                 </div>
             </div>

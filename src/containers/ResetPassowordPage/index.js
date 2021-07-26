@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom';
 
+import axios from 'axios';
+
 export default class Reset extends Component {
     state = {};
 
@@ -32,12 +34,12 @@ export default class Reset extends Component {
             return <Redirect to={'/login'}/>
         }
 
-        let error = '';
+        let error = ''; 
 
-        if(this.state.error){
-            mess = (
+        if(this.state.mess){
+            error = (
                 <div className="alert alert-danger" role="alert">
-                    {this.state.error}
+                    {this.state.mess}
                 </div>
             )
         }

@@ -1,0 +1,13 @@
+.content {
+  display: flex;
+  position: relative;
+  height: 100%;
+}
+
+.right-content {
+  display: flex;
+  padding: 24px;
+  flex-grow: 1;
+  flex-direction: column;
+  overflow-y: auto;
+}

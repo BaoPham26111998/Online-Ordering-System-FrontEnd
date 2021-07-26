@@ -8,7 +8,6 @@ import NavbarHome from 'components/NavbarHome'
 
 export default class HomeTemplate extends Component {
   
-
   render() {
     return (
       <div className="grid-container">

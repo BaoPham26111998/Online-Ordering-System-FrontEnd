@@ -13,7 +13,12 @@ import Forgot from 'containers/ForgotPasswordPage';
 import Reset from 'containers/ResetPassowordPage';
 // import ProductDetail from "./containers/HomeTemplate/ProductDetail";
 
+import AdminTemplate from 'containers/AdminTemplate';
+import UserAccount from 'containers/AdminTemplate/UserAccountPage';
+import ProductAdmin from 'containers/AdminTemplate/ProductAdminPage';
+
 import axios from 'axios'
+
 
 class App extends Component {
   state = {}
@@ -47,15 +52,21 @@ class App extends Component {
     return (
       <Switch Switch >
 
-        <Route exact path="/" component={() => <HomeTemplate user={this.state.user} setUser={this.setUser}/>} />
+        {/* <Route exact path="/" component={() => <HomeTemplate user={this.state.user} setUser={this.setUser} />} /> */}
 
-        <Route path="/login" component={() => <LogIn setUser={this.setUser}/>} />
+        <Route exact path="/admin" component={AdminTemplate} />
 
-        <Route path="/register" component={Register}/>
+        <Route path="/login" component={() => <LogIn ysetUser={this.setUser} />} />
 
-        <Route path="/forgot" component={Forgot}/>
+        <Route path="/register" component={Register} />
 
-        <Route path="/reset/:id" component={Reset}/>
+        <Route path="/forgot" component={Forgot} />
+
+        <Route path="/reset/:id" component={Reset} />
+
+        <Route path="/admin/products" component={ProductAdmin} />
+
+        <Route path="/admin/users" component={UserAccount} />
 
         <Route path="" component={PageNotFound} />
 
