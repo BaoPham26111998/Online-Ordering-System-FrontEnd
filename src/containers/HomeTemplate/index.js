@@ -2,14 +2,13 @@
 import React, { Component } from 'react'
 import Navbar from 'components/navbar';
 import './homeTemplate.css';
-// import DataService from 'services/index.js';
 import ProductComponent from 'components/product';
 import SearchBar from 'components/search';
 
 
 export default class HomeTemplate extends Component {
-    render() {
-        return (
+  render() {
+      return (
             <div className="grid-container">
             <header className="row">
               <div>

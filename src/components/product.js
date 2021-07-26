@@ -1,27 +1,47 @@
 import React from "react";
-import DataService from "services/index.js"
+import ItemService from "services/index.js"
 
 
 class ProductComponent extends React.Component {
+    
     constructor(props) {
         super(props)
         this.state = {
-            items: []
+            products: []
         }
     }
-    componentDidMount() {
-        DataService.getItems().then((response) => {
-            this.setState({ items: response.data })
-        });
+    componentDidMount(){
+        ItemService.getItems()
+        
+        .then((response)=>{
+            console.log(response.data)
+            this.setState({products : response.data})
+        })
+        .catch(err => console.log(err))
     }
     render() {
         return (
             <div className="row center">
-                <h1>GAME</h1>
                 {
-                    this.state.items.map(
-                        item =>
-                            <div>{item.title}</div>
+                    this.state.products.map(
+                        product =>
+                            <div key={product.id} className="card">
+                                <a href={`/product/${product.id}`}>
+                                    <img
+                                        className="medium"
+                                        src={product.img}
+                                        alt={product.title}
+                                    />
+                                </a>
+                                <div className="card-body">
+                                    <a href={`/product/${product.id}`}>
+                                        <p className="game-name" >{product.title}</p>
+                                    </a>
+                                    {/* <Rating rating={product.rating}
+                                        numReviews={product.numReviews}></Rating> */}
+                                    <div className="price">${product.price}</div>
+                                </div>
+                            </div>
                     )
                 }
             </div>
