@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './productDetail.css';
-import ItemService from 'services/index'; 
+import ItemService from 'services/index.js'; 
 
 export default class ProductDetail extends Component {
   constructor(props){
@@ -13,9 +13,12 @@ export default class ProductDetail extends Component {
   }
 
   componentDidMount(){
-    ItemService.getItemById(this.state.id).then(res => {
+    ItemService.getItemById(this.state.id)
+    .then(res => {
+      console.log(res.data)
       this.setState({product: res.data});
     })
+    .catch(err => console.log(err));
   }
 
   render(){
@@ -47,7 +50,7 @@ export default class ProductDetail extends Component {
 
 
               <div className="description-column">
-                <h1 className="game-name">{this.state.product.name}</h1>
+                <h1 className="game-name">{this.state.product.title}</h1>
 
 
                 <div className="description-div">
