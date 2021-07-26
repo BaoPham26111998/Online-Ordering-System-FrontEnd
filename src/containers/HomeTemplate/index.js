@@ -2,14 +2,13 @@
 import React, { Component } from 'react'
 import Navbar from 'components/navbar';
 import './homeTemplate.css';
-import data from 'productData.js';
-import Product from 'components/product.js';
+import ProductComponent from 'components/product';
 import SearchBar from 'components/search';
 
 
 export default class HomeTemplate extends Component {
-    render() {
-        return (
+  render() {
+      return (
             <div className="grid-container">
             <header className="row">
               <div>
@@ -25,13 +24,7 @@ export default class HomeTemplate extends Component {
               <Navbar></Navbar>
               <SearchBar></SearchBar>
                 {/* Product component */}
-                <div className="row center">
-                  {
-                    data.products.map(product => (
-                        <Product key={product._id} product = {product}></Product>
-                    ))
-                  }
-                </div>
+                <ProductComponent></ProductComponent>
               </div>
             </main>
             <footer className="row center">All right reserved</footer>
