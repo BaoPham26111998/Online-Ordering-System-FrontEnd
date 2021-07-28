@@ -32,9 +32,9 @@ img.detail-poster{
 h1.game-name{
     background-image: linear-gradient(to left, rgb(255, 255, 255), rgb(83, 74, 133), rgb(37, 37, 182));   -webkit-background-clip: text;
     color: transparent;
-    font-size: 5rem;
+    font-size: 3rem;
     font-weight: bold;
-    margin-left: 25rem ;
+    margin-left: 2rem ;
   }
 
 h1.detail-rating{
