@@ -11,11 +11,11 @@ import LogIn from "./containers/LogInPage";
 import Register from "./containers/RegisterPage";
 import Forgot from 'containers/ForgotPasswordPage';
 import Reset from 'containers/ResetPassowordPage';
-// import ProductDetail from "./containers/HomeTemplate/ProductDetail";
-// import CartPage from "./containers/HomeTemplate/CartPage";
-// import AccountPage from "./containers/HomeTemplate/AccountPage";
-// import SearchPage from "./containers/HomeTemplate/SearchPage";
-// import TransactionPage from "./containers/HomeTemplate/TransactionPage";
+import ProductDetail from "./containers/HomeTemplate/ProductDetail";
+import CartPage from "./containers/HomeTemplate/CartPage";
+import AccountPage from "./containers/HomeTemplate/AccountPage";
+import SearchPage from "./containers/HomeTemplate/SearchPage";
+import TransactionPage from "./containers/HomeTemplate/TransactionPage";
 
 import AdminTemplate from 'containers/AdminTemplate';
 import UserAccount from 'containers/AdminTemplate/UserAccountPage';
@@ -55,9 +55,9 @@ class App extends Component {
     return (
       <Switch Switch >
 
-        {/* <Route exact path="/" component={() => <HomeTemplate user={this.state.user} setUser={this.setUser} />} /> */}
+        <Route exact path="/" component={() => <HomeTemplate user={this.state.user} setUser={this.setUser} />} />
 
-        {/* <Route path="/transaction" component={TransactionPage}></Route>
+        <Route path="/transaction" component={TransactionPage}></Route>
 
         <Route path="/cart" component={CartPage}></Route>
 
@@ -65,9 +65,9 @@ class App extends Component {
 
         <Route path="/search" component={SearchPage}></Route>
         
-        <Route path="/product/:id" component={ProductDetail}></Route> */}
+        <Route path="/product/:id" component={ProductDetail}></Route>
 
-        <Route exact path="/admin" component={AdminTemplate} />
+        <Route path="/admin" component={AdminTemplate} />
 
         <Route path="/login" component={() => <LogIn ysetUser={this.setUser} />} />
 
