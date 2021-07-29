@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { ProSidebar, Menu, MenuItem, SubMenu, SidebarHeader, SidebarFooter, SidebarContent } from 'react-pro-sidebar';
 import 'react-pro-sidebar/dist/css/styles.css';
 import { Link } from 'react-router-dom';
+import './style.css'
 
 export default class SidebarAdmin extends Component {
     render() {
@@ -10,8 +11,8 @@ export default class SidebarAdmin extends Component {
                 <ProSidebar>
                     <SidebarHeader>
                         <div className="admin_logo">
-                            <img src="" alt="Avatar"></img>
-                            <p className="name_admin">Name Of User</p>
+                            <p className="display-4">Welcome to Admin Template</p>
+                            <p className="text-white name_admin">Name Of User</p>
                         </div>
                     </SidebarHeader>
                     <SidebarContent>

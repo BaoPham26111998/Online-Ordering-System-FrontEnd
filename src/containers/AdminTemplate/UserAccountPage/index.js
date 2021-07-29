@@ -1,8 +1,58 @@
 import React, { Component } from 'react'
 import SidebarAdmin from 'components/SidebarAdmin';
+import User from 'components/Users';
 import '../modal.css';
 
+import DataServices from 'services/index.js';
+
 export default class UserAccount extends Component {
+    state = {}
+
+    constructor(props) {
+        super(props)
+        this.state = {
+            users: []
+        }
+    }
+
+    componentDidMount() {
+        this.getAllUsers();
+    }
+
+    getAllUsers = () => {
+        DataServices.getUsers()
+
+            .then((response) => {
+                console.log(response.data)
+                this.setState({ users: response.data })
+            })
+            .catch(err => console.log(err))
+    }
+
+    deleteUser(userId) {
+        DataServices.deleteUser(userId).then(res => {
+            console.log(res)
+        }).catch(err => {
+            console.log(err)
+        });
+
+        alert("User Deleted");
+
+        window.location.reload(false);
+    }
+
+    renderHTML = () => {
+        if (this.state.users && this.state.users.length > 0) {
+            return this.state.users.map((user) => {
+                return (
+                    <tr key={user.id}>
+                        <User deleteUser={this.deleteUser} user={user} />
+                    </tr>
+                );
+            });
+        };
+    };
+
     render() {
         return (
             <>
@@ -18,12 +68,12 @@ export default class UserAccount extends Component {
                                         <div className="row">
                                             <div className="col-md-6">
                                                 <h3 className="text-left text-primary font-weight-bold">
-                                                    List User Account
+                                                    List User Accounts
                                                 </h3>
                                             </div>
                                             <div className="col-md-6 text-right">
                                                 <button
-                                                    className="btn btn-primary"
+                                                    className="btn btn-primary button-spec"
                                                     id="btnThem"
                                                     data-toggle="modal"
                                                     data-target="#myModal"
@@ -33,6 +83,7 @@ export default class UserAccount extends Component {
                                             </div>
                                         </div>
                                     </div>
+
                                     {/* Body */}
                                     <div className="card-body">
                                         <div className="row mb-3">
@@ -52,11 +103,11 @@ export default class UserAccount extends Component {
                                                 </div>
                                             </div>
                                         </div>
-                                        <table className="table table-bordered table-hover myTable">
+                                        <table className="table table-bordered table-hover">
                                             <thead className="text-primary">
                                                 <tr>
-                                                    <th className="nowrap">
-                                                        <span className="mr-1">ID Account</span>
+                                                    <th>
+                                                        <span className="">ID Account</span>
                                                         <i className="fa fa-arrow-up" id="SapXepTang" />
                                                         <i className="fa fa-arrow-down" id="SapXepGiam" />
                                                     </th>
@@ -69,9 +120,12 @@ export default class UserAccount extends Component {
                                                     </th>
                                                 </tr>
                                             </thead>
-                                            <tbody id="tableDanhSach"></tbody>
+                                            <tbody id="tableDanhSach">
+                                                <User />
+                                            </tbody>
                                         </table>
                                     </div>
+
                                     {/* Footer */}
                                     <div className="card-footer myCardFooter">
                                         <nav>
@@ -184,16 +238,16 @@ export default class UserAccount extends Component {
                             </div>
                             {/* Modal footer */}
                             <div className="modal-footer" id="modal-footer">
-                                <button id="btnThemNV" type="button" className="btn btn-success">
+                                <button id="btnThemNV" type="button" className="btn btn-success button-spec">
                                     Add Account
                                 </button>
-                                <button id="btnCapNhat" type="button" className="btn btn-success">
+                                <button id="btnCapNhat" type="button" className="btn btn-success button-spec">
                                     Update
                                 </button>
                                 <button
                                     id="btnDong"
                                     type="button"
-                                    className="btn btn-danger"
+                                    className="btn btn-danger button-spec"
                                     data-dismiss="modal"
                                 >
                                     Close

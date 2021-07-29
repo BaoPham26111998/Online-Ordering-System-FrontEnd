@@ -1,0 +1,115 @@
+.background {
+  background-image: url('https://img2.thuthuatphanmem.vn/uploads/2018/12/30/video-background-hd-dep_110344762.jpg');
+  background-color: #cccccc;
+  height: 100%;
+  width: 100%;
+}
+.productDetail-container {
+  background-color: #2a4158;
+  margin-left: 15rem;
+  margin-right: 17rem;
+  height: 100%;
+}
+.row.top {
+  align-items: flex-start;
+}
+
+.description-column {
+  margin-right: 3rem;
+  height: 50rem;
+  column-width: 80rem;
+  background-color: rgba(43, 40, 58, 0.692);
+}
+
+img.detail-poster {
+  margin-top: 1rem;
+  margin-left: 1.5rem;
+  height: 50rem;
+  width: 35rem;
+}
+
+h1.game-name {
+  background-image: linear-gradient(
+    to left,
+    rgb(255, 255, 255),
+    rgb(83, 74, 133),
+    rgb(37, 37, 182)
+  );
+  -webkit-background-clip: text;
+  color: transparent;
+  font-size: 3rem;
+  font-weight: bold;
+  margin-left: 2rem;
+}
+
+h1.detail-rating {
+  margin-left: 28rem;
+}
+
+.description-div {
+  width: 81rem;
+}
+
+h3.detail-description {
+  margin-left: 2rem;
+  color: white;
+}
+
+p.detail-description {
+  margin-left: 2rem;
+  color: white;
+  font-size: 1.5rem;
+}
+
+h1.detail-price {
+  margin-left: 60rem;
+  background-image: linear-gradient(
+    to left,
+    rgb(255, 255, 255),
+    rgb(74, 155, 87),
+    rgb(21, 255, 0)
+  );
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.card.card-body {
+  margin-left: 55rem;
+}
+
+h1.detail-status {
+  margin-left: 1.5rem;
+}
+
+span.success {
+  margin-right: 2rem;
+  color: green;
+}
+span.danger {
+  margin-right: 2rem;
+  color: red;
+}
+button.addToCart {
+  background-color: #4caf50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+
+  font-size: 16px;
+}
+button.addToCart:hover {
+  background-color: #3c693e; /* Green */
+  border: 0.1rem #404040 solid;
+}
+
+button.backToResult {
+  margin-left: 10rem;
+  background-color: #444cbe; /* Green */
+  border: none;
+  color: white;
+  padding: 8px 12px;
+  text-align: center;
+  text-decoration: none;
+}

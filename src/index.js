@@ -24,7 +24,7 @@ import { BrowserRouter } from "react-router-dom";
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(
-  rootReducer,
+  // rootReducer,
   // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() (user composeEnhancers)
   composeEnhancers(applyMiddleware(thunk)),
 );
@@ -34,7 +34,7 @@ axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getIte
 
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter>
+    <BrowserRouter >
       <App />
     </BrowserRouter >
   </Provider>,

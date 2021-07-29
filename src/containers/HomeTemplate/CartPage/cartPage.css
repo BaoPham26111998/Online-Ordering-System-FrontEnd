@@ -1,0 +1,44 @@
+h1.CartPage {
+  margin-left: 55rem;
+}
+.cartTableContainer {
+  background-color: white;
+  border-radius: 5px;
+}
+table.cartTable {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  /* margin-left: 50rem; */
+}
+td,
+th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+img.cartImage {
+  width: 3rem;
+  height: 5rem;
+}
+button.purchaseCartBtn {
+  background-color: #4caf50; /* Green */
+  border-radius: 6px;
+  color: white;
+  padding: 3px 6px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+}
+button.deleteCartBtn {
+  background-color: #ff0000; /* Green */
+  border-radius: 6px;
+  color: white;
+  padding: 3px 6px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  margin-left: 1rem;
+}

@@ -12,13 +12,16 @@ import Register from "./containers/RegisterPage";
 import Forgot from 'containers/ForgotPasswordPage';
 import Reset from 'containers/ResetPassowordPage';
 // import ProductDetail from "./containers/HomeTemplate/ProductDetail";
+// import CartPage from "./containers/HomeTemplate/CartPage";
+// import AccountPage from "./containers/HomeTemplate/AccountPage";
+// import SearchPage from "./containers/HomeTemplate/SearchPage";
+// import TransactionPage from "./containers/HomeTemplate/TransactionPage";
 
 import AdminTemplate from 'containers/AdminTemplate';
 import UserAccount from 'containers/AdminTemplate/UserAccountPage';
 import ProductAdmin from 'containers/AdminTemplate/ProductAdminPage';
 
 import axios from 'axios'
-
 
 class App extends Component {
   state = {}
@@ -53,6 +56,16 @@ class App extends Component {
       <Switch Switch >
 
         {/* <Route exact path="/" component={() => <HomeTemplate user={this.state.user} setUser={this.setUser} />} /> */}
+
+        {/* <Route path="/transaction" component={TransactionPage}></Route>
+
+        <Route path="/cart" component={CartPage}></Route>
+
+        <Route path="/account" component={AccountPage}></Route>
+
+        <Route path="/search" component={SearchPage}></Route>
+        
+        <Route path="/product/:id" component={ProductDetail}></Route> */}
 
         <Route exact path="/admin" component={AdminTemplate} />
 

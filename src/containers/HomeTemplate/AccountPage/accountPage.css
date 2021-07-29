@@ -1,0 +1,49 @@
+img.user-image {
+  vertical-align: middle;
+  margin-top: 4rem;
+  margin-left: 3rem;
+  height: 30rem;
+  width: 30rem;
+  border-radius: 50%;
+}
+
+.userInfo-column {
+  background-color: white;
+  border-radius: 5px;
+  height: 30rem;
+}
+
+h1.user {
+  /* margin-left: 3rem; */
+  color: rgb(75, 50, 145);
+  margin-left: 30rem;
+}
+h2.user {
+  /* margin-left: 3rem; */
+  color: rgb(38, 26, 70);
+  margin-left: 3rem;
+}
+
+.user-features {
+  margin-top: 3rem;
+  grid-template-columns: auto auto auto auto;
+  grid-gap: 10px;
+  display: grid;
+  padding: 10px;
+}
+
+button.btn-user-features {
+  background-color: #4d2f92; /* Green */
+  color: white;
+  border: none;
+  padding: 7px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 5px;
+  border-radius: 5px;
+}
+
+button.btn-user-features:hover {
+  color: rgb(102, 210, 243);
+}

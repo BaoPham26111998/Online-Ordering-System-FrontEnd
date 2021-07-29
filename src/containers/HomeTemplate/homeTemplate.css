@@ -6,7 +6,6 @@ body {
   margin: 0;
   height: 100vh;
   font-size: 1.6rem;
-  font-family: Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -24,7 +23,6 @@ body {
   grid-template-columns: 1fr;
   grid-template-rows: 5rem 1fr 5rem;
   height: 100%;
-  background-color: #2a4158;
 }
 header {
   grid-area: header;
@@ -40,121 +38,146 @@ footer {
   background-color: #203040;
   color: #ffffff;
 }
-  /* Common */
-  h1 {
-    font-size: 1.8rem;
-    padding: 1rem 0;
-  }
-  h2 {
-    font-size: 1.6rem;
-    padding: 1rem 0;
-  }
-  
-  a {
-    text-decoration: none;
-  }
-  a:hover {
-    color: #ff8000;
-  }
-  
-  /* Header */
-  header a {
-    color: #ce1f1f;
-    padding: 1.5rem;
-  }
-  a.brand {
-    color: #ffffff;
-    font-size: 3rem;
-    font-weight: bold;
-  }
-  a.brand:hover {
-    background-image: linear-gradient(to left, rgb(255, 255, 255), rgb(83, 74, 133), rgb(37, 37, 182));   -webkit-background-clip: text;
-    color: transparent;
-    font-size: 3.5rem;
-    font-weight: bold;
-  }
+/* Common */
+h1 {
+  font-size: 1.8rem;
+  padding: 1rem 0;
+}
+h2 {
+  font-size: 1.6rem;
+  padding: 1rem 0;
+}
 
-  a.register{
-    color: #ffffff;
-    font-size: 2rem;
-    font-weight: bold;
-  }
-  a.register:hover {
-    background-image: linear-gradient(to left, rgb(255, 255, 255), rgb(83, 74, 133), rgb(37, 37, 182));   -webkit-background-clip: text;
-    color: transparent;
-    font-size: 2.5rem;
-    font-weight: bold;
-  }
-  a.signin{
-    color: #ffffff;
-    font-size: 2rem;
-    font-weight: bold;
-  }
-  a.signin:hover {
-    background-image: linear-gradient(to left, rgb(255, 255, 255), rgb(83, 74, 133), rgb(37, 37, 182));   -webkit-background-clip: text;
-    color: transparent;
-    font-size: 2.5rem;
-    font-weight: bold;
-  }
-  .row {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .row.center {
-    justify-content: center;
-  }
-  /* Image */
-  img {
-    height: 30rem;
-    width: 20rem;
-    border-radius: 0.5rem;
-  }
-  img:hover {
-    height: 35rem;
-    width: 25rem;
-    border-radius: 0.5rem;
-  }
-  img.medium {
-    max-width: 29rem;
-    width: 100%;
-  }
-  
-  /* Card */
-  .card {
-    border: 0.1rem #c0c0c0 solid;
-    background-color: #f8f8f8;
-    border-radius: 0.5rem;
-    margin: 1rem;
-  }
+/* Header */
+header a {
+  color: #ce1f1f;
+  padding: 1.5rem;
+}
+a.brand {
+  color: #ffffff;
+  font-size: 3rem;
+  font-weight: bold;
+  margin-left: 1rem;
+}
+a.brand:hover {
+  background-image: linear-gradient(
+    to left,
+    rgb(255, 255, 255),
+    rgb(83, 74, 133),
+    rgb(37, 37, 182)
+  );
+  -webkit-background-clip: text;
+  color: transparent;
+  font-size: 3.5rem;
+  font-weight: bold;
+}
 
-  .card-body {
-    padding: 1rem;
-  }
-  .card-body > * {
-    margin-bottom: 0.5rem;
-  }
-  .price {
-    font-size: 2rem;
-  }
-  
-  h2.game-name{
-    color: #241747;
-    font-size: 2rem;
-    font-weight: bold;
-  }
+a.register {
+  color: #ffffff;
+  font-size: 2rem;
+  font-weight: bold;
+}
+a.register:hover {
+  background-image: linear-gradient(
+    to left,
+    rgb(255, 255, 255),
+    rgb(83, 74, 133),
+    rgb(37, 37, 182)
+  );
+  -webkit-background-clip: text;
+  color: transparent;
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+a.signin {
+  color: #ffffff;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-right: 1rem;
+}
+a.signin:hover {
+  background-image: linear-gradient(
+    to left,
+    rgb(255, 255, 255),
+    rgb(83, 74, 133),
+    rgb(37, 37, 182)
+  );
+  -webkit-background-clip: text;
+  color: transparent;
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+.row.center {
+  justify-content: center;
+}
+/* Image */
 
-  h2.game-name:hover {
-    background-image: linear-gradient(to left, rgb(255, 255, 255), rgb(83, 74, 133), rgb(37, 37, 182));   -webkit-background-clip: text;
-    color: transparent;
-    font-size: 2.5rem;
-    font-weight: bold;
-  }
+img.medium {
+  height: 30rem;
+  width: 25rem;
+  border-radius: 0.5rem;
+}
 
-  
-  /* Rating */
-  .rating span {
-    color: #f0c040;
-    margin: 0.1rem;
-  }
+img.medium:hover {
+  height: 35rem;
+  width: 25rem;
+  border-radius: 0.5rem;
+}
+
+/* Card */
+.card {
+  border: 0.1rem #1e0e55 solid;
+  background-color: #ffffff;
+  border-radius: 0.5rem;
+  margin: 1rem;
+}
+
+.card-body {
+  padding: 1rem;
+  background-color: #ffffff;
+}
+.card-body > * {
+  margin-bottom: 0.5rem;
+}
+.price {
+  font-size: 2rem;
+}
+
+p.game-name {
+  color: #241747;
+  font-size: 1rem;
+  font-weight: bold;
+  max-width: 25rem;
+}
+
+p.game-name:hover {
+  background-image: linear-gradient(
+    to left,
+    rgb(255, 255, 255),
+    rgb(83, 74, 133),
+    rgb(37, 37, 182)
+  );
+  -webkit-background-clip: text;
+  color: transparent;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/* Rating */
+.rating span {
+  color: #ff1100;
+  margin: 0.2rem;
+}
+.rating span:last-child {
+  color: #fd0a0a;
+}
+
+.button.primary-block {
+  color: red;
+}
