@@ -1,0 +1,105 @@
+/* EVENT MORE */
+.more_event {
+  background-color: #5a81e4;
+}
+
+.out {
+  border: 1px solid black;
+}
+
+.room {
+  width: 210px;
+  height: 210px;
+  margin-bottom: 70px;
+  /* position:absolute; */
+}
+
+.ei98_95_17_19 {
+  background-color: rgba(255, 255, 255, 1);
+  width: 210px;
+  height: 275px;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  border: 1px solid black;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.ei98_95_8_2 {
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  width: 210px;
+  height: 100px;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  /* background-image:url("https://d1as2iufift1z3.cloudfront.net/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBbEt3IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--ec8b227116a48ffbadb5fe2783a9a76609192011/Banner%20Update%20Sept%202021.png?proxy=true"); */
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.i98_95_8_2 {
+  border: 1px solid rgba(0, 0, 0, 1);
+}
+
+.ei98_95_30_31 {
+  color: rgba(0, 0, 0, 1);
+  width: 184px;
+  height: 50px;
+  position: absolute;
+  left: 10px;
+  top: 107px;
+  text-align: left;
+  font-size: 18px;
+  letter-spacing: 0;
+}
+
+.ei98_95_30_40 {
+  color: rgba(247.56250709295273, 0, 0, 1);
+  width: 190px;
+  height: 21px;
+  position: absolute;
+  left: 10px;
+  top: 190px;
+  text-align: left;
+  font-size: 14px;
+  letter-spacing: 0;
+}
+
+
+.ei98_95_30_45 {
+  width: 190px;
+  height: 21px;
+  position: absolute;
+  left: 10px;
+  top: 215px;
+  text-align: left;
+  font-size: 14px;
+  letter-spacing: 0;
+}
+
+.ei98_95_30_41 {
+  color: rgba(0, 0, 0, 1);
+  width: 105px;
+  height: 11px;
+  position: absolute;
+  left: 10px;
+  top: 240px;
+  text-align: left;
+  font-size: 18px;
+  letter-spacing: 0;
+}
+
+.button-del {
+  color: rgba(0, 0, 0, 1);
+  position: absolute;
+  right: 77px;
+  top: 215px;
+  text-align: left;
+  font-size: 18px;
+  letter-spacing: 0;
+}

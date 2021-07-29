@@ -17,19 +17,24 @@ import { Provider } from "react-redux";
 import rootReducer from "./redux/reducers";
 import thunk from "redux-thunk";
 
+import axios from 'axios'
+
 import { BrowserRouter } from "react-router-dom";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(
-  rootReducer,
+  // rootReducer,
   // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() (user composeEnhancers)
   composeEnhancers(applyMiddleware(thunk)),
 );
 
+axios.defaults.baseURL = 'http://localhost:8080/';
+axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token');
+
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter>
+    <BrowserRouter >
       <App />
     </BrowserRouter >
   </Provider>,
@@ -40,4 +45,3 @@ ReactDOM.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
-

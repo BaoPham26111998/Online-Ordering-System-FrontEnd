@@ -1,34 +1,29 @@
-
 import React, { Component } from 'react'
-import Navbar from 'components/navbar';
 import './homeTemplate.css';
-import ProductComponent from 'components/product';
-import SearchBar from 'components/search';
 
+import axios from 'axios'
+
+import NavbarHome from 'components/NavbarHome'
+import ProductHome from 'components/ProductsHome';
+import SearchBar from 'components/Search';
+import Navbar from 'components/Navbar';
 
 export default class HomeTemplate extends Component {
+
   render() {
-      return (
-            <div className="grid-container">
-            <header className="row">
-              <div>
-                <a className="brand" href="/">Need A Team Name Gaming </a>
-              </div>
-              <div>
-                <a className="register" href="Register.html">Register</a>
-                <a className="signin" href="signin.html">Login</a>
-              </div>
-            </header>
-            <main>
-              <div>
-              <Navbar></Navbar>
-              <SearchBar></SearchBar>
-                {/* Product component */}
-                <ProductComponent></ProductComponent>
-              </div>
-            </main>
-            <footer className="row center">All right reserved</footer>
+    return (
+      <div className="grid-container">
+        <NavbarHome user={this.props.user} setUser={this.props.setUser} />
+        <main>
+          <div>
+            <Navbar></Navbar>
+            <SearchBar></SearchBar>
+            {/* Product component */}
+            <ProductHome></ProductHome>
           </div>
-        )
-    }
+        </main>
+        <footer className="row center">All right reserved</footer>
+      </div>
+    )
+  }
 }

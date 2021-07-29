@@ -1,24 +1,25 @@
-import React from "react";
-import ItemService from "services/index.js"
+import React, { Component } from "react";
+import DataServices from "services/index.js"
 
+class ProductHome extends Component {
 
-class ProductComponent extends React.Component {
-    
     constructor(props) {
         super(props)
         this.state = {
             products: []
         }
     }
-    componentDidMount(){
-        ItemService.getItems()
-        
-        .then((response)=>{
-            console.log(response.data)
-            this.setState({products : response.data})
-        })
-        .catch(err => console.log(err))
+    
+    componentDidMount() {
+        DataServices.getItems()
+
+            .then((response) => {
+                console.log(response.data)
+                this.setState({ products: response.data })
+            })
+            .catch(err => console.log(err))
     }
+
     render() {
         return (
             <div className="row center">
@@ -49,4 +50,4 @@ class ProductComponent extends React.Component {
     }
 }
 
-export default ProductComponent
+export default ProductHome
