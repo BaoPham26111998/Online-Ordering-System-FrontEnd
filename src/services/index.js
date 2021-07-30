@@ -1,73 +1,26 @@
-import axios from "axios";
+import axios from 'axios'
 
-const config = {
-    headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
-    }
-};
+const Items_REST_API_URL = 'http://localhost:8080/items/';
+const Items_Name_URL = 'http://localhost:8080/items/title=';
+const Items_Genre_URL = 'http://localhost:8080/items/genre=';
 
-const Items_REST_API_URL = '/items/';
-const Items_Name_URL = '/items/title=';
-const Items_Genre_URL = '/items/genre=';
+class ItemService {
 
-const Users_REST_API_URL = '/users/';
-
-
-class DataServices {
-
-    //Item Axios
-    getItems() {
+    getItems(){
         return axios.get(Items_REST_API_URL);
     }
-
-    getItemById(itemId) {
-        return axios.get(Items_REST_API_URL + itemId);
+    getItemById(itemId){
+        return axios.get(Items_REST_API_URL + itemId );
     }
-
-    postItem(data) {
-        return axios.post(Items_REST_API_URL, data);
+    getItemByName(gameName){
+        gameName.replace(" ","%20");
+        return axios.get(Items_Name_URL+gameName);
     }
-
-    updateItemById(itemId) {
-        return axios.put(Items_REST_API_URL + itemId);
-    }
-
-    deleteItemById(itemId) {
-        return axios.delete(Items_REST_API_URL + itemId);
-    }
-
-    getItemByName(gameName) {
-        gameName.replace(" ", "%20");
-        return axios.get(Items_Name_URL + gameName);
+    getItemByGerne(gameGerne){
+        gameGerne.replace(" ","%20");
+        return axios.get(Items_Genre_URL+gameGerne);
     }
     
-    getItemByGerne(gameGerne) {
-        gameGerne.replace(" ", "%20");
-        return axios.get(Items_Genre_URL + gameGerne);
-    }
-
-    //User Axios 
-    getUsers() {
-        return axios.get(Users_REST_API_URL);
-    }
-
-    getUserById(userId) {
-        return axios.get(Users_REST_API_URL + userId);
-    }
-
-    postUser(data) {
-        return axios.post(Users_REST_API_URL, data);
-    }
-
-    updateUserById(userId) {
-        return axios.put(Users_REST_API_URL, userId)
-    }
-
-    deleteUser(userId) {
-        return axios.delete(Users_REST_API_URL + userId);
-    }
-
 }
 
-export default new DataServices();
+export default new ItemService();
