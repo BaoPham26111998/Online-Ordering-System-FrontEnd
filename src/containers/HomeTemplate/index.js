@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 import './homeTemplate.css';
 
-import axios from 'axios'
 
 import NavbarHome from 'components/NavbarHome'
 import ProductHome from 'components/ProductsHome';
 import SearchBar from 'components/Search';
-import Navbar from 'components/Navbar';
+
 
 export default class HomeTemplate extends Component {
 
@@ -16,7 +15,7 @@ export default class HomeTemplate extends Component {
         <NavbarHome user={this.props.user} setUser={this.props.setUser} />
         <main>
           <div>
-            <Navbar></Navbar>
+            {/* <Navbar></Navbar> */}
             <SearchBar></SearchBar>
             {/* Product component */}
             <ProductHome></ProductHome>
