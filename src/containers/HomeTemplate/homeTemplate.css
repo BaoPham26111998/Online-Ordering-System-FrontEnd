@@ -47,6 +47,7 @@ a.brand {
   font-size: 3rem;
   font-weight: bold;
   margin-right: 85rem;
+  margin-left: 3rem;
 }
 a.brand:hover {
   background-image: linear-gradient(
@@ -83,7 +84,7 @@ a.signin {
   color: #ffffff;
   font-size: 2rem;
   font-weight: bold;
-  margin-right: 1rem;
+  margin-right: 3rem;
 }
 a.signin:hover {
   background-image: linear-gradient(
