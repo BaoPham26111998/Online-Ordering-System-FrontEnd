@@ -17,7 +17,7 @@ class ItemService {
         return axios.get(Items_Name_URL+gameName);
     }
     getItemByGerne(gameGerne){
-        gameGerne.replace(" ","%20");
+        // gameGerne.replace(" ","%20");
         return axios.get(Items_Genre_URL+gameGerne);
     }
     

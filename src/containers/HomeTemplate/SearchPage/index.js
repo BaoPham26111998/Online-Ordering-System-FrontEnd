@@ -25,6 +25,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import ItemService from 'services/index.js';
 import { faShoppingCart } from '../../../../node_modules/@fortawesome/free-solid-svg-icons/index';
+import NavbarHome from 'components/NavbarHome';
+
 
 
 class SearchPage extends Component {
@@ -32,26 +34,24 @@ class SearchPage extends Component {
     super(props);
     this.state = {
       products: [],
-      search: "",
+      searchText: "",
       genre: "",
       sortDir: "asc",
     };
   }
 
-
-
   componentDidMount() {
     this.findAllItems()
   }
 
-  sortData = () => {
-    setTimeout(() => {
-      this.state.sortDir === "asc"
-        ? this.setState({ sortDir: "desc" })
-        : this.setState({ sortDir: "asc" });
-      this.findAllItems();
-    }, 500);
-  };
+  // sortData = () => {
+  //   setTimeout(() => {
+  //     this.state.sortDir === "asc"
+  //       ? this.setState({ sortDir: "desc" })
+  //       : this.setState({ sortDir: "asc" });
+  //     this.findAllItems();
+  //   }, 500);
+  // };
 
   findAllItems() {
     ItemService.getItems()
@@ -68,12 +68,7 @@ class SearchPage extends Component {
     })
   };
 
-  gerneChange = (event) => {
-    this.setState({
-      [event.target.genreName]: event.target.value,
-    })
-    this.genreData()
-  };
+
 
   cancelSearch = () => {
     ItemService.getItems()
@@ -85,47 +80,38 @@ class SearchPage extends Component {
   };
 
   searchData = () => {
-    ItemService.getItemByName(this.state.search)
+    ItemService.getItemByName(this.state.searchText)
       .then(res => {
-        console.log(this.state.search)
+        console.log(this.state.searchText)
         this.setState({ products: res.data });
       })
       .catch(err => console.log(err));
   }
 
-  // sortData = () => {
-  //   setTimeout(() => {
-  //     this.state.sortDir === "asc"
-  //       ? this.setState({ sortDir: "desc" })
-  //       : this.setState({ sortDir: "asc" });
-  //     this.findAllItems();
-  //   }, 500);
-  // };
-
-  genreData = () =>{
-    ItemService.getItemByGerne(this.state.genre)
+  genreChange = (event) => {
+    this.setState({
+      [event.target.name]: event.target.attributes[0].value,
+      
+    })
+    ItemService.getItemByGerne(event.target.attributes[0].value)
       .then(res => {
-        console.log(this.state.genre)
+        console.log(event.target.attributes[0].value)
         this.setState({ products: res.data });
       })
       .catch(err => console.log(err));
-  }
+  };
 
-  
 
   render() {
-    const { products, search } = this.state;
-    var genre = [...new Set(products.map(product => product.genre))]
+    const { products, searchText } = this.state;
+    var genres = [...new Set(products.map(product => product.genre))]
+    console.log(this.state.genre)
+
     return (
       <div className="grid-container">
-        <header className="row">
-          <div>
-            <a className="brand" href="/">Need A Team Name Gaming </a>
-          </div>
-        </header>
+        <NavbarHome user={this.props.user} setUse></NavbarHome>
 
         <main>
-
           <Card className={"border border-dark bg-dark text-white"}>
             <Card.Header>
               <div style={{ float: "left" }}>
@@ -133,27 +119,35 @@ class SearchPage extends Component {
               </div>
               <div style={{ float: "right" }}>
                 <InputGroup size="sm">
-                  
+
                   <Dropdown as={ButtonGroup}>
                     <Button variant="Secondary">Genre</Button>
 
-                    <Dropdown.Toggle split variant="Secondary" id="dropdown-split-basic" />
+                    <Dropdown.Toggle split variant="Primmary" id="dropdown-split-basic" />
 
                     <Dropdown.Menu>
-                    <Dropdown.Item 
-                    genreName="genre"
-                    value={genre}
-                    onClick={this.genreChange}
-                    >{genre}</Dropdown.Item>
-                      
-                      
+                      {genres.map((genre, index) => {
+                        return (
+                          <Dropdown.Item
+                            key={index}
+                            value={genre}
+                            name="genre"
+                            onClick={(e) => this.genreChange(e)}
+                          >
+                            {genre}
+                          </Dropdown.Item>
+                        )
+                      })
+                      }
                     </Dropdown.Menu>
                   </Dropdown>
-                  
+
+
+
                   <FormControl
                     placeholder="Search"
-                    name="search"
-                    value={search}
+                    name="searchText"
+                    value={searchText}
                     className={"info-border bg-dark text-white"}
                     onChange={this.searchChange}
                   />
