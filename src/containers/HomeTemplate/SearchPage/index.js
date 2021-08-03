@@ -40,18 +40,21 @@ class SearchPage extends Component {
     };
   }
 
+ 
+
+  sortDataByPrice = () => {
+    setTimeout(() => {
+      this.state.sortDir === "asc"
+        ? this.setState({ sortDir: "desc" })
+        : this.setState({ sortDir: "asc" });
+      this.findAllItems();
+    }, 500);
+  };
+
   componentDidMount() {
     this.findAllItems()
   }
 
-  // sortData = () => {
-  //   setTimeout(() => {
-  //     this.state.sortDir === "asc"
-  //       ? this.setState({ sortDir: "desc" })
-  //       : this.setState({ sortDir: "asc" });
-  //     this.findAllItems();
-  //   }, 500);
-  // };
 
   findAllItems() {
     ItemService.getItems()
@@ -103,9 +106,16 @@ class SearchPage extends Component {
 
 
   render() {
-    const { products, searchText } = this.state;
-    var genres = [...new Set(products.map(product => product.genre))]
-    console.log(this.state.genre)
+    const { products, searchText,  sortDir } = this.state;
+    const genres = [...new Set(products.map(product => product.genre))]
+    
+
+    const sortedPrice = products.sort( ( d, e) =>{
+      const isReversedPrice = (sortDir === "asc") ? 1 : -1;
+      return isReversedPrice * (d.price-e.price)
+    })
+    
+   
 
     return (
       <div className="grid-container">
@@ -179,18 +189,18 @@ class SearchPage extends Component {
                     <th>Id</th>
                     <th>Title</th>
                     <th>In Stock</th>
-                    <th onClick={this.sortData}>
-                      Price{" "}
-                      <div
-                        className={
-                          this.state.sortDir === "asc"
-                            ? "arrow arrow-up"
-                            : "arrow arrow-down"
-                        }
-                      >
-                        {" "}
-                      </div>
-                    </th>
+                    <th onClick={this.sortDataByPrice}>
+                    Price{" "}
+                    <div
+                      className={
+                        this.state.sortDir === "asc"
+                          ? "arrow arrow-up"
+                          : "arrow arrow-down"
+                      }
+                    >
+                      {" "}
+                    </div>
+                  </th>
                     <th>Genre</th>
                     <th>Actions</th>
                   </tr>
