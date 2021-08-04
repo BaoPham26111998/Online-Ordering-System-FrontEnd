@@ -3,7 +3,7 @@ node_js: 14.17.3
 cache: npm 
 
 install: 
-  -npm ci
+  -npm install
 
 script: 
   -npm test 
