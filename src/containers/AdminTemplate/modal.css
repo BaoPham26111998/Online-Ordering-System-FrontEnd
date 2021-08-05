@@ -29,7 +29,7 @@ body {
 /* End body rules */
 
 /* Start form  attributes */
-form {
+.form-modal {
   width: 450px;
   /*min-height: 500px;*/
   height: auto;
@@ -40,7 +40,7 @@ form {
   background-image: linear-gradient(-225deg, #e3fdf5 50%, #ffe6fa 50%);
 }
 /* form Container */
-form .con {
+.form-modal .con {
   display: -webkit-flex;
   display: flex;
 

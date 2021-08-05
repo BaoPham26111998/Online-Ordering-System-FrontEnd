@@ -103,3 +103,14 @@
   font-size: 18px;
   letter-spacing: 0;
 }
+
+.button-upd {
+  color: rgba(0, 0, 0, 1);
+  position: absolute;
+  right: 77px;
+  top: 245px;
+  text-align: left;
+  font-size: 18px;
+  letter-spacing: 0;
+}
+

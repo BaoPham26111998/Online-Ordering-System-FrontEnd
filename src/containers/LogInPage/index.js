@@ -7,15 +7,23 @@ export default class LogIn extends Component {
 
     }
 
+    constructor(props) {
+        super(props)
+        this.state = {
+            username: "",
+            password: ""
+        }
+    }
+
     handleSubmit = e => {
-        e.preventDefault(); 
+        e.preventDefault();
 
         const data = {
             email: this.email,
             passsword: this.password,
         }
 
-        axios.post("login", data).then(res=>{
+        axios.post("login", data).then(res => {
             console.log(res);
 
             localStorage.setItem('token', res.data.token)
@@ -27,21 +35,39 @@ export default class LogIn extends Component {
 
             this.props.setUser(res.data.user);
 
-        }).catch(err=>{
+        }).catch(err => {
             this.setState({
                 mess: err.response.data.mess
             })
         })
     }
 
+    LogIn() {
+        console.warn(this.state);
+        fetch("http://localhost:3000/login").then((data) => {
+            data.json().then((resp) => {
+                console.warn("resp", resp)
+                if (resp.learning > 0) {
+                    console.warn(this);
+                } else {
+                    alert("Please check username or password")
+                }
+            })
+        })
+    }
+
+    setParams = e => {
+        this.setState({ [e.target.name]: e.target.value })
+    }
+
     render() {
-        if(this.state.loggedIn){
-            return <Redirect to={'/'}/>
+        if (this.state.loggedIn) {
+            return <Redirect to={'/'} />
         }
 
         let error = '';
 
-        if(this.state.mess){
+        if (this.state.mess) {
             error = (
                 <div className="alert alert-danger" role="alert">
                     {this.state.mess}
@@ -58,19 +84,24 @@ export default class LogIn extends Component {
 
                         <div className="form-group">
                             <label>Email</label>
-                            <input type="email" className="form-control" placeholder="Email" onChange={e => this.email = e.target.value} />
+                            <input type="email" name="email" className="form-control" placeholder="Email" onChange={this.setParams} />
                         </div>
 
                         <div className="form-group">
                             <label>Pasword</label>
-                            <input type="password" className="form-control" placeholder="Password" onChange={e => this.password = e.target.value} />
+                            <input type="password" name="password" className="form-control" placeholder="Password" onChange={this.setParams} />
                         </div>
 
-                        <button className="btn btn-primary btn-block">Log In</button>
-                        <p className="forgot-password text-right">
-                            <Link to={'/forgot'}>Forgot Password?</Link>
-                        </p>
+                        {/* <button className="btn btn-primary btn-block" type="button" onClick={() => { this.LogIn() }}>Log In</button> */}
+
                     </form>
+                    <button className="btn btn-primary btn-block" type="button" onClick={() => { this.LogIn() }}>Log In</button>
+
+                    <p className="forgot-password text-right">
+                        <Link className="mr-3" to={''}>Home</Link>
+                        <Link className="mr-3" to={'/register'}>Register</Link>
+                        <Link to={'/forgot'}>Forgot Password?</Link>
+                    </p>
                 </div>
             </div>
         )

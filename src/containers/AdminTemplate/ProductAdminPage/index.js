@@ -5,9 +5,16 @@ import '../modal.css';
 import './style.css';
 
 import DataServices from 'services/index.js';
+import ModalUpdate from 'components/ModalUpdate/index';
 
 export default class ProductAdmin extends Component {
-    state = {}
+    state = {
+        updateProduct: []
+    }
+
+    callbackFunction = (childData) => {
+        this.setState({ updateProduct: childData })
+    }
 
     constructor(props) {
         super(props)
@@ -52,24 +59,10 @@ export default class ProductAdmin extends Component {
         }).catch(err => {
             console.log(err);
         })
-    }
 
-    updateProductById = e => {
-        const data = {
-            title: this.title,
-            price: this.price,
-            inStock: this.inStock,
-            description: this.description,
-            genre: this.genre,
-            soldQty: this.soldQty,
-            img: this.img
-        }
+        alert("Product Added");
 
-        DataServices.updateItemById(data).then(res => {
-            console.log(res)
-        }).catch(err => {
-            console.log(err);
-        })
+        window.location.reload(false);
     }
 
     deleteProductById(productId) {
@@ -88,8 +81,9 @@ export default class ProductAdmin extends Component {
         if (this.state.products && this.state.products.length > 0) {
             return this.state.products.map((product) => {
                 return (
-                    <div key={product.id} className="col-3  room" >
-                        <Product deleteProductById={this.deleteProductById} product={product} />
+                    <div key={product.id} className="col-3 room" >
+                        <Product parentCallback={this.callbackFunction} deleteProductById={this.deleteProductById} product={product} />
+                        <ModalUpdate updateProduct={product}/>
                     </div>
                 );
             });
@@ -101,6 +95,7 @@ export default class ProductAdmin extends Component {
     }
 
     render() {
+        const { updateProduct } = this.state;
         return (
             <>
                 <div className="content">
@@ -171,11 +166,11 @@ export default class ProductAdmin extends Component {
                                         <div className="modal-dialog">
                                             <div className="modal-content">
                                                 <header className="head-form mb-0 bg-white">
-                                                    <h2 id="header-title">Product</h2>
+                                                    <h2 id="header-title">Add Product</h2>
                                                 </header>
                                                 {/* Modal Header */}
                                                 <div className="modal-body">
-                                                    <form role="form" onSubmit={this.handleSubmit}>
+                                                    <form className="form-modal" role="form" onSubmit={this.handleSubmit}>
                                                         <div className="form-group">
                                                             <div className="input-group">
                                                                 <div className="input-group-prepend">
@@ -307,11 +302,8 @@ export default class ProductAdmin extends Component {
                                                 </div>
                                                 {/* Modal footer */}
                                                 <div className="modal-footer" id="modal-footer">
-                                                    <button id="btnThemNV" type="submit" className="btn btn-success button-spec" onClick={this.addProduct}>
+                                                    <button id="btnThemNV" type="submit" className="btn btn-success button-spec" onClick={() => this.addProduct}>
                                                         Add Product
-                                                    </button>
-                                                    <button id="btnCapNhat" type="submit" className="btn btn-success button-spec" onClick={this.updateProductById}>
-                                                        Update
                                                     </button>
                                                     <button
                                                         id="btnDong"
@@ -325,6 +317,8 @@ export default class ProductAdmin extends Component {
                                             </div>
                                         </div>
                                     </div>
+
+                                    {/* <ModalUpdate updateProductById={this.updateProductById} /> */}
                                 </div>
                             </div>
                         </div>

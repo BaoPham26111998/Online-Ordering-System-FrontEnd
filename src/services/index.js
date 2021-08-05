@@ -11,7 +11,8 @@ const Items_REST_API_URL = '/items/';
 const Items_Name_URL = '/items/title=';
 const Items_Genre_URL = '/items/genre=';
 
-const Users_REST_API_URL = '/users/';
+const Users_REST_API_URL = '/users';
+const Users_Register_URL = '/register';
 
 
 class DataServices {
@@ -29,8 +30,8 @@ class DataServices {
         return axios.post(Items_REST_API_URL, data);
     }
 
-    updateItemById(itemId) {
-        return axios.put(Items_REST_API_URL + itemId);
+    updateItemById(itemId, data) {
+        return axios.put(Items_REST_API_URL + itemId, data);
     }
 
     deleteItemById(itemId) {
@@ -57,16 +58,16 @@ class DataServices {
     }
 
     postUser(data) {
-        return axios.post(Users_REST_API_URL, data);
+        return axios.post(Users_Register_URL, data);
     }
 
-    updateUserById(userId) {
-        return axios.put(Users_REST_API_URL, userId)
-    }
+    // updateUserById(userId) {
+    //     return axios.put(Users_REST_API_URL, userId)
+    // }
 
-    deleteUser(userId) {
-        return axios.delete(Users_REST_API_URL + userId);
-    }
+    // deleteUser(userId) {
+    //     return axios.delete(Users_REST_API_URL + userId);
+    // }
 
 }
 

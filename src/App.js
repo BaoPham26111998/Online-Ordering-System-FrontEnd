@@ -33,7 +33,7 @@ class App extends Component {
       }
     }
 
-    axios.get('user', config).then(
+    axios.get('users', config).then(
       res => {
         console.log(res)
 
@@ -64,12 +64,12 @@ class App extends Component {
         <Route path="/account" component={AccountPage}></Route>
 
         <Route path="/search" component={SearchPage}></Route>
-        
+
         <Route path="/product/:id" component={ProductDetail}></Route>
 
-        <Route path="/admin" component={AdminTemplate} />
+        <Route exact path="/admin" component={AdminTemplate} />
 
-        <Route path="/login" component={() => <LogIn ysetUser={this.setUser} />} />
+        <Route path="/login" component={() => <LogIn setUser={this.setUser} />} />
 
         <Route path="/register" component={Register} />
 

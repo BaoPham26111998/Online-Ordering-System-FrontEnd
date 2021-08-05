@@ -51,6 +51,7 @@ export default class UserAccount extends Component {
                 );
             });
         };
+        
     };
 
     render() {
@@ -121,7 +122,7 @@ export default class UserAccount extends Component {
                                                 </tr>
                                             </thead>
                                             <tbody id="tableDanhSach">
-                                                <User />
+                                                {this.renderHTML()}
                                             </tbody>
                                         </table>
                                     </div>
