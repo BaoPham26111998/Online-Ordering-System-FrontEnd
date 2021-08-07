@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './productDetail.css';
 import DataServices from 'services/index.js';
+import NavbarHome from 'components/NavbarHome';
 
 export default class ProductDetail extends Component {
   constructor(props) {
@@ -24,12 +25,7 @@ export default class ProductDetail extends Component {
   render() {
     return (
       <div className="grid-container">
-        <header className="row top">
-          <div>
-            <a className="brand" href="/">Need A Team Name Gaming </a>
-          </div>
-
-        </header>
+        <NavbarHome user={this.props.user} setUser={this.props.setUser} />
 
         <div>
 
