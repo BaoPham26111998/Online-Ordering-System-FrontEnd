@@ -1,72 +1,62 @@
-import React, { Component } from 'react'
+import React, { Component, useEffect, useState  } from 'react'
 import axios from "axios";
 import { Link, Redirect } from 'react-router-dom';
 
-export default class LogIn extends Component {
-    state = {
+export default function LogIn() {
+    
+    const [userEmail, setUserEmail] = useState("");
+    const [password, setPassword] = useState("");
 
-    }
+    const [loginStatus, setLoginStatus] = useState("");
 
-    handleSubmit = e => {
-        e.preventDefault(); 
+    axios.defaults.withCredentials = true;
+    
+    const login = () => {
+        axios.post("http://localhost:8080/login", {
+            userEmail: userEmail,
+            password: password,
+        }).then((response) => {
+          if (response.data.message) {
+            setLoginStatus(response.data.message);
+          } else {
+            setLoginStatus(response.data[0].userEmail);
+          }
+        });
+      };
 
-        const data = {
-            email: this.email,
-            passsword: this.password,
-        }
-
-        axios.post("login", data).then(res=>{
-            console.log(res);
-
-            localStorage.setItem('token', res.data.token)
-
-            this.setState({
-                loggedIn: true,
-
-            })
-
-            this.props.setUser(res.data.user);
-
-        }).catch(err=>{
-            this.setState({
-                mess: err.response.data.mess
-            })
-        })
-    }
-
-    render() {
-        if(this.state.loggedIn){
-            return <Redirect to={'/'}/>
-        }
-
-        let error = '';
-
-        if(this.state.mess){
-            error = (
-                <div className="alert alert-danger" role="alert">
-                    {this.state.mess}
-                </div>
-            )
-        }
+      useEffect(() => {
+        axios.get("http://localhost:8080/login").then((response) => {
+          if (response.data.loggedIn == true) {
+            setLoginStatus(response.data.user[0].userEmail);
+          }
+        });
+      }, []);
 
         return (
             <div className="auth-wrapper">
                 <div className="auth-inner">
-                    <form onSubmit={this.handleSubmit}>
-                        {error}
+                    {/* <form onSubmit={this.handleSubmit}> */}
+                    <form>
                         <h2>Log In</h2>
 
                         <div className="form-group">
                             <label>Email</label>
-                            <input type="email" className="form-control" placeholder="Email" onChange={e => this.email = e.target.value} />
+                            <input  type="email" 
+                                    className="form-control" 
+                                    placeholder="Email" 
+                                    onChange={(e) => {setUserEmail(e.target.value)}} />
                         </div>
 
                         <div className="form-group">
                             <label>Pasword</label>
-                            <input type="password" className="form-control" placeholder="Password" onChange={e => this.password = e.target.value} />
+                            <input  type="password" 
+                                    className="form-control" 
+                                    placeholder="Password" 
+                                    onChange={(e) => {setPassword(e.target.value)}} />
                         </div>
 
-                        <button className="btn btn-primary btn-block">Log In</button>
+                        <button className="btn btn-primary btn-block" onClick={login}>Log In</button>
+                        <h1>{loginStatus}</h1>
                         <p className="forgot-password text-right">
                             <Link to={'/forgot'}>Forgot Password?</Link>
                         </p>
@@ -74,5 +64,5 @@ export default class LogIn extends Component {
                 </div>
             </div>
         )
-    }
+    
 }
