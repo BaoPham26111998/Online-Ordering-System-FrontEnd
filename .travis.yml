@@ -2,7 +2,12 @@ language: node_js
 node_js: 14.17.3
 
 install: 
+<<<<<<< HEAD
   npm ci
+=======
+  npm install
+
+>>>>>>> c2488ba5935e19035fd49356dd7de60fca5a9508
 
 deploy: 
   provider: pages
