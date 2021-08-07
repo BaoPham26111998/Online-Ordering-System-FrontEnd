@@ -10,7 +10,7 @@
 /* End Global rules */
 
 /* Start body rules */
-body.body-admin {
+body {
   background-image: linear-gradient(-225deg, #e3fdf5 0%, #ffe6fa 100%);
   background-image: linear-gradient(to top, #a8edea 0%, #fed6e3 100%);
   background-attachment: fixed;
@@ -29,7 +29,7 @@ body.body-admin {
 /* End body rules */
 
 /* Start form  attributes */
-form {
+.form-modal {
   width: 450px;
   /*min-height: 500px;*/
   height: auto;
@@ -40,7 +40,7 @@ form {
   background-image: linear-gradient(-225deg, #e3fdf5 50%, #ffe6fa 50%);
 }
 /* form Container */
-form .con {
+.form-modal .con {
   display: -webkit-flex;
   display: flex;
 
@@ -54,18 +54,18 @@ form .con {
 }
 
 /* the header form form */
-header.header-admin {
+header {
   margin: 2% auto 10% auto;
   text-align: center;
 }
 /* Login title form form */
-header.header-admin h2 {
+header h2 {
   font-size: 250%;
   font-family: 'Playfair Display', serif;
   color: #3e403f;
 }
 /*  A welcome message or an explanation of the login form */
-header.header-admin p {
+header p {
   letter-spacing: 0.05em;
 }
 

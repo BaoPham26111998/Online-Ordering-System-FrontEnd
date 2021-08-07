@@ -67,7 +67,7 @@ class App extends Component {
         
         <Route path="/product/:id" component={ProductDetail}></Route>
 
-        <Route path="/admin" component={AdminTemplate} />
+        <Route exact path="/admin" component={AdminTemplate} />
 
         <Route path="/login" component={() => <LogIn ysetUser={this.setUser} />} />
 

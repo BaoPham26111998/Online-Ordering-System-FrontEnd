@@ -2,17 +2,17 @@ language: node_js
 node_js: 14.17.3
 
 install: 
-<<<<<<< HEAD
+
   npm ci
-=======
-  npm install
 
->>>>>>> c2488ba5935e19035fd49356dd7de60fca5a9508
+  
+script: echo "npm test temporarily disabled"
 
-deploy: 
-  provider: pages
-  skip-cleanup: true
-  github-token: $GITHUB_TOKEN
-  local_dir: build
-  on:
-    branch: main
+
+# deploy: 
+#   provider: pages
+#   skip-cleanup: true
+#   github-token: $GITHUB_TOKEN
+#   local_dir: build
+#   on:
+#     branch: main
