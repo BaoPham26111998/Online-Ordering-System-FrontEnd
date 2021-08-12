@@ -14,6 +14,8 @@ const Items_Genre_URL = '/items/genre=';
 const Users_REST_API_URL = '/users';
 const Users_Register_URL = '/register';
 
+const Orders_REST_API_URL = '/orders';
+
 
 class DataServices {
 
@@ -59,6 +61,11 @@ class DataServices {
 
     postUser(data) {
         return axios.post(Users_Register_URL, data);
+    }
+
+    // Order Axios
+    postOrder(data){
+        return axios.post(Orders_REST_API_URL,data)
     }
 
 }

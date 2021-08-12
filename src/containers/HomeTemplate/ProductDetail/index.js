@@ -8,19 +8,40 @@ export default class ProductDetail extends Component {
     super(props)
 
     this.state = {
-      id: this.props.match.params.id,
+      itemId: this.props.match.params.id,
+      userId: 302,
       product: {}
     }
   }
 
   componentDidMount() {
-    DataServices.getItemById(this.state.id)
+    DataServices.getItemById(this.state.itemId)
       .then(res => {
         console.log(res.data)
         this.setState({ product: res.data });
       })
       .catch(err => console.log(err));
   }
+
+  addToCart= e => {
+    const data = {
+      quantity: 2,
+      status: "Outstanding",
+      item: {
+      id: this.state.itemId
+    },
+      user: {
+        id: 302
+    }
+    }
+    DataServices.postOrder(data).then(res => {
+        console.log(res)
+        console.log(data)
+        
+    }).catch(err => {
+        console.log(err);
+    })
+}
 
   render() {
     return (
@@ -55,15 +76,9 @@ export default class ProductDetail extends Component {
                   <div className="card card-body">
                     <div className="row">
                       <div><h1 className="detail-status">Status: </h1></div>
-                      <div>
-                        {/* <h1>{this.state.product.status === 0 ? (
-                            <span className="success">Available</span>
-                          ) : (
-                            <span className="danger">Unavailable</span>
-                          )}</h1> */}
-                      </div>
+                      
                     </div>
-                    <button className="addToCart">Add to cart</button>
+                    <button className="addToCart"  onClick = {this.addToCart}  >Add to cart</button>
                   </div>
 
                 </div>

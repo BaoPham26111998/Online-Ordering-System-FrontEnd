@@ -12,7 +12,6 @@ class ProductHome extends Component {
     
     componentDidMount() {
         DataServices.getItems()
-
             .then((response) => {
                 console.log(response.data)
                 this.setState({ products: response.data })
