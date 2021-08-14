@@ -25,7 +25,7 @@ export default class ProductDetail extends Component {
 
   addToCart= e => {
     const data = {
-      quantity: 2,
+      quantity: this.quantity,
       status: "Outstanding",
       item: {
       id: this.state.itemId
@@ -34,9 +34,11 @@ export default class ProductDetail extends Component {
         id: 302
     }
     }
+    console.log(this.quantity)
     DataServices.postOrder(data).then(res => {
         console.log(res)
         console.log(data)
+        window.alert("Item have been add to your cart");
         
     }).catch(err => {
         console.log(err);
@@ -73,12 +75,11 @@ export default class ProductDetail extends Component {
                   </div>
 
                   <h1 className="detail-price">Price : ${this.state.product.price}</h1>
+                 
                   <div className="card card-body">
-                    <div className="row">
-                      <div><h1 className="detail-status">Status: </h1></div>
-                      
-                    </div>
-                    <button className="addToCart"  onClick = {this.addToCart}  >Add to cart</button>
+                    <button className="btn addToCart"  id="btnthem"
+                                                    data-toggle="modal"
+                                                    data-target="#addToCartModal" >Add to cart</button>
                   </div>
 
                 </div>
@@ -89,7 +90,57 @@ export default class ProductDetail extends Component {
         </div>
 
         <footer className="row center">All right reserved</footer>
+        <div className="modal fade" id="addToCartModal">
+                                        <div className="modal-dialog">
+                                            <div className="modal-content">
+                                                <header className="productModal">
+                                                    <h2 id="header-title">{this.state.product.title}</h2>
+                                                </header>
+                                                {/* Modal Header */}
+                                                <div className="modal-body">
+                                                    <form role="form" onSubmit={this.handleSubmit}>
+                                                       
+                                                        <div className="form-group">
+                                                            <div className="input-group">
+                                                                <div className="input-group-prepend">
+                                                                    <span className="input-group-text">
+                                                                        <i className="Quantity"> Quantity</i>
+                                                                    </span>
+                                                                </div>
+                                                                <input
+                                                                    type="quantity"
+                                                                    name="quantity"
+                                                                    id="quantity"
+                                                                    className="form-control input-sm"
+                                                                    placeholder="Input your quantity (number only)"
+                                                                    onChange={e => this.quantity = e.target.value}
+                                                                />
+                                                            </div>
+                                                            <span className="sp-mess" id="messImage" />
+                                                        </div>
+
+                                                    </form>
+                                                </div>
+                                                {/* Modal footer */}
+                                                <div className="modal-footer" id="modal-footer">
+                                                    <button id="btnThemNV" type="submit" className="btn btn-success button-spec" onClick={this.addToCart}>
+                                                        Add Product
+                                                    </button>
+                                                    <button
+                                                        id="btnDong"
+                                                        type="submit"
+                                                        className="btn btn-danger button-spec"
+                                                        data-dismiss="modal"
+                                                    >
+                                                        Close
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
       </div>
+        
+      </div>
+      
     )
   }
 }

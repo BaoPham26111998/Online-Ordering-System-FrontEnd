@@ -14,7 +14,7 @@ const Items_Genre_URL = '/items/genre=';
 const Users_REST_API_URL = '/users';
 const Users_Register_URL = '/register';
 
-const Orders_REST_API_URL = '/orders';
+const Orders_GET_API_URL = '/orders';
 const Orders_Delete_API_URL = '/order/';
 
 
@@ -66,13 +66,18 @@ class DataServices {
 
     // Order Axios
     postOrder(data){
-        return axios.post(Orders_REST_API_URL,data)
+        return axios.post(Orders_GET_API_URL,data)
     }
     getAllOrers(){
-        return axios.get(Orders_REST_API_URL)
+        return axios.get(Orders_GET_API_URL)
     }
     deleteOrderById(orderId){
         return axios.delete(Orders_Delete_API_URL + orderId)
+    }
+
+    updateOrderById(orderId,data){
+        console.log(Orders_Delete_API_URL + orderId)
+        return axios.put(Orders_Delete_API_URL + orderId , data)
     }
 
 }

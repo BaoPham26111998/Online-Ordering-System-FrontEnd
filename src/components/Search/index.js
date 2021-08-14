@@ -3,8 +3,8 @@ import { Nav, Bars, NavBtn, NavBtnLink } from 'components/Navbar/navbarElements'
 
 export default function SearchBar() {
     return (
-        <div className="searchBar">
-            <Nav>
+        <div>
+            <Nav className = "SearchBar">
                 <Bars />
                 <NavBtn>
                     <NavBtnLink to='/Search'>Advance Search</NavBtnLink>
