@@ -16,15 +16,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faList,
   faEdit,
-  // faStepBackward,
-  // faFastBackward,
-  // faStepForward,
-  // faFastForward,
   faSearch,
   faTimes,
 } from "@fortawesome/free-solid-svg-icons";
 import ItemService from 'services/index.js';
-import { faShoppingCart } from '../../../../node_modules/@fortawesome/free-solid-svg-icons/index';
 import NavbarHome from 'components/NavbarHome';
 
 
@@ -119,7 +114,7 @@ class SearchPage extends Component {
 
     return (
       <div className="grid-container">
-        <NavbarHome user={this.props.user} setUse></NavbarHome>
+        <NavbarHome user={this.props.user} setUse={this.props.setUser}/>
 
         <main>
           <Card className={"border border-dark bg-dark text-white"}>
@@ -235,14 +230,7 @@ class SearchPage extends Component {
                             >
                               <FontAwesomeIcon icon={faEdit} /><p>View</p>
                             </Link>{" "}
-                            <Button
-                              size="sm"
-                              variant="outline-success"
-                              onClick={() => (product.id)}
-                            >
-                              <FontAwesomeIcon icon={faShoppingCart} />
-                              <p>Add to cart</p>
-                            </Button>
+                            
                           </ButtonGroup>
                         </td>
                       </tr>

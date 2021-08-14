@@ -1,17 +1,15 @@
 import React from 'react'
 import './accountPage.css';
+import NavbarHome from 'components/NavbarHome';
+import { Component } from 'react';
 
-export default function AccountPage() {
+export default class AccountPage extends Component {
+  render(){
   return (
     <div className="grid-container">
-      <header className="row top">
-        <div>
-          <a className="brand" href="/">Need A Team Name Gaming </a>
-        </div>
+      <NavbarHome user={this.props.user} setUser={this.props.setUser} />
 
-      </header>
-
-      <div>
+      <main>
 
         <div className="background">
 
@@ -56,9 +54,10 @@ export default function AccountPage() {
             </div>
           </div>
         </div>
-      </div>
+      </main>
 
       <footer className="row center">All right reserved</footer>
     </div>
   )
+}
 }
