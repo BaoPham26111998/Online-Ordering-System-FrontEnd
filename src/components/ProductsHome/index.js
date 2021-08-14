@@ -26,13 +26,16 @@ class ProductHome extends Component {
                     this.state.products.map(
                         product =>
                             <div key={product.id} className="card">
+                                <div className="hover01">
                                 <a href={`/product/${product.id}`}>
-                                    <img
+                                    <figure><img
                                         className="medium"
                                         src={product.img}
                                         alt={product.title}
-                                    />
+                                    /></figure>
                                 </a>
+                                </div>
+                                
                                 <div className="card-body">
                                     <a href={`/product/${product.id}`}>
                                         <p className="game-name" >{product.title}</p>

@@ -3,10 +3,10 @@ import ModalUpdate from "components/ModalUpdate"
 import './style.css'
 
 export default class Product extends Component {
-    sendData = (event) => {
-        this.props.parentCallback(this.props.product);
-        event.preventDefault();
-    }
+    // sendData = (event) => {
+    //     this.props.parentCallback(this.props.product);
+    //     event.preventDefault();
+    // }
 
     render() {
         const { deleteProductById, product } = this.props;
@@ -20,7 +20,7 @@ export default class Product extends Component {
                 <span className="ei98_95_30_45 text-primary">In Stock: {product.inStock} | Sold: {product.soldQty} </span>
                 <span className="ei98_95_30_41">{product.genre}</span>
                 <button className="btn btn-danger button-spec button-del" onClick={deleteProductById.bind(this, product.id)}><i className="fa fa-trash"></i></button>
-                <button className="btn btn-success button-spec button-upd" id="btnThem" data-toggle="modal" data-target={data_target} onClick={this.sendData}><i className="fa fa-edit" ></i></button>
+                <button className="btn btn-success button-spec button-upd" id="btnThem" data-toggle="modal" data-target={data_target} ><i className="fa fa-edit" ></i></button>
             </>
         )
     }

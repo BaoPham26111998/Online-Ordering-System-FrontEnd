@@ -27,10 +27,42 @@ deleteCart = e => {
   const orederId = e.target.value
   DataServices.deleteOrderById(orederId)
   .then(res => {
-    console.log(res.data)
+    console.log(res.data);
     this.componentDidMount();
+    window.alert("Product have been remove from your cart");
   })
   .catch(err => console.log(err));
+}
+
+purchase = e =>{
+  const orderId = e.target.value
+  const quantity = e.target.name
+  const itemId = e.target.id
+  
+  const data = {
+    quantity: quantity,
+    status: "Paid",
+    item: {
+      id: itemId
+    },
+      user: {
+        id: 302
+    }
+  }
+
+  console.log("item id:" + itemId)
+  console.log("order id:" + orderId)
+  console.log("quantity:" + quantity)
+  
+    DataServices.updateOrderById(orderId,data).then(res => {
+        console.log(res)
+        console.log(data)
+        window.alert("You have purchase a new item check it in your transaction page");
+        this.componentDidMount()
+    }).catch(err => {
+        console.log(err);
+    })
+
 }
 
   render(){
@@ -54,18 +86,19 @@ deleteCart = e => {
                   <th>id</th>
                   <th>image</th>
                   <th>name</th>
-                  <th>price</th>
+                  <th>quantity</th>
+                  <th>total price</th>
                   <th>option</th>
                 </tr>
                 {/*CART Product component */}
 
                 {userCartProducts.map(product => (
-                 <tr key = {product.id}>
+                 <tr key = {product.item.id}>
              <td>
                  {product.item.id}
              </td>
              <td>
-                 <a href={`/product/${product.id}`}>
+                 <a href={`/product/${product.item.id}`}>
                      <img
                          className="cartImage"
                          src={product.item.img}
@@ -78,11 +111,17 @@ deleteCart = e => {
                  <a href={`/product/${product.item.id}`}>{product.item.title}</a>
  
              </td>
+             <td>{product.quantity}</td>
              <td>
-                 {product.item.price}$
+                 {product.total}$
              </td>
              <td>
-                 <button className="purchaseCartBtn">Purchase</button>
+                 <button className="purchaseCartBtn"
+                 value = {product.id} 
+                 name = {product.quantity}
+                 id = {product.item.id}
+                 onClick={this.purchase}>Purchase</button>
+                 
                  <button 
                     className="deleteCartBtn"  
                     value = {product.id} 
