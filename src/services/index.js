@@ -15,6 +15,7 @@ const Users_REST_API_URL = '/users';
 const Users_Register_URL = '/register';
 
 const Orders_REST_API_URL = '/orders';
+const Orders_Delete_API_URL = '/order/';
 
 
 class DataServices {
@@ -66,6 +67,12 @@ class DataServices {
     // Order Axios
     postOrder(data){
         return axios.post(Orders_REST_API_URL,data)
+    }
+    getAllOrers(){
+        return axios.get(Orders_REST_API_URL)
+    }
+    deleteOrderById(orderId){
+        return axios.delete(Orders_Delete_API_URL + orderId)
     }
 
 }

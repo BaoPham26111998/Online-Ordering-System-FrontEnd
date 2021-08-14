@@ -3,20 +3,20 @@ import { Nav, NavLink, Bars, NavMenu } from './navbarElements';
 
 export default function Navbar() {
     return (
-        <div className="Navbar">
+        <div className="userNavbar">
             <Nav>
                 <Bars />
                 <NavMenu>
-                    <NavLink to='/account' activeStyle>
+                    <NavLink className='userPageNavLink' to='/account' >
                         Account
                     </NavLink>
-                    <NavLink to='/cart' activeStyle>
+                    <NavLink className='userPageNavLink' to='/cart' >
                         Cart
                     </NavLink>
-                    <NavLink to='/transaction' activeStyle>
+                    <NavLink className='userPageNavLink' to='/transaction' >
                         Transaction
                     </NavLink>
-                    <NavLink to='/logout' activeStyle>
+                    <NavLink className='userPageNavLink' to='/logout' >
                         Logout
                     </NavLink>
                 </NavMenu>

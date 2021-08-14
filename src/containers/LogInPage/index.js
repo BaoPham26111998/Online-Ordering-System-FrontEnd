@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import axios from "axios";
 import { Link, Redirect } from 'react-router-dom';
 import DataServices from "services/index.js"
+// import bcryt from "bcrypt"
 
 export default class LogIn extends Component {
   constructor(props) {
@@ -32,11 +32,26 @@ onChange = (event) => {
 
 
 handleSubmit = () => {
-  console.log(this.state.email)
-  console.log(this.state.password)
   const userList = (this.state.users)
   const user = (userList.filter((e) => e.email === this.state.email))
-  console.log(user.map((user) => user.password))
+  const userPassword = (user.map((user) => user.password))
+
+  console.log(userPassword)
+  console.log(this.state.email)
+
+  const inputPassword = this.state.password
+  console.log(inputPassword)
+
+
+  const bcrypt = require('bcryptjs')
+  const salt = bcrypt.genSaltSync(10);
+  const hash = bcrypt.hashSync(inputPassword,salt);
+  console.log(hash)
+  console.log(bcrypt.compareSync(userPassword, hash))
+  
+  
+
+
 }
 
     render() {

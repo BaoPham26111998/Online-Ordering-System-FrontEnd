@@ -1,19 +1,17 @@
 import TransactionProduct from 'components/Transaction';
 import React from 'react'
 import data from 'productData.js'
+import NavbarHome from 'components/NavbarHome';
 
 import './transactionPage.css';
+import { Component } from 'react';
+export default class TransactionPage extends Component {
 
-export default function TransactionPage() {
-
+  render(){
   return (
     <div className="grid-container">
-      <header className="row top">
-        <div>
-          <a className="brand" href="/">Need A Team Name Gaming </a>
-        </div>
-      </header>
-      <div>
+      <NavbarHome user={this.props.user} setUser={this.props.setUser} />
+      <main>
         <div className="background">
           <div className="productDetail-container">
             <div className="cartTableContainer">
@@ -38,8 +36,9 @@ export default function TransactionPage() {
             </div>
           </div>
         </div>
-      </div>
+      </main>
       <footer className="row center">All right reserved</footer>
     </div>
   )
+}
 }

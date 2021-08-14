@@ -3,8 +3,17 @@ import { Link } from 'react-router-dom';
 
 import '../../containers/HomeTemplate/homeTemplate.css'
 import Navbar from 'components/Navbar';
+import { ReportGmailerrorred } from '../../../node_modules/@material-ui/icons/index';
+
 
 export default class NavbarHome extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+          userId: 302,
+          user: "tinskin56@gmail.com",
+        }
+      }
 
     handleLogOut = () => {
         localStorage.clear();
@@ -44,6 +53,7 @@ export default class NavbarHome extends Component {
                 </div>
             </div>
             <div>
+            <Navbar></Navbar>
             </div>
             </header>
                 
@@ -61,7 +71,11 @@ export default class NavbarHome extends Component {
                     <Link className="register" to="/register" href="Register.html">Register</Link>
                     <Link className="signin" to="/login" href="signin.html">Login</Link>
                     </div>
+                    
                 </div>
+                <div>
+                <Navbar></Navbar>
+                </div>         
             </header>
 
         )
