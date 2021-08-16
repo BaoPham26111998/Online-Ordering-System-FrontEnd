@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import SidebarAdmin from 'components/SidebarAdmin';
 import Product from 'components/ProductsAdmin';
+import ModalUpdate from 'components/ModalUpdate/index';
 import '../modal.css';
 import './style.css';
 
@@ -52,6 +53,10 @@ export default class ProductAdmin extends Component {
         }).catch(err => {
             console.log(err);
         })
+
+        alert("Product Added");
+
+        window.location.reload(false);
     }
 
     updateProductById = e => {
@@ -70,6 +75,10 @@ export default class ProductAdmin extends Component {
         }).catch(err => {
             console.log(err);
         })
+
+        alert("Product Updated");
+
+        window.location.reload(false);
     }
 
     deleteProductById(productId) {
@@ -90,6 +99,7 @@ export default class ProductAdmin extends Component {
                 return (
                     <div key={product.id} className="col-3  room" >
                         <Product deleteProductById={this.deleteProductById} product={product} />
+                        <ModalUpdate updateProduct={product}/>              
                     </div>
                 );
             });
@@ -309,9 +319,6 @@ export default class ProductAdmin extends Component {
                                                 <div className="modal-footer" id="modal-footer">
                                                     <button id="btnThemNV" type="submit" className="btn btn-success button-spec" onClick={this.addProduct}>
                                                         Add Product
-                                                    </button>
-                                                    <button id="btnCapNhat" type="submit" className="btn btn-success button-spec" onClick={this.updateProductById}>
-                                                        Update
                                                     </button>
                                                     <button
                                                         id="btnDong"
