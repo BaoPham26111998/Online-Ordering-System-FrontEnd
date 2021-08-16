@@ -115,7 +115,8 @@ export default class UserAccount extends Component {
                                                     <th>Username</th>
                                                     <th>Name</th>
                                                     <th>Email</th>
-                                                    <th>Password</th>
+                                                    <th>Role</th>
+                                                    <th>Locked</th>
                                                     <th>
                                                         <em className="fa fa-cog" />
                                                     </th>
