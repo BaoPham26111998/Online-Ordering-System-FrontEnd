@@ -5,6 +5,8 @@ export default class User extends Component {
 
     render() {
         const { deleteUser, user } = this.props;
+        
+
         return (
             <>
                 <td >{user.id}</td>
