@@ -119,14 +119,15 @@ class SearchPage extends Component {
         <main>
           <Card className={"border border-dark bg-dark text-white"}>
             <Card.Header>
-              <div style={{ float: "left" }}>
-                <FontAwesomeIcon icon={faList} /> Product List
+              <div style={{ float: "left", fontSize: "25px" ,fontWeight: "bold" }}>
+                <FontAwesomeIcon icon={faList} /> Game List
               </div>
               <div style={{ float: "right" }}>
                 <InputGroup size="sm">
 
                   <Dropdown as={ButtonGroup}>
-                    <Button variant="Secondary">Genre</Button>
+                    <Button className = "gerne-button"
+                            variant="Secondary">Genre</Button>
 
                     <Dropdown.Toggle split variant="Primmary" id="dropdown-split-basic" />
 
@@ -147,8 +148,6 @@ class SearchPage extends Component {
                     </Dropdown.Menu>
                   </Dropdown>
 
-
-
                   <FormControl
                     placeholder="Search"
                     name="searchText"
@@ -158,7 +157,7 @@ class SearchPage extends Component {
                   />
                   <InputGroup.Append>
                     <Button
-                      size="sm"
+                      className = "apply-search"
                       variant="outline-info"
                       type="button"
                       onClick={this.searchData}
@@ -166,6 +165,7 @@ class SearchPage extends Component {
                       <FontAwesomeIcon icon={faSearch} />
                     </Button>
                     <Button
+                      className = "cancel-search"
                       size="sm"
                       variant="outline-danger"
                       type="button"
@@ -181,10 +181,11 @@ class SearchPage extends Component {
               <Table bordered hover striped variant="dark">
                 <thead>
                   <tr>
-                    <th>Id</th>
-                    <th>Title</th>
-                    <th>In Stock</th>
-                    <th onClick={this.sortDataByPrice}>
+                    <th className = "search-th">Id</th>
+                    <th className = "search-th">Title</th>
+                    <th className = "search-th">In Stock</th>
+                    <th className = "search-th" 
+                        onClick={this.sortDataByPrice}>
                     Price{" "}
                     <div
                       className={
@@ -196,8 +197,8 @@ class SearchPage extends Component {
                       {" "}
                     </div>
                   </th>
-                    <th>Genre</th>
-                    <th>Actions</th>
+                    <th className = "search-th">Genre</th>
+                    <th className = "search-th">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -208,8 +209,8 @@ class SearchPage extends Component {
                   ) : (
                     products.map((product) => (
                       <tr key={product.id}>
-                        <td>{product.id}</td>
-                        <td>
+                        <td className = "search-td">{product.id}</td>
+                        <td className = "search-td">
                           <Image
                             src={product.img}
                             roundedCircle
@@ -218,15 +219,15 @@ class SearchPage extends Component {
                           />{" "}
                           {product.title}
                         </td>
-                        <td>{product.inStock}</td>
-                        <td>{product.price}</td>
-                        <td>{product.genre}</td>
-                        <td>
+                        <td className = "search-td">{product.inStock}</td>
+                        <td className = "search-td">{product.price}</td>
+                        <td className = "search-td">{product.genre}</td>
+                        <td className = "search-td">
                           <ButtonGroup>
                             <Link
-
                               to={"product/" + product.id}
                               className="btn btn-sm btn-outline-primary"
+                              
                             >
                               <FontAwesomeIcon icon={faEdit} /><p>View</p>
                             </Link>{" "}
