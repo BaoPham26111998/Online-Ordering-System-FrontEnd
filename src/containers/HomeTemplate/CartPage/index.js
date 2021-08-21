@@ -70,11 +70,9 @@ purchase = e =>{
     const products = this.state.products
     const user = (products.filter((u) => u.user.id === 302))
     const userCartProducts = (user.filter((i) => i.status === "Outstanding"))
-    // console.log(userCartProducts.length)
+    console.log(userCartProducts.length)
     console.log(userCartProducts.map((i) => i.item))
-    
-    
-    if((userCartProducts.length)=0){
+    if((userCartProducts.length)>0){
       return (
         <div className="grid-container">
           <NavbarHome user={this.props.user} setUser={this.props.setUser} />
@@ -86,39 +84,41 @@ purchase = e =>{
                   <h1 className="CartPage">My Cart</h1>
                   <table className="cartTable">
                     <tr>
-                      <th>id</th>
-                      <th>image</th>
-                      <th>name</th>
-                      <th>quantity</th>
-                      <th>total price</th>
-                      <th>option</th>
+                      <th className = "cart-table-th">Id</th>
+                      <th className = "cart-table-th">Image</th>
+                      <th className = "cart-table-th">Name</th>
+                      <th className = "cart-table-th">Quantity</th>
+                      <th className = "cart-table-th">Total price</th>
+                      <th className = "cart-table-th">Option</th>
                     </tr>
                     {/*CART Product component */}
     
                     {userCartProducts.map(product => (
                      <tr key = {product.item.id}>
-                 <td>
+                 <td className = "cart-table-td">
                      {product.item.id}
                  </td>
-                 <td>
-                     <a href={`/product/${product.item.id}`}>
-                         <img
-                             className="cartImage"
-                             src={product.item.img}
-                             alt={product.item.title}
-                         />
-                     </a>
+                 <td className = "cart-table-td">
+                 <div className="hover02">
+                                <a href={`/product/${product.item.id}`}>
+                                    <figure><img
+                                        className="cartImage"
+                                        src={product.item.img}
+                                        alt={product.item.title}
+                                    /></figure>
+                                </a>
+                                </div>
      
                  </td>
-                 <td>
+                 <td className = "cart-table-td">
                      <a href={`/product/${product.item.id}`}>{product.item.title}</a>
      
                  </td>
-                 <td>{product.quantity}</td>
-                 <td>
+                 <td className = "cart-table-td">{product.quantity}</td>
+                 <td className = "cart-table-td">
                      {product.total}$
                  </td>
-                 <td>
+                 <td className = "cart-table-td">
                      <button className="purchaseCartBtn"
                      value = {product.id} 
                      name = {product.quantity}
@@ -154,10 +154,8 @@ purchase = e =>{
                 Your cart is empty currently
               </h1>
               </div>
-              
             </div>
           </main>
-    
           <footer className="row center">All right reserved</footer>
         </div>
       )

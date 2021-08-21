@@ -134,8 +134,10 @@ button.btn.btn-Secondary{
 
 th.search-th{
   font-size: 15PX;
+  text-align: center;
 }
 
 td.search-td{
   font-size: 13px;
+  text-align: center;
 }
