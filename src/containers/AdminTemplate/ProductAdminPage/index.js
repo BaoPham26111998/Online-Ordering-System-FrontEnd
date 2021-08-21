@@ -6,6 +6,7 @@ import '../modal.css';
 import './style.css';
 
 import DataServices from 'services/index.js';
+import ModalUpdate from 'components/ModalUpdate/index';
 
 export default class ProductAdmin extends Component {
     state = {}
@@ -99,7 +100,11 @@ export default class ProductAdmin extends Component {
                 return (
                     <div key={product.id} className="col-3  room" >
                         <Product deleteProductById={this.deleteProductById} product={product} />
+<<<<<<< HEAD
                         <ModalUpdate updateProduct={product}/>              
+=======
+                        <ModalUpdate updateProduct={product}/>
+>>>>>>> 5cbc04ffe5c545254c52928948be09b007132918
                     </div>
                 );
             });

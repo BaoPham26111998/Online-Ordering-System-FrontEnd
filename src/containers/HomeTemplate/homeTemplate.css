@@ -21,13 +21,13 @@ body {
     'main'
     'footer';
   grid-template-columns: 1fr;
-  grid-template-rows: 5rem 1fr 5rem;
+  grid-template-rows: 11rem 1fr 5rem;
   height: 100%;
 }
 header.homepage-header {
   grid-area: header;
   background-color: #1a2938;
-  
+  height: 15rem;
 }
 main {
   grid-area: main;
@@ -58,8 +58,7 @@ a.brand:hover {
   );
   -webkit-background-clip: text;
   color: transparent;
-  font-size: 3.5rem;
-  font-weight: bold;
+  
 }
 
 .register {
@@ -77,8 +76,6 @@ a.brand:hover {
   );
   -webkit-background-clip: text;
   color: transparent;
-  font-size: 2.5rem;
-  font-weight: bold;
 }
 a.signin {
   color: #ffffff;
@@ -95,8 +92,6 @@ a.signin:hover {
   );
   -webkit-background-clip: text;
   color: transparent;
-  font-size: 2.5rem;
-  font-weight: bold;
 }
 .row {
   display: flex;
@@ -107,6 +102,7 @@ a.signin:hover {
 .row.center {
   justify-content: center;
 }
+
 /* Image */
 
 img.medium {
@@ -114,11 +110,19 @@ img.medium {
   width: 25rem;
   border-radius: 0.5rem;
 }
-
-img.medium:hover {
-  height: 35rem;
-  width: 25rem;
-  border-radius: 0.5rem;
+/* img:hover+span{
+  bottom: -36px;
+	opacity: 1;
+} */
+.hover01 figure img {
+	-webkit-transform: scale(1);
+	transform: scale(1);
+	-webkit-transition: .3s ease-in-out;
+	transition: .3s ease-in-out;
+}
+.hover01 figure:hover img {
+	-webkit-transform: scale(1.15);
+	transform: scale(1.15);
 }
 
 /* Card */
@@ -156,7 +160,5 @@ p.game-name:hover {
   );
   -webkit-background-clip: text;
   color: transparent;
-  font-size: 1.5rem;
-  font-weight: bold;
 } 
 

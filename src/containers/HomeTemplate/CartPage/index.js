@@ -1,22 +1,81 @@
-import CartProduct from 'components/CartProduct';
 import React from 'react'
-import data from 'productData.js'
+import NavbarHome from 'components/NavbarHome';
+import DataServices from 'services/index.js';
 
 import './cartPage.css';
+import { Component } from 'react';
 
-export default function CartPage() {
+export default class CartPage extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      userId: 302,  
+      products: [],
+      cartId: 0,
+    }
+  }
+componentDidMount(){
+    DataServices.getAllOrers()
+  .then(res => {
+    // console.log(res.data)
+    this.setState({ products: res.data });
+  })
+  .catch(err => console.log(err));
+}
+
+deleteCart = e => {
+  const orederId = e.target.value
+  DataServices.deleteOrderById(orederId)
+  .then(res => {
+    console.log(res.data);
+    this.componentDidMount();
+    window.alert("Product have been remove from your cart");
+  })
+  .catch(err => console.log(err));
+}
+
+purchase = e =>{
+  const orderId = e.target.value
+  const quantity = e.target.name
+  const itemId = e.target.id
+  
+  const data = {
+    quantity: quantity,
+    status: "Paid",
+    item: {
+      id: itemId
+    },
+      user: {
+        id: 302
+    }
+  }
+
+  console.log("item id:" + itemId)
+  console.log("order id:" + orderId)
+  console.log("quantity:" + quantity)
+  
+    DataServices.updateOrderById(orderId,data).then(res => {
+        console.log(res)
+        console.log(data)
+        window.alert("You have purchase a new item check it in your transaction page");
+        this.componentDidMount()
+    }).catch(err => {
+        console.log(err);
+    })
+
+}
+
+  render(){
+    const products = this.state.products
+    const user = (products.filter((u) => u.user.id === 302))
+    const userCartProducts = (user.filter((i) => i.status === "Outstanding"))
+    // console.log(userCartProducts.length)
+    console.log(userCartProducts.map((i) => i.item))
 
   return (
     <div className="grid-container">
-      <header className="row top">
-        <div>
-          <a className="brand" href="/">Need A Team Name Gaming </a>
-        </div>
-
-      </header>
-
-      <div>
-
+      <NavbarHome user={this.props.user} setUser={this.props.setUser} />
+      <main>
         <div className="background">
 
           <div className="productDetail-container">
@@ -27,26 +86,58 @@ export default function CartPage() {
                   <th>id</th>
                   <th>image</th>
                   <th>name</th>
-                  <th>price</th>
+                  <th>quantity</th>
+                  <th>total price</th>
                   <th>option</th>
                 </tr>
                 {/*CART Product component */}
 
-                {
-                  data.products.map(product => (
-                    <CartProduct key={product._id} product={product}></CartProduct>
-                  ))
+                {userCartProducts.map(product => (
+                 <tr key = {product.item.id}>
+             <td>
+                 {product.item.id}
+             </td>
+             <td>
+                 <a href={`/product/${product.item.id}`}>
+                     <img
+                         className="cartImage"
+                         src={product.item.img}
+                         alt={product.item.title}
+                     />
+                 </a>
+ 
+             </td>
+             <td>
+                 <a href={`/product/${product.item.id}`}>{product.item.title}</a>
+ 
+             </td>
+             <td>{product.quantity}</td>
+             <td>
+                 {product.total}$
+             </td>
+             <td>
+                 <button className="purchaseCartBtn"
+                 value = {product.id} 
+                 name = {product.quantity}
+                 id = {product.item.id}
+                 onClick={this.purchase}>Purchase</button>
+                 
+                 <button 
+                    className="deleteCartBtn"  
+                    value = {product.id} 
+                    onClick={this.deleteCart}>Delete</button>
+             </td>
+         </tr>
+                ))
                 }
-
               </table>
             </div>
-
-
           </div>
         </div>
-      </div>
+      </main>
 
       <footer className="row center">All right reserved</footer>
     </div>
   )
+  }
 }
