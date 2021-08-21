@@ -76,7 +76,7 @@ class DataServices {
     }
 
     updateOrderById(orderId,data){
-        console.log(Orders_Delete_API_URL + orderId)
+        // console.log(Orders_Delete_API_URL + orderId)
         return axios.put(Orders_Delete_API_URL + orderId , data)
     }
 

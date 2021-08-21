@@ -41,6 +41,7 @@ deleteCart = e => {
     // console.log(userCartProducts.length)
     console.log(userCartProducts.map((i) => i.item))
 
+
   return (
     <div className="grid-container">
       <NavbarHome user={this.props.user} setUser={this.props.setUser} />
@@ -49,7 +50,7 @@ deleteCart = e => {
 
           <div className="productDetail-container">
             <div className="cartTableContainer">
-              <h1 className="CartPage">My Cart</h1>
+              <h1 className="CartPage">Transaction history</h1>
               <table className="cartTable">
                 <tr>
                   <th>id</th>

@@ -5,6 +5,7 @@ import DataServices from 'services/index.js';
 import './cartPage.css';
 import { Component } from 'react';
 
+
 export default class CartPage extends Component {
   constructor(props) {
     super(props)
@@ -71,73 +72,96 @@ purchase = e =>{
     const userCartProducts = (user.filter((i) => i.status === "Outstanding"))
     // console.log(userCartProducts.length)
     console.log(userCartProducts.map((i) => i.item))
-
-  return (
-    <div className="grid-container">
-      <NavbarHome user={this.props.user} setUser={this.props.setUser} />
-      <main>
-        <div className="background">
-
-          <div className="productDetail-container">
-            <div className="cartTableContainer">
-              <h1 className="CartPage">My Cart</h1>
-              <table className="cartTable">
-                <tr>
-                  <th>id</th>
-                  <th>image</th>
-                  <th>name</th>
-                  <th>quantity</th>
-                  <th>total price</th>
-                  <th>option</th>
+    
+    
+    if((userCartProducts.length)=0){
+      return (
+        <div className="grid-container">
+          <NavbarHome user={this.props.user} setUser={this.props.setUser} />
+          <main>
+            <div className="background">
+    
+              <div className="productDetail-container">
+                <div className="cartTableContainer">
+                  <h1 className="CartPage">My Cart</h1>
+                  <table className="cartTable">
+                    <tr>
+                      <th>id</th>
+                      <th>image</th>
+                      <th>name</th>
+                      <th>quantity</th>
+                      <th>total price</th>
+                      <th>option</th>
+                    </tr>
+                    {/*CART Product component */}
+    
+                    {userCartProducts.map(product => (
+                     <tr key = {product.item.id}>
+                 <td>
+                     {product.item.id}
+                 </td>
+                 <td>
+                     <a href={`/product/${product.item.id}`}>
+                         <img
+                             className="cartImage"
+                             src={product.item.img}
+                             alt={product.item.title}
+                         />
+                     </a>
+     
+                 </td>
+                 <td>
+                     <a href={`/product/${product.item.id}`}>{product.item.title}</a>
+     
+                 </td>
+                 <td>{product.quantity}</td>
+                 <td>
+                     {product.total}$
+                 </td>
+                 <td>
+                     <button className="purchaseCartBtn"
+                     value = {product.id} 
+                     name = {product.quantity}
+                     id = {product.item.id}
+                     onClick={this.purchase}>Purchase</button>
+                     
+                     <button 
+                        className="deleteCartBtn"  
+                        value = {product.id} 
+                        onClick={this.deleteCart}>Delete</button>
+                 </td>
                 </tr>
-                {/*CART Product component */}
-
-                {userCartProducts.map(product => (
-                 <tr key = {product.item.id}>
-             <td>
-                 {product.item.id}
-             </td>
-             <td>
-                 <a href={`/product/${product.item.id}`}>
-                     <img
-                         className="cartImage"
-                         src={product.item.img}
-                         alt={product.item.title}
-                     />
-                 </a>
- 
-             </td>
-             <td>
-                 <a href={`/product/${product.item.id}`}>{product.item.title}</a>
- 
-             </td>
-             <td>{product.quantity}</td>
-             <td>
-                 {product.total}$
-             </td>
-             <td>
-                 <button className="purchaseCartBtn"
-                 value = {product.id} 
-                 name = {product.quantity}
-                 id = {product.item.id}
-                 onClick={this.purchase}>Purchase</button>
-                 
-                 <button 
-                    className="deleteCartBtn"  
-                    value = {product.id} 
-                    onClick={this.deleteCart}>Delete</button>
-             </td>
-         </tr>
-                ))
-                }
-              </table>
+                    ))
+                    }
+                  </table>
+                </div>
+              </div>
             </div>
-          </div>
+          </main>
+    
+          <footer className="row center">All right reserved</footer>
         </div>
-      </main>
-
-      <footer className="row center">All right reserved</footer>
-    </div>
-  )
+      )
+    }
+    else {
+      return(
+        <div className="grid-container">
+          <NavbarHome user={this.props.user} setUser={this.props.setUser} />
+          <main>
+            <div className="background">
+              <div className="empty-data-div">
+                <h1 className="empty-data-message">
+                Your cart is empty currently
+              </h1>
+              </div>
+              
+            </div>
+          </main>
+    
+          <footer className="row center">All right reserved</footer>
+        </div>
+      )
+    }
+  
   }
 }

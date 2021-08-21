@@ -9,6 +9,10 @@ table.cartTable {
   font-family: arial, sans-serif;
   border-collapse: collapse;
   width: 100%;
+  background-color: grey;
+  color: wheat;
+  
+ 
   /* margin-left: 50rem; */
 }
 td,
@@ -18,8 +22,8 @@ th {
   padding: 8px;
 }
 img.cartImage {
-  width: 3rem;
-  height: 5rem;
+  width: 10rem;
+  height: 15rem;
 }
 button.purchaseCartBtn {
   background-color: #4caf50; /* Green */
@@ -41,4 +45,11 @@ button.deleteCartBtn {
   display: inline-block;
   font-size: 12px;
   margin-left: 1rem;
+}
+
+
+h1.empty-data-message{
+  color: white;
+  text-align: center;
+  /* margin-top: 50rem; */
 }
