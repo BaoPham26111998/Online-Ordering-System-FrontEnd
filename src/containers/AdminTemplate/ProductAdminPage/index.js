@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import SidebarAdmin from 'components/SidebarAdmin';
 import Product from 'components/ProductsAdmin';
+import ModalUpdate from 'components/ModalUpdate';
 import '../modal.css';
 import './style.css';
 
 import DataServices from 'services/index.js';
-import ModalUpdate from 'components/ModalUpdate/index';
 
 export default class ProductAdmin extends Component {
     state = {}
@@ -53,6 +53,10 @@ export default class ProductAdmin extends Component {
         }).catch(err => {
             console.log(err);
         })
+
+        alert("Product Added");
+
+        window.location.reload(false);
     }
 
     updateProductById = e => {
@@ -315,9 +319,6 @@ export default class ProductAdmin extends Component {
                                                 <div className="modal-footer" id="modal-footer">
                                                     <button id="btnThemNV" type="submit" className="btn btn-success button-spec" onClick={this.addProduct}>
                                                         Add Product
-                                                    </button>
-                                                    <button id="btnCapNhat" type="submit" className="btn btn-success button-spec" onClick={this.updateProductById}>
-                                                        Update
                                                     </button>
                                                     <button
                                                         id="btnDong"

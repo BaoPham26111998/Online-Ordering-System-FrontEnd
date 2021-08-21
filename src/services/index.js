@@ -1,11 +1,11 @@
 import axios from "axios";
 
-const config = {
-    headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
-    }
-};
+// const config = {
+//     headers: {
+//         "Access-Control-Allow-Origin": "*",
+//         "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
+//     }
+// };
 
 const Items_REST_API_URL = '/items/';
 const Items_Name_URL = '/items/title=';

@@ -26,6 +26,9 @@ export default class SidebarAdmin extends Component {
                             <MenuItem>
                                 <Link className="register" to="/admin/users" href="">Users</Link>
                             </MenuItem>
+                            <MenuItem>
+                                <Link className="register" to="/admin/transactions" href="">Transaction</Link>
+                            </MenuItem>
                         </Menu>
                     </SidebarContent>
                     <SidebarFooter>

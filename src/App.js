@@ -20,6 +20,7 @@ import TransactionPage from "./containers/HomeTemplate/TransactionPage";
 import AdminTemplate from 'containers/AdminTemplate';
 import UserAccount from 'containers/AdminTemplate/UserAccountPage';
 import ProductAdmin from 'containers/AdminTemplate/ProductAdminPage';
+import TransactionAdmin from 'containers/AdminTemplate/TransactionAdminPage';
 
 import axios from 'axios'
 
@@ -80,6 +81,8 @@ class App extends Component {
         <Route path="/admin/products" component={ProductAdmin} />
 
         <Route path="/admin/users" component={UserAccount} />
+
+        <Route path="/admin/transactions" component={TransactionAdmin} />
 
         <Route path="" component={PageNotFound} />
 
