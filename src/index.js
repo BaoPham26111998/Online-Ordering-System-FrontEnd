@@ -14,7 +14,7 @@ import "slick-carousel/slick/slick-theme.css";
 
 import { createStore, applyMiddleware, compose } from "redux";
 import { Provider } from "react-redux";
-import rootReducer from "./redux/reducers";
+// import rootReducer from "./redux/reducers";
 import thunk from "redux-thunk";
 
 import axios from 'axios'
@@ -29,7 +29,12 @@ const store = createStore(
   composeEnhancers(applyMiddleware(thunk)),
 );
 
-axios.defaults.baseURL = 'http://localhost:8080/';
+//Test Database
+// axios.defaults.baseURL = 'http://localhost:8080/';
+
+//Deploy Database
+axios.defaults.baseURL = 'https://sql-database-296616.as.r.appspot.com/';
+
 axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token');
 
 ReactDOM.render(

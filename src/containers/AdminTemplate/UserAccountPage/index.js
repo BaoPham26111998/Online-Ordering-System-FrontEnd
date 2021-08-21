@@ -21,7 +21,6 @@ export default class UserAccount extends Component {
 
     getAllUsers = () => {
         DataServices.getUsers()
-
             .then((response) => {
                 console.log(response.data)
                 this.setState({ users: response.data })
