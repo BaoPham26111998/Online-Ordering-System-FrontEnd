@@ -5,7 +5,11 @@ import ModalUpdate from 'components/ModalUpdate';
 import '../modal.css';
 import './style.css';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faDollarSign, faImage, faMoneyBillAlt } from '../../../../node_modules/@fortawesome/free-solid-svg-icons/index';
+
 import DataServices from 'services/index.js';
+
 
 export default class ProductAdmin extends Component {
     state = {}
@@ -15,29 +19,53 @@ export default class ProductAdmin extends Component {
         this.state = {
             products: []
         }
-
     }
 
     componentDidMount() {
+        this.accessAdmin();
+
         this.getAllProducts();
 
         console.log("componentDidMount")
     }
 
-    componentDidUpdate() {
-        console.log("componentDidUpdate")
-    }
-
+    //Get Product Data
     getAllProducts() {
-        DataServices.getItems().then((response) => {
-            console.log(response.data)
-            this.setState({ products: response.data })
-        }).catch(err => {
-            console.log(err)
-        })
+        DataServices.getItems()
+            .then((response) => {
+                console.log(response.data)
+                this.setState({ products: response.data })
+            }).catch(err => {
+                console.log(err)
+            })
     }
 
-    addProduct = e => {
+    //Access To Admin Control
+    accessAdmin() {
+        var myHeaders = new Headers();
+        myHeaders.append("Authorization", "Bearer " + localStorage.getItem('accessToken'));
+
+        var requestOptions = {
+            method: 'GET',
+            headers: myHeaders,
+            redirect: 'follow'
+        };
+
+        fetch("http://localhost:8080/users", requestOptions)
+            .then(response => {
+                console.log(response)
+                if (response.ok) {
+                    return response.json()
+                }
+
+                throw Error(response.status)
+            })
+            .then(result => console.log(result))
+            .catch(error => console.log('error', error));
+    }
+
+    //Adding Product
+    addProduct = (product) => {
         const data = {
             title: this.title,
             price: this.price,
@@ -49,17 +77,20 @@ export default class ProductAdmin extends Component {
         }
 
         DataServices.postItem(data).then(res => {
-            console.log(res)
+            this.setState(prevState => ({
+                products: prevState.products.concat(product)
+            }
+            ), this.getAllProducts)
         }).catch(err => {
             console.log(err);
         })
 
         alert("Product Added");
 
-        window.location.reload(false);
     }
 
-    updateProductById = e => {
+    //Update Product
+    updateProductById = () => {
         const data = {
             title: this.title,
             price: this.price,
@@ -71,7 +102,7 @@ export default class ProductAdmin extends Component {
         }
 
         DataServices.updateItemById(data).then(res => {
-            console.log(res)
+            console.log(res);
         }).catch(err => {
             console.log(err);
         })
@@ -81,36 +112,38 @@ export default class ProductAdmin extends Component {
         window.location.reload(false);
     }
 
-    deleteProductById(productId) {
+    //Delete Product
+    deleteProductById = (productId, product) => {
         DataServices.deleteItemById(productId).then(res => {
-            console.log(res)
+            this.setState(prevState => ({
+                products: prevState.products.concat(product)
+            }
+            ), this.getAllProducts)
         }).catch(err => {
             console.log(err)
         });
 
         alert("Product Deleted");
-
-        window.location.reload(false);
     }
 
+    //Display Product
     renderHTML = () => {
         if (this.state.products && this.state.products.length > 0) {
             return this.state.products.map((product) => {
                 return (
-                    <div key={product.id} className="col-3  room" >
+                    <div key={product.id} className="col-3 room" >
                         <Product deleteProductById={this.deleteProductById} product={product} />
-                        <ModalUpdate updateProduct={product}/>
+                        <ModalUpdate updateProduct={product} />
                     </div>
                 );
             });
         };
     };
 
-    componentWillUnmount() {
-        console.log("componentWillUnmount")
-    }
-
     render() {
+        const image = <FontAwesomeIcon icon={faImage} />
+        const price = <FontAwesomeIcon icon={faDollarSign} />
+        const soldQty = <FontAwesomeIcon icon={faMoneyBillAlt} />
         return (
             <>
                 <div className="content">
@@ -118,8 +151,8 @@ export default class ProductAdmin extends Component {
                     <div className="right-content">
                         {/* Page Content Holder */}
                         <div id="content">
-                            <div className="container">
-                                <div className="card text-center">
+                            <div className="container ">
+                                <div className="card text-center list-product-outside">
                                     {/* Header */}
                                     <div className="card-header myCardHeader">
                                         <div className="row">
@@ -130,7 +163,7 @@ export default class ProductAdmin extends Component {
                                             </div>
                                             <div className="col-md-6 text-right">
                                                 <button
-                                                    className="btn btn-primary button-spec"
+                                                    className="btn btn-primary button-spec button-add-product"
                                                     id="btnThem"
                                                     data-toggle="modal"
                                                     data-target="#myModal"
@@ -162,7 +195,7 @@ export default class ProductAdmin extends Component {
                                         </div>
                                     </div>
 
-                                    <div className="row center">
+                                    <div className="row center product-outside">
                                         {this.renderHTML()}
                                     </div>
 
@@ -180,12 +213,12 @@ export default class ProductAdmin extends Component {
                                     <div className="modal fade" id="myModal">
                                         <div className="modal-dialog">
                                             <div className="modal-content">
-                                                <header className="head-form mb-0 bg-white">
-                                                    <h2 id="header-title">Product</h2>
+                                                <header className="head-form mb-0 bg-white ">
+                                                    <h2 id="header-title">ADD PRODUCT</h2>
                                                 </header>
                                                 {/* Modal Header */}
                                                 <div className="modal-body">
-                                                    <form role="form" onSubmit={this.handleSubmit}>
+                                                    <form onSubmit={this.handleSubmit}>
                                                         <div className="form-group">
                                                             <div className="input-group">
                                                                 <div className="input-group-prepend">
@@ -208,7 +241,7 @@ export default class ProductAdmin extends Component {
                                                             <div className="input-group">
                                                                 <div className="input-group-prepend">
                                                                     <span className="input-group-text">
-                                                                        <i className="fa fa-address-book" />
+                                                                        {price}
                                                                     </span>
                                                                 </div>
                                                                 <input
@@ -244,7 +277,7 @@ export default class ProductAdmin extends Component {
                                                             <div className="input-group">
                                                                 <div className="input-group-prepend">
                                                                     <span className="input-group-text">
-                                                                        <i className="fa fa-key" />
+                                                                        <i className="fa fa-address-book" />
                                                                     </span>
                                                                 </div>
                                                                 <input
@@ -280,7 +313,7 @@ export default class ProductAdmin extends Component {
                                                             <div className="input-group">
                                                                 <div className="input-group-prepend">
                                                                     <span className="input-group-text">
-                                                                        <i className="fa fa-key" />
+                                                                        {soldQty}
                                                                     </span>
                                                                 </div>
                                                                 <input
@@ -298,7 +331,7 @@ export default class ProductAdmin extends Component {
                                                             <div className="input-group">
                                                                 <div className="input-group-prepend">
                                                                     <span className="input-group-text">
-                                                                        <i className="fa fa-key" />
+                                                                        {image}
                                                                     </span>
                                                                 </div>
                                                                 <input
@@ -312,18 +345,17 @@ export default class ProductAdmin extends Component {
                                                             </div>
                                                             <span className="sp-mess" id="messImage" />
                                                         </div>
-
                                                     </form>
                                                 </div>
                                                 {/* Modal footer */}
                                                 <div className="modal-footer" id="modal-footer">
-                                                    <button id="btnThemNV" type="submit" className="btn btn-success button-spec" onClick={this.addProduct}>
+                                                    <button id="btnThemNV" type="submit" className="btn btn-success button-spec button-add-close" onClick={this.addProduct}>
                                                         Add Product
                                                     </button>
                                                     <button
                                                         id="btnDong"
                                                         type="submit"
-                                                        className="btn btn-danger button-spec"
+                                                        className="btn btn-danger button-spec button-add-close"
                                                         data-dismiss="modal"
                                                     >
                                                         Close

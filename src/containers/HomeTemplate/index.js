@@ -1,11 +1,9 @@
 import React, { Component } from 'react'
 import './homeTemplate.css';
 
-
 import NavbarHome from 'components/NavbarHome'
 import ProductHome from 'components/ProductsHome';
 import SearchBar from 'components/Search';
-
 
 export default class HomeTemplate extends Component {
 

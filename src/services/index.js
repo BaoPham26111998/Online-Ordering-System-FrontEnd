@@ -1,18 +1,13 @@
 import axios from "axios";
 
-// const config = {
-//     headers: {
-//         "Access-Control-Allow-Origin": "*",
-//         "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
-//     }
-// };
-
 const Items_REST_API_URL = '/items/';
 const Items_Name_URL = '/items/title=';
 const Items_Genre_URL = '/items/genre=';
 
 const Users_REST_API_URL = '/users';
 const Users_Register_URL = '/register';
+
+const Admin_Register_URL = '/register/admin'
 
 const Orders_GET_API_URL = '/orders';
 const Orders_Delete_API_URL = '/order/';
@@ -45,7 +40,7 @@ class DataServices {
         gameName.replace(" ", "%20");
         return axios.get(Items_Name_URL + gameName);
     }
-    
+
     getItemByGerne(gameGerne) {
         // gameGerne.replace(" ", "%20");
         return axios.get(Items_Genre_URL + gameGerne);
@@ -64,22 +59,27 @@ class DataServices {
         return axios.post(Users_Register_URL, data);
     }
 
-    // Order Axios
-    postOrder(data){
-        return axios.post(Orders_GET_API_URL,data)
+    postAdmin(data) {
+        return axios.post(Admin_Register_URL, data);
     }
-    getAllOrers(){
+
+    // Order Axios
+    postOrder(data) {
+        return axios.post(Orders_GET_API_URL, data)
+    }
+    getAllOrers() {
         return axios.get(Orders_GET_API_URL)
     }
-    deleteOrderById(orderId){
+    deleteOrderById(orderId) {
         return axios.delete(Orders_Delete_API_URL + orderId)
     }
 
-    updateOrderById(orderId,data){
-        // console.log(Orders_Delete_API_URL + orderId)
-        return axios.put(Orders_Delete_API_URL + orderId , data)
+    updateOrderById(orderId, data) {
+        console.log(Orders_Delete_API_URL + orderId)
+        return axios.put(Orders_Delete_API_URL + orderId, data)
     }
 
+    
 }
 
 export default new DataServices();

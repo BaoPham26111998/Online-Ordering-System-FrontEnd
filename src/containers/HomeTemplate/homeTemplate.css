@@ -10,7 +10,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 #root {
-  height: 100%;
+  height: 100%; 
 }
 
 /* Layout */
@@ -106,8 +106,8 @@ a.signin:hover {
 /* Image */
 
 img.medium {
-  height: 30rem;
-  width: 25rem;
+  height: 25rem;
+  width: 35rem;
   border-radius: 0.5rem;
 }
 /* img:hover+span{
@@ -121,8 +121,8 @@ img.medium {
 	transition: .3s ease-in-out;
 }
 .hover01 figure:hover img {
-	-webkit-transform: scale(1.15);
-	transform: scale(1.15);
+	-webkit-transform: scale(1.1);
+	transform: scale(1.1);
 }
 
 /* Card */
