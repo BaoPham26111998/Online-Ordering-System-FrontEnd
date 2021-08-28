@@ -9,93 +9,96 @@ export default class TransactionPage extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      userId: 302,  
+      userId: 302,
       products: [],
       cartId: 0,
     }
   }
-componentDidMount(){
+  componentDidMount() {
     DataServices.getAllOrers()
-  .then(res => {
-    // console.log(res.data)
-    this.setState({ products: res.data });
-  })
-  .catch(err => console.log(err));
-}
+      .then(res => {
+        // console.log(res.data)
+        this.setState({ products: res.data });
+      })
+      .catch(err => console.log(err));
+  }
 
-deleteCart = e => {
-  const orederId = e.target.value
-  DataServices.deleteOrderById(orederId)
-  .then(res => {
-    console.log(res.data);
-    this.componentDidMount();
-    window.alert("Product have been remove from your cart");
-  })
-  .catch(err => console.log(err));
-}
+  deleteCart = e => {
+    const orederId = e.target.value
+    DataServices.deleteOrderById(orederId)
+      .then(res => {
+        console.log(res.data);
+        this.componentDidMount();
+        window.alert("Product have been remove from your cart");
+      })
+      .catch(err => console.log(err));
+  }
 
-  render(){
+  render() {
     const products = this.state.products
     const user = (products.filter((u) => u.user.id === 302))
     const userCartProducts = (user.filter((i) => i.status === "Paid"))
     // console.log(userCartProducts.length)
     console.log(userCartProducts.map((i) => i.item))
 
-  return (
-    <div className="grid-container">
-      <NavbarHome user={this.props.user} setUser={this.props.setUser} />
-      <main>
-        <div className="background">
 
-          <div className="productDetail-container">
-            <div className="cartTableContainer">
-              <h1 className="CartPage">My Cart</h1>
-              <table className="cartTable">
-                <tr>
-                  <th>id</th>
-                  <th>image</th>
-                  <th>name</th>
-                  <th>quantity</th>
-                  <th>total price</th>
-                  <th>purchase day</th>
-                </tr>
-                {/*CART Product component */}
+    return (
+      <div className="grid-container">
+        <NavbarHome user={this.props.user} setUser={this.props.setUser} />
+        <main>
+          <div className="background">
 
-                {userCartProducts.map(product => (
-                 <tr key = {product.item.id}>
-             <td>
-                 {product.item.id}
-             </td>
-             <td>
-                 <a href={`/product/${product.item.id}`}>
-                     <img
-                         className="cartImage"
-                         src={product.item.img}
-                         alt={product.item.title}
-                     />
-                 </a>
- 
-             </td>
-             <td>
-                 <a href={`/product/${product.item.id}`}>{product.item.title}</a>
- 
-             </td>
-             <td>{product.quantity}</td>
-             <td>
-                 {product.total}$
-             </td>
-             <td>{product.purchaseTime}</td>
-         </tr>
-                ))
-                }
-              </table>
+            <div className="productDetail-container">
+              <div className="cartTableContainer">
+                <h1 className="CartPage">Transaction history</h1>
+                <table className="cartTable">
+                  <tr>
+                    <th className="cart-table-th">Id</th>
+                    <th className="cart-table-th">Image</th>
+                    <th className="cart-table-th">Name</th>
+                    <th className="cart-table-th">Quantity</th>
+                    <th className="cart-table-th">Total price</th>
+                    <th className="cart-table-th">Purchase day</th>
+                  </tr>
+                  {/*CART Product component */}
+
+                  {userCartProducts.map(product => (
+                    <tr key={product.item.id}>
+                      <td className="cart-table-td">
+                        {product.item.id}
+                      </td>
+                      <td className="cart-table-td">
+                        <div className="hover02">
+                          <a href={`/product/${product.item.id}`}>
+                            <figure><img
+                              className="cartImage"
+                              src={product.item.img}
+                              alt={product.item.title}
+                            /></figure>
+                          </a>
+                        </div>
+
+                      </td>
+                      <td className="cart-table-td">
+                        <a href={`/product/${product.item.id}`}>{product.item.title}</a>
+
+                      </td>
+                      <td className="cart-table-td">{product.quantity}</td>
+                      <td className="cart-table-td">
+                        {product.total}$
+                      </td>
+                      <td className="cart-table-td">{product.purchaseTime}</td>
+                    </tr>
+                  ))
+                  }
+                </table>
+              </div>
             </div>
           </div>
-        </div>
-      </main>
+        </main>
 
-      <footer className="row center">All right reserved</footer>
-    </div>
-  )
+        <footer className="row center">All right reserved</footer>
+      </div>
+    )
   }
 }

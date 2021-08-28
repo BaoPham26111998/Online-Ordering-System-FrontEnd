@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import ModalUpdate from "components/ModalUpdate"
+// import ModalUpdate from "components/ModalUpdate"
 import './style.css'
 
 export default class Product extends Component {

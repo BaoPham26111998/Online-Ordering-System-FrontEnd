@@ -10,8 +10,7 @@
 .room {
   width: 210px;
   height: 210px;
-  margin-bottom: 70px;
-  /* position:absolute; */
+  margin-bottom: 80px;
 }
 
 .ei98_95_17_19 {
@@ -37,7 +36,6 @@
   top: 0px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  /* background-image:url("https://d1as2iufift1z3.cloudfront.net/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBbEt3IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--ec8b227116a48ffbadb5fe2783a9a76609192011/Banner%20Update%20Sept%202021.png?proxy=true"); */
   background-repeat: no-repeat;
   background-size: cover;
 }

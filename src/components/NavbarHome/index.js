@@ -1,83 +1,101 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, Redirect, NavLink } from 'react-router-dom';
 
 import '../../containers/HomeTemplate/homeTemplate.css'
 import Navbar from 'components/Navbar';
-import { ReportGmailerrorred } from '../../../node_modules/@material-ui/icons/index';
 
+import { fakeAuth } from 'services/auth';
 
 export default class NavbarHome extends Component {
     constructor(props) {
         super(props)
         this.state = {
-          userId: 302,
-          user: "tinskin56@gmail.com",
+            isLogin: localStorage.getItem('accessToken') != null,
+            userRole: localStorage.getItem("username"),
+            user: []
         }
-      }
+    }
 
-    handleLogOut = () => {
-        localStorage.clear();
-        this.props.setUser(null);
+    loadData = () => {
+        var myHeaders = new Headers();
+        myHeaders.append("Authorization", "Bearer " + localStorage.getItem('accessToken'));
+
+        var requestOptions = {
+            method: 'GET',
+            headers: myHeaders,
+            redirect: 'follow'
+        };
+
+        fetch("https://online-ordering-system-323618.as.r.appspot.com/user/name/" + localStorage.getItem('username'), requestOptions)
+            .then(response => (
+                response.text()
+            ))
+            .then(result => (
+                this.setState({
+                    user: result
+                })
+            ))
+            .catch(error => (
+                console.log('error', error)
+            ));
+    }
+
+    logout = (e) => {
+        fakeAuth.signout(() => {
+            localStorage.removeItem("accessToken")
+            localStorage.removeItem("username")
+            this.setState({
+                isLogin: false
+            })
+        })
+
+        alert("Logout success")
     }
 
     render() {
-        let nav_button;
-        if (this.props.user) {
-            nav_button = (
-                <header className="homepage-header">
-                <div className="header-row">
-                    <div>
-                        <Link className="brand" to="/" href="index.html">Need A Team Name Gaming </Link>
-                    </div>
-                    <div>
-                        <h3>{this.props.user.email}</h3>
-                        <Link className="register" to="/login" href="Register.html" onClick={this.handleLogOut}>Logout</Link>
-                    </div>
-                </div>
-                <div>
-                    <Navbar></Navbar>
-                </div>
-                </header>
-            )
+        console.log(this.state.user)
 
-        } else {
-            nav_button = (
+        if (this.state.isLogged === false) {
+            return <Redirect to={'/login'} />
+        }
+
+        if (this.state.isLogin === true) {
+            return (
                 <header className="homepage-header">
                     <div className="header-row">
-                <div>
-                    <Link className="brand" to="/" href="index.html">Need A Team Name Gaming </Link>
-                </div>
-                <div>
-                    <Link className="register" to="/register" href="Register.html">Register</Link>
-                    <Link className="signin" to="/login" href="signin.html">Login</Link>
-                </div>
-            </div>
-            <div>
-            <Navbar></Navbar>
-            </div>
-            </header>
-                
+                        <div>
+                            <Link className="brand" to="/" href="index.html">SCP Gaming </Link>
+                        </div>
+                        <div>
+                            <h3>Username</h3>
+                            <Link className="register" to="/login" href="Register.html" onClick={this.logout}>Logout</Link>
+                        </div>
+                    </div>
+                    <div>
+                        <NavLink className='userPageNavLink' to='/account' >
+                            Account
+                        </NavLink>
+                        <Navbar></Navbar>
+                    </div>
+                </header>
             )
         }
 
         return (
             <header className="homepage-header">
                 <div className="header row">
-                {/* {nav_button} */}
-                <div>
-                    <Link className="brand" to="/" href="index.html">Need A Team Name Gaming </Link>
-                </div>
-                <div>
-                    <Link className="register" to="/register" href="Register.html">Register</Link>
-                    <Link className="signin" to="/login" href="signin.html">Login</Link>
+                    <div>
+                        <Link className="brand" to="/" href="index.html">SCP Gaming </Link>
                     </div>
-                    
+                    <div>
+                        <Link className="register" to="/register" href="Register.html">Register</Link>
+                        <Link className="signin" to="/login" href="signin.html">Login</Link>
+                    </div>
                 </div>
                 <div>
-                <Navbar></Navbar>
-                </div>         
+                    <Navbar></Navbar>
+                </div>
             </header>
-
         )
     }
 }

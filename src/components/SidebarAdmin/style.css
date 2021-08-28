@@ -1,3 +1,19 @@
 .name_admin{
     font-size: 23px;
 }
+
+.logout-outside{
+    text-align: center;
+}
+
+.logout-button{
+    font-size: 25px;
+    color: gray;
+    background-color: transparent;
+    border: none;
+}
+
+.logout-button:hover{
+    color: white;
+    font-size: 30px;
+}
