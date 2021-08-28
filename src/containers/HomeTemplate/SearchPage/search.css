@@ -23,7 +23,6 @@ select.form-control {
   font-weight: bold;
   font-size: 1rem;
   margin-left: 1rem;
-  
 }
 
 input.w3-input {
@@ -105,8 +104,7 @@ button.cancel-search:hover {
   border-top: 10px solid white;
 }
 
-
-input.info-border.bg-dark.text-white.form-control{
+input.info-border.bg-dark.text-white.form-control {
   margin-top: 3rem;
   height: 25px;
   margin-left: 0.5rem;
@@ -115,29 +113,29 @@ input.info-border.bg-dark.text-white.form-control{
 button.gerne-button {
   border-color: white;
 }
-button#dropdown-split-basic.dropdown-toggle.dropdown-toggle-split.btn.btn-Primmary{
+button#dropdown-split-basic.dropdown-toggle.dropdown-toggle-split.btn.btn-Primmary {
   border-color: #fff;
   color: white;
 }
 
-button.btn.btn-Secondary{
+button.btn.btn-Secondary {
   color: white;
 }
-.dropdown.btn-group{
+.dropdown.btn-group {
   margin-top: 3rem;
   margin-right: 1rem;
 }
 
-.btn.btn-sm.btn-outline-primary{
+.btn.btn-sm.btn-outline-primary {
   width: 5rem;
 }
 
-th.search-th{
-  font-size: 15PX;
+th.search-th {
+  font-size: 15px;
   text-align: center;
 }
 
-td.search-td{
+td.search-td {
   font-size: 13px;
   text-align: center;
 }

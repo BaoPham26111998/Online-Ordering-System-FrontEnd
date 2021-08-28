@@ -11,3 +11,14 @@
   flex-direction: column;
   overflow-y: auto;
 }
+
+.product-outside{
+  padding-left: 50px;
+}
+
+.text-left{
+  font-size: 23px;
+}
+
+
+

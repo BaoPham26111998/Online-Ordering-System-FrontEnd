@@ -1,6 +1,8 @@
-import Product from 'components/ProductsAdmin/index';
 import React, { Component } from 'react'
 import DataServices from 'services/index.js';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faDollarSign, faImage, faMoneyBillAlt } from '../../../node_modules/@fortawesome/free-solid-svg-icons/index';
 
 export default class ModalUpdate extends Component {
     handleSubmit = (product_id, e) => {
@@ -25,12 +27,17 @@ export default class ModalUpdate extends Component {
         window.location.reload(false);
     }
 
-    updateProductById (product_id) {
+    updateProductById(product_id) {
         this.handleSubmit(product_id);
     }
 
     render() {
         const { updateProduct } = this.props;
+
+        //Font Awesome Icon
+        const image = <FontAwesomeIcon icon={faImage} />
+        const price = <FontAwesomeIcon icon={faDollarSign} />
+        const soldQty = <FontAwesomeIcon icon={faMoneyBillAlt} />
 
         var id_modal = "modalUpdate" + updateProduct.id;
 
@@ -43,7 +50,7 @@ export default class ModalUpdate extends Component {
                         </header>
                         {/* Modal Header */}
                         <div className="modal-body">
-                            <form className="form-modal" role="form" onSubmit={() => this.handleSubmit} >
+                            <form className="form-modal" onSubmit={() => this.handleSubmit} >
                                 <div className="form-group">
                                     <div className="input-group">
                                         <div className="input-group-prepend">
@@ -66,7 +73,7 @@ export default class ModalUpdate extends Component {
                                     <div className="input-group">
                                         <div className="input-group-prepend">
                                             <span className="input-group-text">
-                                                <i className="fa fa-address-book" />
+                                                {price}
                                             </span>
                                         </div>
                                         <input
@@ -102,7 +109,7 @@ export default class ModalUpdate extends Component {
                                     <div className="input-group">
                                         <div className="input-group-prepend">
                                             <span className="input-group-text">
-                                                <i className="fa fa-key" />
+                                                <i className="fa fa-address-book" />
                                             </span>
                                         </div>
                                         <input
@@ -138,7 +145,7 @@ export default class ModalUpdate extends Component {
                                     <div className="input-group">
                                         <div className="input-group-prepend">
                                             <span className="input-group-text">
-                                                <i className="fa fa-key" />
+                                                {soldQty}
                                             </span>
                                         </div>
                                         <input
@@ -156,7 +163,7 @@ export default class ModalUpdate extends Component {
                                     <div className="input-group">
                                         <div className="input-group-prepend">
                                             <span className="input-group-text">
-                                                <i className="fa fa-key" />
+                                                {image}
                                             </span>
                                         </div>
                                         <input
@@ -170,8 +177,6 @@ export default class ModalUpdate extends Component {
                                     </div>
                                     <span className="sp-mess" />
                                 </div>
-
-                                {/* <input type="submit" value="Update"></input> */}
                             </form>
                         </div>
                         {/* Modal footer */}
@@ -179,7 +184,7 @@ export default class ModalUpdate extends Component {
                             <button type="submit" className="btn btn-success button-spec" onClick={() => this.updateProductById(updateProduct.id)}>
                                 Update
                             </button>
-                            
+
                             <button
                                 type="submit"
                                 className="btn btn-danger button-spec"
@@ -187,7 +192,6 @@ export default class ModalUpdate extends Component {
                             >
                                 Close
                             </button>
-
                         </div>
                     </div>
                 </div>

@@ -1,74 +1,116 @@
 import React, { Component } from 'react'
-import axios from "axios";
 import { Link, Redirect } from 'react-router-dom';
+
+// import NavbarHome from 'components/NavbarHome';
+import { fakeAuth } from 'services/auth';
 
 export default class LogIn extends Component {
     state = {
-
+        redirected: false
     }
 
-    handleSubmit = e => {
-        e.preventDefault(); 
-
-        const data = {
-            email: this.email,
-            passsword: this.password,
+    constructor(props) {
+        super(props)
+        this.state = {
+            email: "",
+            password: "",
+            isLogin: localStorage.getItem("accessToken") != null,
+            userRole: localStorage.getItem("username"),
         }
 
-        axios.post("login", data).then(res=>{
-            console.log(res);
+        this.login = this.login.bind(this);
+    }
 
-            localStorage.setItem('token', res.data.token)
+    setParams = (event) => {
+        this.setState({ [event.target.name]: event.target.value })
+    }
 
-            this.setState({
-                loggedIn: true,
+    login = (e) => {
+        e.preventDefault();
 
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
+        var urlencoded = new URLSearchParams();
+        urlencoded.append("email", this.state.email);
+        urlencoded.append("password", this.state.password);
+
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: urlencoded,
+            redirect: 'follow'
+        };
+
+        // https://online-ordering-system-323618.as.r.appspot.com/auth/login
+
+        fetch("http://localhost:8080/auth/login", requestOptions)
+            .then(response => {
+                console.log(response)
+                if (response.ok) {
+                    return response.json()
+                }
+
+                throw Error(response.status)
             })
+            .then(result => {
+                console.log(result)
+                localStorage.setItem("accessToken", result.accessToken)
+                localStorage.setItem("username", result.username)
+                // this.setState({ isLogin: true })
 
-            this.props.setUser(res.data.user);
+                fakeAuth.authenticate(() => {
+                    this.setState(() => ({
+                        redirected: true
+                    }))
+                })
+            })
+            .catch(error => {
+                console.log('error', error)
+                alert("Username or Password is wrong.")
+            });
+    }
 
-        })
+    onLogoutSuccess = () => {
+        this.setState({ isLogin: false })
     }
 
     render() {
-        if(this.state.loggedIn){
-            return <Redirect to={'/'}/>
+        const { redirected } = this.state
+
+        if ((redirected === true) && (this.state.userRole === 'user_admin')) {
+            return <Redirect to={'/admin'} />
         }
 
-        let error = '';
-
-        if(this.state.mess){
-            error = (
-                <div className="alert alert-danger" role="alert">
-                    {this.state.mess}
-                </div>
-            )
-        }
+        // if (this.state.isLogin && (this.state.userRole !== "user_admin")) {
+        //     return <Redirect to={'/'} />
+        // }
 
         return (
-            <div className="auth-wrapper">
-                <div className="auth-inner">
-                    <form onSubmit={this.handleSubmit}>
-                        {error}
-                        <h2>Log In</h2>
-
-                        <div className="form-group">
-                            <label>Email</label>
-                            <input type="email" className="form-control" placeholder="Email" onChange={e => this.email = e.target.value} />
-                        </div>
-
-                        <div className="form-group">
-                            <label>Pasword</label>
-                            <input type="password" className="form-control" placeholder="Password" onChange={e => this.password = e.target.value} />
-                        </div>
-
-                        <button className="btn btn-primary btn-block">Log In</button>
-                        <p className="forgot-password text-right">
-                            <Link to={'/forgot'}>Forgot Password?</Link>
-                        </p>
-                    </form>
+            <>
+                <div className="auth-wrapper">
+                    <div className="auth-inner">
+                        <form>
+                            <h2>Log In</h2>
+                            <div className="form-group">
+                                <label>Email</label>
+                                <input type="email" name="email" className="form-control" placeholder="Email" onChange={this.setParams} />
+                            </div>
+                            <div className="form-group">
+                                <label>Pasword</label>
+                                <input type="password" name="password" className="form-control" placeholder="Password" onChange={this.setParams} />
+                            </div>
+                            <button className="btn btn-primary btn-block" type="button" onClick={this.login}>Log In</button>
+                            <p className="forgot-password text-right">
+                                <Link to={'/forgot'}>Forgot Password?</Link>
+                            </p>
+                            <p className="forgot-password text-right">
+                                <Link to={'/register'}>Sign Up</Link>
+                            </p>
+                        </form>
+                    </div>
                 </div>
-            </div>
+            </>
         )
     }
 }

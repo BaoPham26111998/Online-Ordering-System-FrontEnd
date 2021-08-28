@@ -6,6 +6,8 @@ import PageNotFound from './containers/PageNotFound';
 import { connect } from "react-redux";
 import { Route, Switch, withRouter } from "react-router-dom";
 
+import { AdminProtectedRoute } from 'routes/protected.route';
+
 import HomeTemplate from "./containers/HomeTemplate";
 import LogIn from "./containers/LogInPage";
 import Register from "./containers/RegisterPage";
@@ -22,68 +24,53 @@ import UserAccount from 'containers/AdminTemplate/UserAccountPage';
 import ProductAdmin from 'containers/AdminTemplate/ProductAdminPage';
 import TransactionAdmin from 'containers/AdminTemplate/TransactionAdminPage';
 
-import axios from 'axios'
-
 class App extends Component {
   state = {}
 
-  componentDidMount = () => {
-    const config = {
-      headers: {
-        Authorization: 'Bearer ' + localStorage.getItem('token')
-      }
+  constructor(props){
+    super(props);
+    this.state = {
     }
-
-    axios.get('user', config).then(
-      res => {
-        console.log(res)
-
-        this.setUser(res.data)
-      },
-      err => {
-        console.log(err)
-      }
-    )
-  }
-
-  setUser = user => {
-    this.setState({
-      user: user
-    })
   }
 
   render() {
     return (
       <Switch Switch >
 
-        <Route exact path="/" component={() => <HomeTemplate user={this.state.user} setUser={this.setUser} />} />
-
+        {/* Home Template */}
+        <Route exact path="/" component={() => <HomeTemplate/>} />
         <Route path="/transaction" component={TransactionPage}></Route>
-
         <Route path="/cart" component={CartPage}></Route>
-
-        <Route path="/account" component={AccountPage}></Route>
-
         <Route path="/search" component={SearchPage}></Route>
-        
         <Route path="/product/:id" component={ProductDetail}></Route>
 
-        <Route exact path="/admin" component={AdminTemplate} />
+        {/* Log In Page */}
+        <Route path="/login" component={() => <LogIn/>} />
 
-        <Route path="/login" component={() => <LogIn ysetUser={this.setUser} />} />
-
+        {/* Register Page */}
         <Route path="/register" component={Register} />
 
+        {/* User Profile Page */}
+        <Route path="/account" component={AccountPage}/>
+
+        {/* Admin Template */}
+        <AdminProtectedRoute exact path="/admin" component={AdminTemplate} />
+        <AdminProtectedRoute path="/admin/products" component={ProductAdmin} />
+        <AdminProtectedRoute path="/admin/users" component={UserAccount} />
+        <AdminProtectedRoute path="/admin/transactions" component={TransactionAdmin} />
+
+        {/* <Route exact path="/admin" component={AdminTemplate} />
+        <Route path="/admin/products" component={ProductAdmin} />
+        <Route path="/admin/users" component={UserAccount} />
+        <Route path="/admin/transactions" component={TransactionAdmin} /> */}
+
+        {/* Forgot Password Page */}
         <Route path="/forgot" component={Forgot} />
 
+        {/* Reset Password Page */}
         <Route path="/reset/:id" component={Reset} />
 
-        <Route path="/admin/products" component={ProductAdmin} />
-
-        <Route path="/admin/users" component={UserAccount} />
-
-        <Route path="/admin/transactions" component={TransactionAdmin} />
-
+        {/* Page Not Found */}
         <Route path="" component={PageNotFound} />
 
       </Switch >

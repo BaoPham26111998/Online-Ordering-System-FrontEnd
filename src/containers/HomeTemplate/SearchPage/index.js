@@ -35,7 +35,7 @@ class SearchPage extends Component {
     };
   }
 
- 
+
 
   sortDataByPrice = () => {
     setTimeout(() => {
@@ -89,7 +89,7 @@ class SearchPage extends Component {
   genreChange = (event) => {
     this.setState({
       [event.target.name]: event.target.attributes[0].value,
-      
+
     })
     ItemService.getItemByGerne(event.target.attributes[0].value)
       .then(res => {
@@ -101,33 +101,31 @@ class SearchPage extends Component {
 
 
   render() {
-    const { products, searchText,  sortDir } = this.state;
+    // const { products, searchText, sortDir } = this.state;
+    const { products, searchText } = this.state;
     const genres = [...new Set(products.map(product => product.genre))]
-    
 
-    const sortedPrice = products.sort( ( d, e) =>{
-      const isReversedPrice = (sortDir === "asc") ? 1 : -1;
-      return isReversedPrice * (d.price-e.price)
-    })
-    
-   
+    // const sortedPrice = products.sort((d, e) => {
+    //   const isReversedPrice = (sortDir === "asc") ? 1 : -1;
+    //   return isReversedPrice * (d.price - e.price)
+    // })
 
     return (
       <div className="grid-container">
-        <NavbarHome user={this.props.user} setUse={this.props.setUser}/>
+        <NavbarHome user={this.props.user} setUse={this.props.setUser} />
 
         <main>
           <Card className={"border border-dark bg-dark text-white"}>
             <Card.Header>
-              <div style={{ float: "left", fontSize: "25px" ,fontWeight: "bold" }}>
+              <div style={{ float: "left", fontSize: "25px", fontWeight: "bold" }}>
                 <FontAwesomeIcon icon={faList} /> Game List
               </div>
               <div style={{ float: "right" }}>
                 <InputGroup size="sm">
 
                   <Dropdown as={ButtonGroup}>
-                    <Button className = "gerne-button"
-                            variant="Secondary">Genre</Button>
+                    <Button className="gerne-button"
+                      variant="Secondary">Genre</Button>
 
                     <Dropdown.Toggle split variant="Primmary" id="dropdown-split-basic" />
 
@@ -157,7 +155,7 @@ class SearchPage extends Component {
                   />
                   <InputGroup.Append>
                     <Button
-                      className = "apply-search"
+                      className="apply-search"
                       variant="outline-info"
                       type="button"
                       onClick={this.searchData}
@@ -165,7 +163,7 @@ class SearchPage extends Component {
                       <FontAwesomeIcon icon={faSearch} />
                     </Button>
                     <Button
-                      className = "cancel-search"
+                      className="cancel-search"
                       size="sm"
                       variant="outline-danger"
                       type="button"
@@ -181,24 +179,24 @@ class SearchPage extends Component {
               <Table bordered hover striped variant="dark">
                 <thead>
                   <tr>
-                    <th className = "search-th">Id</th>
-                    <th className = "search-th">Title</th>
-                    <th className = "search-th">In Stock</th>
-                    <th className = "search-th" 
-                        onClick={this.sortDataByPrice}>
-                    Price{" "}
-                    <div
-                      className={
-                        this.state.sortDir === "asc"
-                          ? "arrow arrow-up"
-                          : "arrow arrow-down"
-                      }
-                    >
-                      {" "}
-                    </div>
-                  </th>
-                    <th className = "search-th">Genre</th>
-                    <th className = "search-th">Actions</th>
+                    <th className="search-th">Id</th>
+                    <th className="search-th">Title</th>
+                    <th className="search-th">In Stock</th>
+                    <th className="search-th"
+                      onClick={this.sortDataByPrice}>
+                      Price{" "}
+                      <div
+                        className={
+                          this.state.sortDir === "asc"
+                            ? "arrow arrow-up"
+                            : "arrow arrow-down"
+                        }
+                      >
+                        {" "}
+                      </div>
+                    </th>
+                    <th className="search-th">Genre</th>
+                    <th className="search-th">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -209,8 +207,8 @@ class SearchPage extends Component {
                   ) : (
                     products.map((product) => (
                       <tr key={product.id}>
-                        <td className = "search-td">{product.id}</td>
-                        <td className = "search-td">
+                        <td className="search-td">{product.id}</td>
+                        <td className="search-td">
                           <Image
                             src={product.img}
                             roundedCircle
@@ -219,19 +217,19 @@ class SearchPage extends Component {
                           />{" "}
                           {product.title}
                         </td>
-                        <td className = "search-td">{product.inStock}</td>
-                        <td className = "search-td">{product.price}</td>
-                        <td className = "search-td">{product.genre}</td>
-                        <td className = "search-td">
+                        <td className="search-td">{product.inStock}</td>
+                        <td className="search-td">{product.price}</td>
+                        <td className="search-td">{product.genre}</td>
+                        <td className="search-td">
                           <ButtonGroup>
                             <Link
                               to={"product/" + product.id}
                               className="btn btn-sm btn-outline-primary"
-                              
+
                             >
                               <FontAwesomeIcon icon={faEdit} /><p>View</p>
                             </Link>{" "}
-                            
+
                           </ButtonGroup>
                         </td>
                       </tr>
@@ -241,15 +239,11 @@ class SearchPage extends Component {
               </Table>
             </Card.Body>
           </Card>
-
         </main>
-
         <footer className="row center">All right reserved</footer>
       </div>
     )
   }
-
-
 }
 
 const mapStateToProps = (state) => {
@@ -257,6 +251,5 @@ const mapStateToProps = (state) => {
     productObject: state.product,
   };
 };
-
 
 export default connect(mapStateToProps)(SearchPage);

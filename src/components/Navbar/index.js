@@ -7,17 +7,11 @@ export default function Navbar() {
             <Nav>
                 <Bars />
                 <NavMenu>
-                    <NavLink className='userPageNavLink' to='/account' >
-                        Account
-                    </NavLink>
                     <NavLink className='userPageNavLink' to='/cart' >
                         Cart
                     </NavLink>
                     <NavLink className='userPageNavLink' to='/transaction' >
                         Transaction
-                    </NavLink>
-                    <NavLink className='userPageNavLink' to='/logout' >
-                        Logout
                     </NavLink>
                 </NavMenu>
             </Nav>

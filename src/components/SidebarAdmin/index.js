@@ -1,18 +1,42 @@
 import React, { Component } from 'react'
-import { ProSidebar, Menu, MenuItem, SubMenu, SidebarHeader, SidebarFooter, SidebarContent } from 'react-pro-sidebar';
+import { ProSidebar, Menu, MenuItem, SidebarHeader, SidebarFooter, SidebarContent } from 'react-pro-sidebar';
 import 'react-pro-sidebar/dist/css/styles.css';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import './style.css'
 
+import { fakeAuth } from 'services/auth';
+
 export default class SidebarAdmin extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            isLogged: localStorage.getItem('accessToken') != null
+        }
+    }
+
+    logout = (e) => {
+        fakeAuth.signout(() => {
+            localStorage.removeItem("accessToken")
+            localStorage.removeItem("username")
+            this.setState({
+                isLogged: false
+            })
+        })
+    }
+
     render() {
+        if(this.state.isLogged === false){
+            return <Redirect to={'/login'} />
+        }
+
         return (
             <>
                 <ProSidebar>
                     <SidebarHeader>
                         <div className="admin_logo">
                             <p className="display-4">Welcome to Admin Template</p>
-                            <p className="text-white name_admin">Name Of User</p>
+                            <p className="text-white name_admin">SCP GAMING</p>
                         </div>
                     </SidebarHeader>
                     <SidebarContent>
@@ -32,8 +56,10 @@ export default class SidebarAdmin extends Component {
                         </Menu>
                     </SidebarContent>
                     <SidebarFooter>
-                        <div className="register_admin">
-                            <Link className="register" to="/login" href="Register.html">Logout</Link>
+                        <div className="logout-outside">
+                            <button type="button" className="logout-button" onClick={this.logout.bind(this)}>
+                                Logout
+                            </button>
                         </div>
                     </SidebarFooter>
                 </ProSidebar>

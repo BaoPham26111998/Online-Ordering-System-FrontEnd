@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import SidebarAdmin from 'components/SidebarAdmin';
-import User from 'components/Users';
 import '../modal.css';
 
-import DataServices from 'services/index.js';
+// import DataServices from 'services/index.js';
 
 export default class TransactionAdmin extends Component {
     state = {}
@@ -11,31 +10,38 @@ export default class TransactionAdmin extends Component {
     constructor(props) {
         super(props)
         this.state = {
-          
+
         }
     }
 
     componentDidMount() {
-        this.getAllUsers();
+        // this.getAllUsers();
     }
 
-    getAllUsers = () => {
-        DataServices.getUsers()
+    getAllOrders = () => {
+        var myHeaders = new Headers();
 
-            .then((response) => {
-                console.log(response.data)
-                this.setState({ users: response.data })
-            })
-            .catch(err => console.log(err))
+        var raw = "";
+
+        var requestOptions = {
+            method: 'GET',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
+
+        fetch("http://localhost:8080/orders", requestOptions)
+            .then(response => response.text())
+            .then(result => console.log(result))
+            .catch(error => console.log('error', error));
     }
 
     renderHTML = () => {
         if (this.state.users && this.state.users.length > 0) {
             return this.state.users.map((user) => {
                 return (
-                    <tr key={user.id}>
-                        <User deleteUser={this.deleteUser} user={user} />
-                    </tr>
+                    <>
+                    </>
                 );
             });
         };
@@ -51,7 +57,7 @@ export default class TransactionAdmin extends Component {
                         {/* Page Content Holder */}
                         <div id="content">
                             <div className="container">
-                                <div className="card text-center">
+                                <div className="card text-center list-product-outside">
                                     {/* Header */}
                                     <div className="card-header myCardHeader">
                                         <div className="row">
@@ -86,15 +92,15 @@ export default class TransactionAdmin extends Component {
                                             <thead className="text-primary">
                                                 <tr>
                                                     <th>
-                                                        <span className="">ID Account</span>
+                                                        <span className="">ID Order</span>
                                                         <i className="fa fa-arrow-up" id="SapXepTang" />
                                                         <i className="fa fa-arrow-down" id="SapXepGiam" />
                                                     </th>
-                                                    <th>ID</th>
-                                                    <th>Name</th>
+                                                    <th>Quantity</th>
+                                                    <th>Purchased Time</th>
                                                     <th>Email</th>
-                                                    <th>Role</th>
-                                                    <th>Locked</th>
+                                                    <th>Total</th>
+                                                    <th>Status</th>
                                                     <th>
                                                         <em className="fa fa-cog" />
                                                     </th>

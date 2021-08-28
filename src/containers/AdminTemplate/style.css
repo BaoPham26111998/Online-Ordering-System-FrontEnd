@@ -10,3 +10,19 @@
   text-align: center;
 }
 
+.button-add-product{
+  font-size: 13px!important;
+  padding: 10px 30px!important;
+}
+
+.list-product-outside{
+  border: 2px solid #007bff!important ;
+}
+
+.card-header{
+  border-bottom: 2px solid #007bff!important;
+}
+
+.card-footer{
+  border-top: 2px solid #007bff!important;
+}

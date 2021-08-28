@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import SidebarAdmin from 'components/SidebarAdmin';
-import User from 'components/Users';
+import User from 'components/UsersAdmin';
 import '../modal.css';
+
+import './style.css'
 
 import DataServices from 'services/index.js';
 
@@ -11,33 +13,60 @@ export default class UserAccount extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            users: []
+            users: [],
+            username: '',
+            name: '',
+            email: '',
+            passsword: '',
         }
+
+        this.registerAdmin = this.registerAdmin.bind(this);
     }
 
     componentDidMount() {
         this.getAllUsers();
     }
 
-    getAllUsers = () => {
-        DataServices.getUsers()
-            .then((response) => {
-                console.log(response.data)
-                this.setState({ users: response.data })
-            })
-            .catch(err => console.log(err))
+    //Add New Admin Account
+    registerAdmin = e => {
+        e.preventDefault();
+
+        const data = {
+            username: this.username,
+            name: this.name,
+            email: this.email,
+            passsword: this.password,
+            // confirm_password: this.confirmPassword
+        }
+
+        console.log(data)
+
+        DataServices.postAdmin(data).then((res) => {
+            console.log(res);
+            console.log(data)
+        }).catch(err => {
+            console.log(err);
+            console.log(data)
+        })
+
+        alert("Account Created")
     }
 
-    deleteUser(userId) {
-        DataServices.deleteUser(userId).then(res => {
-            console.log(res)
-        }).catch(err => {
-            console.log(err)
-        });
+    //Get User Data
+    getAllUsers = () => {
+        var myHeaders = new Headers();
+        myHeaders.append("Authorization", "Bearer " + localStorage.getItem('accessTokenq'));
 
-        alert("User Deleted");
+        var requestOptions = {
+            method: 'GET',
+            headers: myHeaders,
+            redirect: 'follow'
+        };
 
-        window.location.reload(false);
+        fetch("http://localhost:8080/users", requestOptions)
+            .then(response => response.text())
+            .then(result => console.log(result))
+            .catch(error => console.log('error', error));
     }
 
     renderHTML = () => {
@@ -62,7 +91,7 @@ export default class UserAccount extends Component {
                         {/* Page Content Holder */}
                         <div id="content">
                             <div className="container">
-                                <div className="card text-center">
+                                <div className="card text-center list-product-outside">
                                     {/* Header */}
                                     <div className="card-header myCardHeader">
                                         <div className="row">
@@ -73,7 +102,7 @@ export default class UserAccount extends Component {
                                             </div>
                                             <div className="col-md-6 text-right">
                                                 <button
-                                                    className="btn btn-primary button-spec"
+                                                    className="btn btn-primary button-spec button-add-product"
                                                     id="btnThem"
                                                     data-toggle="modal"
                                                     data-target="#myModal"
@@ -147,11 +176,11 @@ export default class UserAccount extends Component {
                     <div className="modal-dialog">
                         <div className="modal-content">
                             <header className="head-form mb-0 bg-white">
-                                <h2 id="header-title">Account</h2>
+                                <h2 id="header-title">ADD ADMIN ACCOUNT</h2>
                             </header>
                             {/* Modal Header */}
                             <div className="modal-body">
-                                <form role="form">
+                                <form>
                                     <div className="form-group">
                                         <div className="input-group">
                                             <div className="input-group-prepend">
@@ -220,35 +249,17 @@ export default class UserAccount extends Component {
                                         </div>
                                         <span className="sp-thongbao" id="tbMatKhau" />
                                     </div>
-                                    <div className="form-group">
-                                        <div className="input-group">
-                                            <div className="input-group-prepend">
-                                                <span className="input-group-text">
-                                                    <i className="fa fa-briefcase" />
-                                                </span>
-                                            </div>
-                                            <select className="form-control" id="chucvu">
-                                                <option>Select options</option>
-                                                <option>Admin</option>
-                                                <option>User</option>
-                                            </select>
-                                        </div>
-                                        <span className="sp-thongbao" id="tbChucVu" />
-                                    </div>
                                 </form>
                             </div>
                             {/* Modal footer */}
                             <div className="modal-footer" id="modal-footer">
-                                <button id="btnThemNV" type="button" className="btn btn-success button-spec">
+                                <button id="btnThemNV" type="button" className="btn btn-success button-spec button-add-close" onClick={this.registerAdmin}>
                                     Add Account
-                                </button>
-                                <button id="btnCapNhat" type="button" className="btn btn-success button-spec">
-                                    Update
                                 </button>
                                 <button
                                     id="btnDong"
                                     type="button"
-                                    className="btn btn-danger button-spec"
+                                    className="btn btn-danger button-spec button-add-close"
                                     data-dismiss="modal"
                                 >
                                     Close

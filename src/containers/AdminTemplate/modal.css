@@ -58,6 +58,7 @@ header.header-admin {
   margin: 2% auto 10% auto;
   text-align: center;
 }
+
 /* Login title form form */
 header.header-admin h2 {
   font-size: 250%;
@@ -158,6 +159,30 @@ input:focus {
 .button-spec:hover {
   animation: ani9 0.4s ease-in-out infinite alternate;
 }
+
+.button-add-close {
+  font-size: 15px;
+  padding: 10px 15px !important;
+}
+
+.modal-content {
+  top: 50px !important;
+  border: 2px solid #007bff !important;
+}
+
+.input-group {
+  height: 40px;
+}
+
+.form-control {
+  height: 100% !important;
+}
+
+.modal-content header{
+  margin-top: 10px;
+  color: #007bff;
+}
+
 
 @keyframes ani9 {
   0% {

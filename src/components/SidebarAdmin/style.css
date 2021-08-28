@@ -2,6 +2,18 @@
     font-size: 23px;
 }
 
-.sideBar{
-    background-color: rgba(84, 68, 141, 0.603);
+.logout-outside{
+    text-align: center;
+}
+
+.logout-button{
+    font-size: 25px;
+    color: gray;
+    background-color: transparent;
+    border: none;
+}
+
+.logout-button:hover{
+    color: white;
+    font-size: 30px;
 }
