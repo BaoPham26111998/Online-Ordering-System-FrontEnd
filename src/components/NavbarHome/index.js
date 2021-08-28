@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import '../../containers/HomeTemplate/homeTemplate.css'
 import Navbar from 'components/Navbar';
-import { ReportGmailerrorred } from '../../../node_modules/@material-ui/icons/index';
+// import { ReportGmailerrorred } from '../../../node_modules/@material-ui/icons/index';
 
 
 export default class NavbarHome extends Component {
@@ -35,7 +35,7 @@ export default class NavbarHome extends Component {
                     </div>
                 </div>
                 <div>
-                    <Navbar></Navbar>
+                    {/* <Navbar></Navbar> */}
                 </div>
                 </header>
             )
@@ -53,7 +53,7 @@ export default class NavbarHome extends Component {
                 </div>
             </div>
             <div>
-            <Navbar></Navbar>
+            {/* <Navbar></Navbar> */}
             </div>
             </header>
                 
@@ -74,7 +74,7 @@ export default class NavbarHome extends Component {
                     
                 </div>
                 <div>
-                <Navbar></Navbar>
+                {/* <Navbar></Navbar> */}
                 </div>         
             </header>
 

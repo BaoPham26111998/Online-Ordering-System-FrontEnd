@@ -6,11 +6,21 @@
 .out {
   border: 1px solid black;
 }
-
+div.right-content{
+  background-color: #10182c;
+}
+div.row.center{
+  background-color: rgb(22, 19, 51);
+}
+/* div.card-body{
+  background-color: rgb(25, 23, 48);
+} */
 .room {
   width: 210px;
   height: 210px;
   margin-bottom: 70px;
+  background-color: rgb(22, 19, 51);
+  margin-top: 1rem;
   /* position:absolute; */
 }
 

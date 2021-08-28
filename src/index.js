@@ -30,10 +30,10 @@ const store = createStore(
 );
 
 //Test Database
-// axios.defaults.baseURL = 'http://localhost:8080/';
+// axios.defaults.baseURL = 'http://localhost:8080/'; 
 
 //Deploy Database
-axios.defaults.baseURL = 'https://sql-database-296616.as.r.appspot.com/';
+axios.defaults.baseURL ="https://online-ordering-system-323618.as.r.appspot.com/";
 
 axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token');
 
