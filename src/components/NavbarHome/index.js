@@ -63,19 +63,16 @@ export default class NavbarHome extends Component {
         if (this.state.isLogin === true) {
             return (
                 <header className="homepage-header">
-                    <div className="header-row">
+                    <div className="header row">
                         <div>
                             <Link className="brand" to="/" href="index.html">SCP Gaming </Link>
                         </div>
                         <div>
-                            <h3>Username</h3>
+                            <h3 className="text-light" >Wellcome {this.state.userRole}</h3>
                             <Link className="register" to="/login" href="Register.html" onClick={this.logout}>Logout</Link>
                         </div>
                     </div>
                     <div>
-                        <NavLink className='userPageNavLink' to='/account' >
-                            Account
-                        </NavLink>
                         <Navbar></Navbar>
                     </div>
 
@@ -94,9 +91,6 @@ export default class NavbarHome extends Component {
                         <Link className="register" to="/register" href="Register.html">Register</Link>
                         <Link className="signin" to="/login" href="signin.html">Login</Link>
                     </div>
-                </div>
-                <div>
-                    <Navbar></Navbar>
                 </div>
 
             </header>

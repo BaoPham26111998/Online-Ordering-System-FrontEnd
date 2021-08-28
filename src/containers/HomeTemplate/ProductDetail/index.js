@@ -9,8 +9,10 @@ export default class ProductDetail extends Component {
 
     this.state = {
       itemId: this.props.match.params.id,
-      userId: 302,
-      product: {}
+      product: {},
+      isLogin: localStorage.getItem('accessToken') != null,
+      userRole: localStorage.getItem("username"),
+      user: {}
     }
   }
 
@@ -21,7 +23,32 @@ export default class ProductDetail extends Component {
         this.setState({ product: res.data });
       })
       .catch(err => console.log(err));
+      
+      
+      // Get user info
+      var myHeaders = new Headers();
+      myHeaders.append("Authorization", "Bearer " + localStorage.getItem('accessToken'));
+      var requestOptions = {
+          method: 'GET',
+          headers: myHeaders,
+          redirect: 'follow'
+      };
+
+      fetch("http://localhost:8080/user/name/" + localStorage.getItem('username'), requestOptions)
+          .then(response => (
+              response.text()
+          ))
+          .then(result => (
+              this.setState({
+                  user: result
+              })
+          ))
+          .catch(error => (
+              console.log('error', error)
+          ));
   }
+
+  
 
   addToCart = e => {
     const data = {
@@ -46,7 +73,57 @@ export default class ProductDetail extends Component {
   }
 
   render() {
-    return (
+    const user = this.state.user
+    console.log(user.id)
+    // console.log(user)
+    // const userId = (user.map((u) => u.id))
+    // console.log(userId)
+    
+    
+    if (this.state.userRole === null){
+      return(
+          <div className="grid-container">
+            <NavbarHome user={this.props.user} setUser={this.props.setUser} />
+    
+            <div>
+    
+              <div className="background">
+    
+                <div className="productDetail-container">
+                  <div className="row">
+                    {/* PRODUCT IMAGE */}
+                    <div className="col-2">
+                      <img
+                        className="detail-poster"
+                        src={this.state.product.img}
+                        alt={this.state.product.name}>
+                      </img>
+                    </div >
+    
+                    <div className="description-column">
+                      <h1 className="game-name">{this.state.product.title}</h1>
+    
+    
+                      <div className="description-div">
+                        <h3 className="detail-description">Description:
+                          <p className="detail-description">{this.state.product.description}</p></h3>
+                      </div>
+    
+                      <h1 className="detail-price">Price : ${this.state.product.price}</h1>
+    
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <footer className="row center">All right reserved</footer>
+            
+            </div>
+
+      )
+    }
+    else{
+      return (
       <div className="grid-container">
         <NavbarHome user={this.props.user} setUser={this.props.setUser} />
 
@@ -138,6 +215,7 @@ export default class ProductDetail extends Component {
 
       </div>
 
-    )
+    )}
+    
   }
 }
