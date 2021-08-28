@@ -101,14 +101,15 @@ class SearchPage extends Component {
 
 
   render() {
-    // const { products, searchText, sortDir } = this.state;
-    const { products, searchText } = this.state;
+    const { products, searchText, sortDir } = this.state;
     const genres = [...new Set(products.map(product => product.genre))]
 
-    // const sortedPrice = products.sort((d, e) => {
-    //   const isReversedPrice = (sortDir === "asc") ? 1 : -1;
-    //   return isReversedPrice * (d.price - e.price)
-    // })
+
+    const sortedPrice = products.sort((d, e) => {
+      const isReversedPrice = (sortDir === "asc") ? 1 : -1;
+      return isReversedPrice * (d.price - e.price)
+    })
+
 
     return (
       <div className="grid-container">
