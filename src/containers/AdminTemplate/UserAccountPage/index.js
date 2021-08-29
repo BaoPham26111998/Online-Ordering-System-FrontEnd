@@ -13,7 +13,7 @@ export default class UserAccount extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            users: [],
+            users: {},
             username: '',
             name: '',
             email: '',
@@ -55,7 +55,7 @@ export default class UserAccount extends Component {
     //Get User Data
     getAllUsers = () => {
         var myHeaders = new Headers();
-        myHeaders.append("Authorization", "Bearer " + localStorage.getItem('accessTokenq'));
+        myHeaders.append("Authorization", "Bearer " + localStorage.getItem('accessToken'));
 
         var requestOptions = {
             method: 'GET',
@@ -63,9 +63,14 @@ export default class UserAccount extends Component {
             redirect: 'follow'
         };
 
-        fetch("http://localhost:8080/users", requestOptions)
+        fetch("https://online-ordering-system-323618.as.r.appspot.com/users", requestOptions)
             .then(response => response.text())
-            .then(result => console.log(result))
+            .then(result => (
+                // console.log("result: " + result),
+                this.setState({
+                    users: JSON.parse(result)
+                })
+            ))
             .catch(error => console.log('error', error));
     }
 
@@ -83,6 +88,8 @@ export default class UserAccount extends Component {
     };
 
     render() {
+        console.log(this.state.users)
+
         return (
             <>
                 <div className="content">
@@ -151,6 +158,7 @@ export default class UserAccount extends Component {
                                                 </tr>
                                             </thead>
                                             <tbody id="tableDanhSach">
+                                                {/* <td>{this.state.user.id}</td> */}
                                                 {this.renderHTML()}
                                             </tbody>
                                         </table>

@@ -55,7 +55,7 @@ export default class LogIn extends Component {
 
             // https://online-ordering-system-323618.as.r.appspot.com/auth/login
 
-            fetch("http://localhost:8080/auth/login", requestOptions)
+            fetch("https://online-ordering-system-323618.as.r.appspot.com/auth/login", requestOptions)
                 .then(response => {
                     console.log(response)
                     if (response.ok) {

@@ -68,8 +68,8 @@ export default class NavbarHome extends Component {
                             <Link className="brand" to="/" href="index.html">SCP Gaming </Link>
                         </div>
                         <div>
-                            <h3 className="text-light" >Wellcome {this.state.userRole}</h3>
-                            <Link className="register" to="/login" href="Register.html" onClick={this.logout}>Logout</Link>
+                            <Link className="register" to="/account" >Wellcome: {this.state.userRole}</Link>
+                            <Link className="signin" to="/login" onClick={this.logout}>Logout</Link>
                         </div>
                     </div>
                     <div>

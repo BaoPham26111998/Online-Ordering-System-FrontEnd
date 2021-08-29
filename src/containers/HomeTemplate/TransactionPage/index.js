@@ -9,9 +9,11 @@ export default class TransactionPage extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      userId: 302,
       products: [],
       cartId: 0,
+      isLogin: localStorage.getItem('accessToken') != null,
+      userRole: localStorage.getItem("username"),
+      user: {}
     }
   }
   componentDidMount() {
@@ -21,6 +23,32 @@ export default class TransactionPage extends Component {
         this.setState({ products: res.data });
       })
       .catch(err => console.log(err));
+
+       
+      // Get user info
+      var myHeaders = new Headers();
+      myHeaders.append("Authorization", "Bearer " + localStorage.getItem('accessToken'));
+      var requestOptions = {
+          method: 'GET',
+          headers: myHeaders,
+          redirect: 'follow'
+      };
+
+      fetch("https://online-ordering-system-323618.as.r.appspot.com/user/name/" + localStorage.getItem('username'), requestOptions)
+          .then(response => (
+              response.text()
+          ))
+          .then(result => (
+              console.log("result = " + result),
+              this.setState({
+                  user: JSON.parse(result)
+              })
+          ))
+          .catch(error => (
+              console.log('error', error)
+          ));
+
+    
   }
 
   deleteCart = e => {
@@ -36,7 +64,7 @@ export default class TransactionPage extends Component {
 
   render() {
     const products = this.state.products
-    const user = (products.filter((u) => u.user.id === 302))
+    const user = (products.filter((u) => u.user.id === this.state.user.id))
     const userCartProducts = (user.filter((i) => i.status === "Paid"))
     // console.log(userCartProducts.length)
     console.log(userCartProducts.map((i) => i.item))
@@ -51,6 +79,7 @@ export default class TransactionPage extends Component {
             <div className="productDetail-container">
               <div className="cartTableContainer">
                 <h1 className="CartPage">Transaction history</h1>
+                <div className="table-container">
                 <table className="cartTable">
                   <tr>
                     <th className="cart-table-th">Id</th>
@@ -92,6 +121,9 @@ export default class TransactionPage extends Component {
                   ))
                   }
                 </table>
+
+                </div>
+                
               </div>
             </div>
           </div>

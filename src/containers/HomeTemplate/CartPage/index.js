@@ -13,6 +13,9 @@ export default class CartPage extends Component {
       userId: 302,
       products: [],
       cartId: 0,
+      isLogin: localStorage.getItem('accessToken') != null,
+      userRole: localStorage.getItem("username"),
+      user: {}
     }
   }
   componentDidMount() {
@@ -22,6 +25,29 @@ export default class CartPage extends Component {
         this.setState({ products: res.data });
       })
       .catch(err => console.log(err));
+
+       // Get user info
+       var myHeaders = new Headers();
+       myHeaders.append("Authorization", "Bearer " + localStorage.getItem('accessToken'));
+       var requestOptions = {
+           method: 'GET',
+           headers: myHeaders,
+           redirect: 'follow'
+       };
+ 
+       fetch("https://online-ordering-system-323618.as.r.appspot.com/user/name/" + localStorage.getItem('username'), requestOptions)
+           .then(response => (
+               response.text()
+           ))
+           .then(result => (
+               console.log("result = " + result),
+               this.setState({
+                   user: JSON.parse(result)
+               })
+           ))
+           .catch(error => (
+               console.log('error', error)
+           ));
   }
 
   deleteCart = e => {
@@ -47,7 +73,7 @@ export default class CartPage extends Component {
         id: itemId
       },
       user: {
-        id: 302
+        id: this.state.user.id
       }
     }
 
@@ -68,7 +94,7 @@ export default class CartPage extends Component {
 
   render() {
     const products = this.state.products
-    const user = (products.filter((u) => u.user.id === 302))
+    const user = (products.filter((u) => u.user.id === this.state.user.id))
     const userCartProducts = (user.filter((i) => i.status === "Outstanding"))
     console.log(userCartProducts.length)
     console.log(userCartProducts.map((i) => i.item))
