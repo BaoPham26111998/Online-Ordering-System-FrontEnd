@@ -39,8 +39,9 @@ export default class ProductDetail extends Component {
               response.text()
           ))
           .then(result => (
+              console.log("result = " + result),
               this.setState({
-                  user: result
+                  user: JSON.parse(result)
               })
           ))
           .catch(error => (
@@ -58,11 +59,12 @@ export default class ProductDetail extends Component {
         id: this.state.itemId
       },
       user: {
-        id: 302
+        id: this.state.user.id
       }
     }
     console.log(this.quantity)
-    DataServices.postOrder(data).then(res => {
+    DataServices.postOrder(data)
+    .then(res => {
       console.log(res)
       console.log(data)
       window.alert("Item have been add to your cart");
@@ -73,12 +75,6 @@ export default class ProductDetail extends Component {
   }
 
   render() {
-    const user = this.state.user
-    console.log(user.id)
-    // console.log(user)
-    // const userId = (user.map((u) => u.id))
-    // console.log(userId)
-    
     
     if (this.state.userRole === null){
       return(

@@ -7,8 +7,12 @@ h1.CartPage {
 .cartTableContainer {
   background-color: #2b2b35;
   border-radius: 15px;
-  
 }
+.table-container{
+  /* background-color: red; */
+  margin-bottom: 0rem;
+}
+
 table.cartTable {
   font-family: arial, sans-serif;
   border-collapse: collapse;
@@ -21,13 +25,13 @@ table.cartTable {
   /* margin-left: 50rem; */
 }
 th.cart-table-th {
-  border: 1px solid #ffff;
+  border: 0.5px solid #ffff;
   padding: 8px;
   color: white;
   text-align: center;
   background-color: #2c2c61;
   border-width: 2px;
-  font-size: 1.5rem;
+  font-size: 2rem;
 }
 
 td.cart-table-td {
@@ -36,12 +40,12 @@ td.cart-table-td {
   color: white;
   border-width: 2px;
   font-weight: bold;
-  font-size: 1em;
+  font-size: 1.5em;
   
 }
 
 img.cartImage {
-  width: 12rem;
+  width: 27rem;
   height: 16rem;
 }
 
@@ -52,8 +56,8 @@ img.cartImage {
 	transition: .3s ease-in-out;
 }
 .hover02 figure:hover img {
-	-webkit-transform: scale(2);
-	transform: scale(2);
+	-webkit-transform: scale(1.1);
+	transform: scale(1.2);
 }
 
 button.purchaseCartBtn {
@@ -75,7 +79,7 @@ button.deleteCartBtn {
   text-decoration: none;
   display: inline-block;
   font-size: 12px;
-  margin-left: 1rem;
+  /* margin-left: 1rem; */
 }
 
 

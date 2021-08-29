@@ -180,7 +180,7 @@ class SearchPage extends Component {
               <Table bordered hover striped variant="dark">
                 <thead>
                   <tr>
-                    <th className="search-th">Id</th>
+                    <th className="search-th">Game id</th>
                     <th className="search-th">Title</th>
                     <th className="search-th">In Stock</th>
                     <th className="search-th"

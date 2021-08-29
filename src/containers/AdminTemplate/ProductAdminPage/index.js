@@ -51,7 +51,7 @@ export default class ProductAdmin extends Component {
             redirect: 'follow'
         };
 
-        fetch("http://localhost:8080/users", requestOptions)
+        fetch("https://online-ordering-system-323618.as.r.appspot.com/users", requestOptions)
             .then(response => {
                 console.log(response)
                 if (response.ok) {
