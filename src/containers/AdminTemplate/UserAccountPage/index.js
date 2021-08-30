@@ -12,6 +12,7 @@ export default class UserAccount extends Component {
         super(props)
         this.state = {
             users: [],
+            one_user: [],
             input: {
                 username_admin: '',
                 name_admin: '',
@@ -21,14 +22,18 @@ export default class UserAccount extends Component {
             },
             errors: {},
             registerSuccess: false,
-            mess: ''
+            mess: '',
+            query_user: "",
         }
 
         this.handleChange = this.handleChange.bind(this);
+        this.searchHandleChange = this.searchHandleChange.bind(this)
     }
 
     componentDidMount() {
-        this.getAllUsers();
+        if (this.state.query_user === "") {
+            this.getAllUsers();
+        }
     }
 
     //Input Field Handle Change
@@ -39,6 +44,19 @@ export default class UserAccount extends Component {
         this.setState({
             input
         });
+    }
+
+    //Search Input Field Handle Change
+    searchHandleChange(e) {
+        let query_user = this.state.query_user;
+
+        query_user = e.target.value;
+
+        this.setState({
+            query_user
+        })
+
+
     }
 
     //Add New Admin Account
@@ -66,7 +84,7 @@ export default class UserAccount extends Component {
                 redirect: 'follow'
             };
 
-            fetch("http://localhost:8080/register/admin", requestOptions)
+            fetch("https://online-ordering-system-323618.as.r.appspot.com/register/admin", requestOptions)
                 .then(response => response.text())
                 .then(result => console.log(result))
                 .catch(error => console.log('error', error));
@@ -88,19 +106,50 @@ export default class UserAccount extends Component {
             redirect: 'follow'
         };
 
-        fetch("http://localhost:8080/users", requestOptions)
+        fetch("https://online-ordering-system-323618.as.r.appspot.com/users", requestOptions)
             .then(response => response.text())
             .then(result => {
+                // const { query } = this.state;
+                // const filteredData = result.filter(element => {
+                //     return element.name.toLowerCase().includes(query.toLowerCase());
+                // });
+
                 this.setState(() => ({
+                    // filteredUser: filteredData,  
                     users: JSON.parse(result)
                 }))
             })
             .catch(error => console.log('error', error));
     }
 
+    //Search User
+    searchUser = () => {
+        var myHeaders = new Headers();
+        myHeaders.append("Authorization", "Bearer " + localStorage.getItem("accessToken"));
+
+        var requestOptions = {
+            method: 'GET',
+            headers: myHeaders,
+            redirect: 'follow'
+        };
+
+        fetch("https://online-ordering-system-323618.as.r.appspot.com/user/name/" + this.state.query_user, requestOptions)
+            .then(response => (
+                response.text()
+            ))
+            .then(result => {
+                this.setState({
+                    one_user: JSON.parse(result)
+                })
+            })
+            .catch(error => (
+                console.log('error', error)
+            ));
+    }
+
     //Display User
     renderHTML = () => {
-        if (this.state.users && this.state.users.length > 0) {
+        if ((this.state.users && this.state.users.length > 0) && (this.state.one_user.length === 0) && (this.state.query_user === "")) {
             return this.state.users.map((user) => {
                 return (
                     <tr key={user.id}>
@@ -108,8 +157,13 @@ export default class UserAccount extends Component {
                     </tr>
                 );
             });
-        };
-
+        } else {
+            return (
+                <tr key={this.state.one_user.id}>
+                    <User user={this.state.one_user} />
+                </tr>
+            );
+        }
     };
 
     //Validation
@@ -198,12 +252,15 @@ export default class UserAccount extends Component {
                                                         type="text"
                                                         className="form-control"
                                                         placeholder="Search account..."
-                                                        id="searchName"
+                                                        name="query_user"
+                                                        id="query_user"
+                                                        value={this.state.query_user}
+                                                        onChange={this.searchHandleChange}
                                                     />
                                                     <div className="input-group-prepend">
-                                                        <span className="input-group-text" id="btnTimNV">
+                                                        <button type="button" className="input-group-text" onClick={this.searchUser}>
                                                             <i className="fa fa-search" />
-                                                        </span>
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>

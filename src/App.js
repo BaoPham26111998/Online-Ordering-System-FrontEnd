@@ -3,9 +3,7 @@ import './App.css';
 
 import PageNotFound from './containers/PageNotFound';
 
-// import { connect } from "react-redux";
 import { Route, Switch } from "react-router-dom";
-// import { Route, Switch, withRouter } from "react-router-dom";
 
 import { AdminProtectedRoute } from 'routes/protected.route';
 

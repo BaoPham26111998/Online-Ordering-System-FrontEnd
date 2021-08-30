@@ -3,9 +3,11 @@ import React, { Component } from 'react'
 import './style.css'
 
 export default class Transaction extends Component {
+
     render() {
         const { deleteOrderById, order } = this.props;
         let order_status;
+        var data_target = "#modalOrderUpdate" + order.id;
 
         if (order.status === "Paid") {
             order_status = <td className="text-success text_status text-uppercase">{order.status}</td>
@@ -25,7 +27,7 @@ export default class Transaction extends Component {
                     className="btn btn-primary button-spec "
                     id="btnMore"
                     data-toggle="modal"
-                    data-target="#myModal">
+                    data-target={data_target}>
                     More Info
                 </button>
                 </td>

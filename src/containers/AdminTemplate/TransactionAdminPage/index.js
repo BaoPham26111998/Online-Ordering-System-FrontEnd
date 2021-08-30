@@ -3,6 +3,7 @@ import SidebarAdmin from 'components/SidebarAdmin';
 import '../modal.css';
 
 import Transaction from 'components/TransactionsAdmin';
+import ModalTransaction from 'components/ModalTransaction';
 
 export default class TransactionAdmin extends Component {
     state = {}
@@ -11,6 +12,7 @@ export default class TransactionAdmin extends Component {
         super(props)
         this.state = {
             orders: [],
+            one_order: [],
             input: {
                 quantity_order: '',
                 status_order: '',
@@ -18,12 +20,20 @@ export default class TransactionAdmin extends Component {
                 user_id_order: ''
             },
             errors: {},
+            query_order: "",
         }
 
         this.handleChange = this.handleChange.bind(this);
+        this.seacrhOrderHandleChange = this.seacrhOrderHandleChange.bind(this)
     }
 
     componentDidMount() {
+        if (this.state.query_order === "") {
+            this.getAllOrders();
+        }
+    }
+
+    handleCallback = () => {
         this.getAllOrders();
     }
 
@@ -35,6 +45,17 @@ export default class TransactionAdmin extends Component {
         this.setState({
             input
         });
+    }
+
+    //Search Input Field Handle Change
+    seacrhOrderHandleChange(e) {
+        let query_order = this.state.query_order;
+
+        query_order = e.target.value;
+
+        this.setState({
+            query_order
+        })
     }
 
     //Get All Orders
@@ -82,7 +103,7 @@ export default class TransactionAdmin extends Component {
                 redirect: 'follow'
             };
 
-            fetch("http://localhost:8080/order", requestOptions)
+            fetch("https://online-ordering-system-323618.as.r.appspot.com/order", requestOptions)
                 .then(response => response.text())
                 .then(result => console.log(result))
                 .catch(error => console.log('error', error));
@@ -137,7 +158,7 @@ export default class TransactionAdmin extends Component {
             redirect: 'follow'
         };
 
-        fetch("http://localhost:8080/order/" + orderId, requestOptions)
+        fetch("https://online-ordering-system-323618.as.r.appspot.com/order/" + orderId, requestOptions)
             .then(response => response.text())
             .then(result => console.log(result))
             .catch(error => console.log('error', error));
@@ -147,18 +168,59 @@ export default class TransactionAdmin extends Component {
         this.getAllOrders();
     }
 
+    //Search Order By ID
+    searchOrder = () => {
+        var myHeaders = new Headers();
+        myHeaders.append("Authorization", "Bearer " + localStorage.getItem("accessToken"));
+
+        var requestOptions = {
+            method: 'GET',
+            headers: myHeaders,
+            redirect: 'follow'
+        };
+
+        fetch("https://online-ordering-system-323618.as.r.appspot.com/order/" + this.state.orders.id, requestOptions)
+            .then(response => response.text())
+            .then(result => {
+                this.setState({
+                    one_order: JSON.parse(result)
+                })
+            })
+            .catch(error => console.log('error', error));
+    }
+
     //Display Order
     renderHTML = () => {
+        // if ((this.state.orders && this.state.orders.length > 0) && (this.state.one_order.length === 0) && (this.state.query_order === "")) {
+        //     return this.state.orders.map((order) => {
+        //         console.log(order.user)
+        //         return (
+        //             <tr key={order.id}>
+        //                 <Transaction deleteOrderById={this.deleteOrderById} order={order} />
+        //                 <ModalTransaction parentCallBack={this.handleCallback} updateOrder={order} />
+        //             </tr>
+        //         );
+        //     });
+        // } else {
+        //     return (
+        //         <tr key={this.state.one_order.id}>
+        //             <Transaction deleteOrderById={this.deleteOrderById} order={this.state.one_order} />
+        //             <ModalTransaction parentCallBack={this.handleCallback} updateOrder={this.state.one_order} />
+        //         </tr>
+        //     );
+        // }
+
         if (this.state.orders && this.state.orders.length > 0) {
             return this.state.orders.map((order) => {
+                console.log(order.user)
                 return (
                     <tr key={order.id}>
                         <Transaction deleteOrderById={this.deleteOrderById} order={order} />
+                        <ModalTransaction parentCallBack={this.handleCallback} updateOrder={order} />
                     </tr>
                 );
             });
-        };
-
+        }
     };
 
     render() {
@@ -201,12 +263,15 @@ export default class TransactionAdmin extends Component {
                                                         type="text"
                                                         className="form-control"
                                                         placeholder="Search transaction..."
-                                                        id="searchName"
+                                                        name="query_order"
+                                                        id="query_order"
+                                                        value={this.state.query_order}
+                                                        onChange={this.seacrhOrderHandleChange}
                                                     />
                                                     <div className="input-group-prepend">
-                                                        <span className="input-group-text" id="btnTimNV">
+                                                        <button type="button" className="input-group-text" onClick={this.searchOrder}>
                                                             <i className="fa fa-search" />
-                                                        </span>
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>

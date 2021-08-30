@@ -17,6 +17,7 @@ export default class ProductAdmin extends Component {
         super(props)
         this.state = {
             products: [],
+            one_product: [],
             input: {
                 title: '',
                 price: '',
@@ -27,13 +28,17 @@ export default class ProductAdmin extends Component {
                 img: ''
             },
             errors: {},
+            query_product: "",
         }
 
         this.handleChange = this.handleChange.bind(this);
+        this.searchProductHandleChange = this.searchProductHandleChange.bind(this)
     }
 
     componentDidMount() {
-        this.getAllProducts();
+        if (this.state.query_product === "") {
+            this.getAllProducts();
+        }
 
         console.log("componentDidMount")
     }
@@ -50,6 +55,21 @@ export default class ProductAdmin extends Component {
         this.setState({
             input
         });
+    }
+
+    //Search Input Field Handle Change
+    searchProductHandleChange(e) {
+        // console.log(e)
+
+        let query_product = this.state.query_product;
+
+        query_product = e.target.value;
+
+        this.setState({
+            query_product
+        })
+
+        // console.log(query_product)
     }
 
     //Get Product Data
@@ -87,7 +107,7 @@ export default class ProductAdmin extends Component {
                 redirect: 'follow'
             };
 
-            fetch("http://localhost:8080/items/", requestOptions)
+            fetch("https://online-ordering-system-323618.as.r.appspot.com/items/", requestOptions)
                 .then(response => response.text())
                 .then(result => console.log(result))
                 .catch(error => console.log('error', error));
@@ -96,6 +116,31 @@ export default class ProductAdmin extends Component {
 
             this.getAllProducts();
         }
+    }
+
+    //Search Product
+    searchProduct = () => {
+        var myHeaders = new Headers();
+        myHeaders.append("Authorization", "Bearer " + localStorage.getItem("accessToken"));
+
+        var requestOptions = {
+            method: 'GET',
+            headers: myHeaders,
+            redirect: 'follow'
+        };
+
+        fetch("https://online-ordering-system-323618.as.r.appspot.com/items/title=" + this.state.query_product, requestOptions)
+            .then(response => (
+                response.text()
+            ))
+            .then(result => {
+                this.setState({
+                    one_product: JSON.parse(result)
+                })
+            })
+            .catch(error => (
+                console.log('error', error)
+            ));
     }
 
     //Delete Product
@@ -109,7 +154,7 @@ export default class ProductAdmin extends Component {
             redirect: 'follow'
         };
 
-        fetch("http://localhost:8080/items/" + productId, requestOptions)
+        fetch("https://online-ordering-system-323618.as.r.appspot.com/items/" + productId, requestOptions)
             .then(response => response.text())
             .then(result => console.log(result))
             .catch(error => console.log('error', error));
@@ -119,29 +164,27 @@ export default class ProductAdmin extends Component {
         this.getAllProducts();
     }
 
-    // //Search By Genre
-    // genreChange = (event) => {
-    //     this.setState({
-    //         [event.target.name]: event.target.attributes[0].value,
-    //     })
-    //     ItemService.getItemByGerne(event.target.attributes[0].value)
-    //         .then(res => {
-    //             // console.log(event.target.attributes[0].value)
-    //             this.setState({ products: res.data });
-    //         })
-    //         .catch(err => console.log(err));
-    // };
-
     //Display Product
-    renderHTML(products) {
-        return products.map((product) => {
-            return (
-                <div key={product.id} className="col-3 room" >
-                    <Product deleteProductById={this.deleteProductById} product={product} />
-                    <ModalUpdate parentCallBack={this.handleCallback} updateProduct={product} />
-                </div>
-            );
-        });
+    renderHTML = () => {
+        if ((this.state.products && this.state.products.length > 0) && (this.state.query_product === "")) {
+            return this.state.products.map((product) => {
+                return (
+                    <div key={product.id} className="col-3 room" >
+                        <Product deleteProductById={this.deleteProductById} product={product} />
+                        <ModalUpdate parentCallBack={this.handleCallback} updateProduct={product} />
+                    </div>
+                );
+            });
+        } else {
+            if(this.state.one_product.length === 1){
+                return (
+                    <div key={this.state.one_product.id} className="col-3 room" >
+                        <Product deleteProductById={this.deleteProductById} product={this.state.one_product} />
+                        <ModalUpdate parentCallBack={this.handleCallback} updateProduct={this.state.one_product} />
+                    </div>
+                );
+            }
+        }
     };
 
     //Validation
@@ -193,8 +236,6 @@ export default class ProductAdmin extends Component {
     }
 
     render() {
-        const { products } = this.state
-
         const image = <FontAwesomeIcon icon={faImage} />
         const price = <FontAwesomeIcon icon={faDollarSign} />
         const soldQty = <FontAwesomeIcon icon={faMoneyBillAlt} />
@@ -237,13 +278,16 @@ export default class ProductAdmin extends Component {
                                                     <input
                                                         type="text"
                                                         className="form-control"
-                                                        placeholder="Search account..."
-                                                        id="searchName"
+                                                        placeholder="Search product..."
+                                                        name="query_product"
+                                                        id="query_product"
+                                                        value={this.state.query_product}
+                                                        onChange={this.searchProductHandleChange}
                                                     />
                                                     <div className="input-group-prepend">
-                                                        <span className="input-group-text" id="btnTimNV">
+                                                        <button type="button" className="input-group-text" onClick={this.searchProduct}>
                                                             <i className="fa fa-search" />
-                                                        </span>
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -251,7 +295,7 @@ export default class ProductAdmin extends Component {
                                     </div>
 
                                     <div className="row center product-outside">
-                                        {this.renderHTML(products)}
+                                        {this.renderHTML()}
                                     </div>
 
                                     {/* Footer */}
