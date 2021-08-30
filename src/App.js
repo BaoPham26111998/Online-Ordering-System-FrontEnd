@@ -3,8 +3,9 @@ import './App.css';
 
 import PageNotFound from './containers/PageNotFound';
 
-import { connect } from "react-redux";
-import { Route, Switch, withRouter } from "react-router-dom";
+// import { connect } from "react-redux";
+import { Route, Switch } from "react-router-dom";
+// import { Route, Switch, withRouter } from "react-router-dom";
 
 import { AdminProtectedRoute } from 'routes/protected.route';
 
@@ -24,7 +25,7 @@ import UserAccount from 'containers/AdminTemplate/UserAccountPage';
 import ProductAdmin from 'containers/AdminTemplate/ProductAdminPage';
 import TransactionAdmin from 'containers/AdminTemplate/TransactionAdminPage';
 
-class App extends Component {
+export default class App extends Component {
   state = {}
 
   constructor(props){
@@ -59,11 +60,6 @@ class App extends Component {
         <AdminProtectedRoute path="/admin/users" component={UserAccount} />
         <AdminProtectedRoute path="/admin/transactions" component={TransactionAdmin} />
 
-        {/* <Route exact path="/admin" component={AdminTemplate} />
-        <Route path="/admin/products" component={ProductAdmin} />
-        <Route path="/admin/users" component={UserAccount} />
-        <Route path="/admin/transactions" component={TransactionAdmin} /> */}
-
         {/* Forgot Password Page */}
         <Route path="/forgot" component={Forgot} />
 
@@ -78,6 +74,6 @@ class App extends Component {
   };
 };
 
-const ConnectedComponent = connect(null, null)(App);
+// const ConnectedComponent = connect(null, null)(App);
 
-export default withRouter(ConnectedComponent);
+// export default withRouter(ConnectedComponent);

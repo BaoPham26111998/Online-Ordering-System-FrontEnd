@@ -10,140 +10,195 @@ import { faDollarSign, faImage, faMoneyBillAlt } from '../../../../node_modules/
 
 import DataServices from 'services/index.js';
 
-
 export default class ProductAdmin extends Component {
     state = {}
 
     constructor(props) {
         super(props)
         this.state = {
-            products: []
+            products: [],
+            input: {
+                title: '',
+                price: '',
+                instock: '',
+                description: '',
+                genre: '',
+                soldQty: '',
+                img: ''
+            },
+            errors: {},
         }
+
+        this.handleChange = this.handleChange.bind(this);
     }
 
     componentDidMount() {
-        this.accessAdmin();
-
         this.getAllProducts();
 
         console.log("componentDidMount")
+    }
+
+    handleCallback = () => {
+        this.getAllProducts();
+    }
+
+    //Input Field Handle Change
+    handleChange(e) {
+        let input = this.state.input;
+        input[e.target.name] = e.target.value;
+
+        this.setState({
+            input
+        });
     }
 
     //Get Product Data
     getAllProducts() {
         DataServices.getItems()
             .then((response) => {
-                console.log(response.data)
+                // console.log(response.data)
                 this.setState({ products: response.data })
             }).catch(err => {
                 console.log(err)
             })
     }
 
-    //Access To Admin Control
-    accessAdmin() {
+    //Adding Product
+    addProduct = () => {
+        if (this.validate()) {
+            var myHeaders = new Headers();
+            myHeaders.append("Authorization", "Bearer " + localStorage.getItem("accessToken"));
+            myHeaders.append("Content-Type", "application/json");
+
+            var raw = JSON.stringify({
+                "title": this.state.input.title,
+                "price": this.state.input.price,
+                "inStock": this.state.input.instock,
+                "description": this.state.input.description,
+                "genre": this.state.input.genre,
+                "soldQty": this.state.input.soldQty,
+                "img": this.state.input.img
+            });
+
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+
+            fetch("http://localhost:8080/items/", requestOptions)
+                .then(response => response.text())
+                .then(result => console.log(result))
+                .catch(error => console.log('error', error));
+
+            alert("Product Added");
+
+            this.getAllProducts();
+        }
+    }
+
+    //Delete Product
+    deleteProductById = (productId) => {
         var myHeaders = new Headers();
-        myHeaders.append("Authorization", "Bearer " + localStorage.getItem('accessToken'));
+        myHeaders.append("Authorization", "Bearer " + localStorage.getItem("accessToken"));
 
         var requestOptions = {
-            method: 'GET',
+            method: 'DELETE',
             headers: myHeaders,
             redirect: 'follow'
         };
 
-        fetch("https://online-ordering-system-323618.as.r.appspot.com/users", requestOptions)
-            .then(response => {
-                console.log(response)
-                if (response.ok) {
-                    return response.json()
-                }
-
-                throw Error(response.status)
-            })
+        fetch("http://localhost:8080/items/" + productId, requestOptions)
+            .then(response => response.text())
             .then(result => console.log(result))
             .catch(error => console.log('error', error));
-    }
-
-    //Adding Product
-    addProduct = (product) => {
-        const data = {
-            title: this.title,
-            price: this.price,
-            inStock: this.inStock,
-            description: this.description,
-            genre: this.genre,
-            soldQty: this.soldQty,
-            img: this.img
-        }
-
-        DataServices.postItem(data).then(res => {
-            this.setState(prevState => ({
-                products: prevState.products.concat(product)
-            }
-            ), this.getAllProducts)
-        }).catch(err => {
-            console.log(err);
-        })
-
-        alert("Product Added");
-
-    }
-
-    //Update Product
-    updateProductById = () => {
-        const data = {
-            title: this.title,
-            price: this.price,
-            inStock: this.inStock,
-            description: this.description,
-            genre: this.genre,
-            soldQty: this.soldQty,
-            img: this.img
-        }
-
-        DataServices.updateItemById(data).then(res => {
-            console.log(res);
-        }).catch(err => {
-            console.log(err);
-        })
-
-        alert("Product Updated");
-
-        window.location.reload(false);
-    }
-
-    //Delete Product
-    deleteProductById = (productId, product) => {
-        DataServices.deleteItemById(productId).then(res => {
-            this.setState(prevState => ({
-                products: prevState.products.concat(product)
-            }
-            ), this.getAllProducts)
-        }).catch(err => {
-            console.log(err)
-        });
 
         alert("Product Deleted");
+
+        this.getAllProducts();
     }
 
+    // //Search By Genre
+    // genreChange = (event) => {
+    //     this.setState({
+    //         [event.target.name]: event.target.attributes[0].value,
+    //     })
+    //     ItemService.getItemByGerne(event.target.attributes[0].value)
+    //         .then(res => {
+    //             // console.log(event.target.attributes[0].value)
+    //             this.setState({ products: res.data });
+    //         })
+    //         .catch(err => console.log(err));
+    // };
+
     //Display Product
-    renderHTML = () => {
-        if (this.state.products && this.state.products.length > 0) {
-            return this.state.products.map((product) => {
-                return (
-                    <div key={product.id} className="col-3 room" >
-                        <Product deleteProductById={this.deleteProductById} product={product} />
-                        <ModalUpdate updateProduct={product} />
-                    </div>
-                );
-            });
-        };
+    renderHTML(products) {
+        return products.map((product) => {
+            return (
+                <div key={product.id} className="col-3 room" >
+                    <Product deleteProductById={this.deleteProductById} product={product} />
+                    <ModalUpdate parentCallBack={this.handleCallback} updateProduct={product} />
+                </div>
+            );
+        });
     };
 
+    //Validation
+    validate() {
+        let input = this.state.input;
+        let errors = {};
+        let isValid = true;
+
+        if (!input["title"]) {
+            isValid = false;
+            errors["title"] = "Please enter your product title.";
+        }
+
+        if (!input["price"]) {
+            isValid = false;
+            errors["price"] = "Please enter your product price.";
+        }
+
+        if (!input["instock"]) {
+            isValid = false;
+            errors["instock"] = "Please enter your product instock.";
+        }
+
+        if (!input["description"]) {
+            isValid = false;
+            errors["description"] = "Please enter your product description.";
+        }
+
+        if (!input["genre"]) {
+            isValid = false;
+            errors["genre"] = "Please enter your product genre.";
+        }
+
+        if (!input["soldQty"]) {
+            isValid = false;
+            errors["soldQty"] = "Please enter your product sold quantity.";
+        }
+
+        if (!input["img"]) {
+            isValid = false;
+            errors["img"] = "Please enter your image URL.";
+        }
+
+        this.setState({
+            errors: errors
+        });
+
+        return isValid;
+    }
+
     render() {
+        const { products } = this.state
+
         const image = <FontAwesomeIcon icon={faImage} />
         const price = <FontAwesomeIcon icon={faDollarSign} />
         const soldQty = <FontAwesomeIcon icon={faMoneyBillAlt} />
+
         return (
             <>
                 <div className="content">
@@ -196,7 +251,7 @@ export default class ProductAdmin extends Component {
                                     </div>
 
                                     <div className="row center product-outside">
-                                        {this.renderHTML()}
+                                        {this.renderHTML(products)}
                                     </div>
 
                                     {/* Footer */}
@@ -218,7 +273,7 @@ export default class ProductAdmin extends Component {
                                                 </header>
                                                 {/* Modal Header */}
                                                 <div className="modal-body">
-                                                    <form onSubmit={this.handleSubmit}>
+                                                    <form>
                                                         <div className="form-group">
                                                             <div className="input-group">
                                                                 <div className="input-group-prepend">
@@ -232,10 +287,11 @@ export default class ProductAdmin extends Component {
                                                                     id="title"
                                                                     className="form-control input-sm"
                                                                     placeholder="Title"
-                                                                    onChange={e => this.title = e.target.value}
+                                                                    value={this.state.input.title}
+                                                                    onChange={this.handleChange}
                                                                 />
+                                                                <div className="text-danger">{this.state.errors.title}</div>
                                                             </div>
-                                                            <span className="sp-mess" id="messTitle" />
                                                         </div>
                                                         <div className="form-group">
                                                             <div className="input-group">
@@ -250,8 +306,10 @@ export default class ProductAdmin extends Component {
                                                                     id="price"
                                                                     className="form-control input-sm"
                                                                     placeholder="Price"
-                                                                    onChange={e => this.price = e.target.value}
+                                                                    value={this.state.input.price}
+                                                                    onChange={this.handleChange}
                                                                 />
+                                                                <div className="text-danger">{this.state.errors.price}</div>
                                                             </div>
                                                             <span className="sp-mess" id="messPrice" />
                                                         </div>
@@ -268,8 +326,10 @@ export default class ProductAdmin extends Component {
                                                                     id="instock"
                                                                     className="form-control input-sm"
                                                                     placeholder="Instock"
-                                                                    onChange={e => this.inStock = e.target.value}
+                                                                    value={this.state.input.instock}
+                                                                    onChange={this.handleChange}
                                                                 />
+                                                                <div className="text-danger">{this.state.errors.instock}</div>
                                                             </div>
                                                             <span className="sp-mess" id="messInstock" />
                                                         </div>
@@ -286,8 +346,10 @@ export default class ProductAdmin extends Component {
                                                                     id="description"
                                                                     className="form-control input-sm"
                                                                     placeholder="Description"
-                                                                    onChange={e => this.description = e.target.value}
+                                                                    value={this.state.input.description}
+                                                                    onChange={this.handleChange}
                                                                 />
+                                                                <div className="text-danger">{this.state.errors.description}</div>
                                                             </div>
                                                             <span className="sp-mess" id="messDescription" />
                                                         </div>
@@ -304,10 +366,11 @@ export default class ProductAdmin extends Component {
                                                                     id="genre"
                                                                     className="form-control input-sm"
                                                                     placeholder="Genre"
-                                                                    onChange={e => this.genre = e.target.value}
+                                                                    value={this.state.input.genre}
+                                                                    onChange={this.handleChange}
                                                                 />
+                                                                <div className="text-danger">{this.state.errors.genre}</div>
                                                             </div>
-                                                            <span className="sp-mess" id="messGenre" />
                                                         </div>
                                                         <div className="form-group">
                                                             <div className="input-group">
@@ -322,8 +385,10 @@ export default class ProductAdmin extends Component {
                                                                     id="soldQty"
                                                                     className="form-control input-sm"
                                                                     placeholder="Sold Quantity"
-                                                                    onChange={e => this.soldQty = e.target.value}
+                                                                    value={this.state.input.soldQty}
+                                                                    onChange={this.handleChange}
                                                                 />
+                                                                <div className="text-danger">{this.state.errors.soldQty}</div>
                                                             </div>
                                                             <span className="sp-mess" id="messSoldQty" />
                                                         </div>
@@ -340,10 +405,11 @@ export default class ProductAdmin extends Component {
                                                                     id="img"
                                                                     className="form-control input-sm"
                                                                     placeholder="Image"
-                                                                    onChange={e => this.img = e.target.value}
+                                                                    value={this.state.input.img}
+                                                                    onChange={this.handleChange}
                                                                 />
+                                                                <div className="text-danger">{this.state.errors.img}</div>
                                                             </div>
-                                                            <span className="sp-mess" id="messImage" />
                                                         </div>
                                                     </form>
                                                 </div>

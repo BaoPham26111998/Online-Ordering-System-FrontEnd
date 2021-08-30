@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
-import { Link, Redirect, NavLink } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 import '../../containers/HomeTemplate/homeTemplate.css'
 import Navbar from 'components/Navbar';
-
 
 import { fakeAuth } from 'services/auth';
 
@@ -54,8 +53,6 @@ export default class NavbarHome extends Component {
     }
 
     render() {
-        console.log(this.state.user)
-
         if (this.state.isLogged === false) {
             return <Redirect to={'/login'} />
         }
@@ -68,17 +65,15 @@ export default class NavbarHome extends Component {
                             <Link className="brand" to="/" href="index.html">SCP Gaming </Link>
                         </div>
                         <div>
-                            <Link className="register" to="/account" >Wellcome: {this.state.userRole}</Link>
-                            <Link className="signin" to="/login" onClick={this.logout}>Logout</Link>
+                            <h3 className="text-light" >Wellcome {this.state.userRole}</h3>
+                            <Link className="register" to="/login" href="Register.html" onClick={this.logout}>Logout</Link>
                         </div>
                     </div>
                     <div>
                         <Navbar></Navbar>
                     </div>
-
                 </header>
             )
-
         }
 
         return (
@@ -92,7 +87,6 @@ export default class NavbarHome extends Component {
                         <Link className="signin" to="/login" href="signin.html">Login</Link>
                     </div>
                 </div>
-
             </header>
         )
     }

@@ -1,34 +1,120 @@
 import React, { Component } from 'react'
-import DataServices from 'services/index.js';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDollarSign, faImage, faMoneyBillAlt } from '../../../node_modules/@fortawesome/free-solid-svg-icons/index';
 
 export default class ModalUpdate extends Component {
-    handleSubmit = (product_id, e) => {
-        const data = {
-            title: this.title,
-            price: this.price,
-            inStock: this.inStock,
-            description: this.description,
-            genre: this.genre,
-            soldQty: this.soldQty,
-            img: this.img
+    state = {}
+
+    constructor(props) {
+        super(props)
+        this.state = {
+            input: {
+                title_update: this.props.updateProduct.title,
+                price_update: this.props.updateProduct.price,
+                instock_update: this.props.updateProduct.inStock,
+                description_update: this.props.updateProduct.description,
+                genre_update: this.props.updateProduct.genre,
+                soldQty_update: this.props.updateProduct.soldQty,
+                img_update: this.props.updateProduct.img
+            },
+            errors: {},
         }
 
-        DataServices.updateItemById(product_id, data).then(res => {
-            console.log(res)
-        }).catch(err => {
-            console.log(err);
-        })
-
-        alert("Product Modified");
-
-        window.location.reload(false);
+        this.handleChange = this.handleChange.bind(this);
     }
 
+    //Input Field Handle Change
+    handleChange(e) {
+        let input = this.state.input;
+        input[e.target.name] = e.target.value;
+
+        this.setState({
+            input
+        });
+    }
+
+    //Update Product By ID
     updateProductById(product_id) {
-        this.handleSubmit(product_id);
+        if (this.validate()) {
+            var myHeaders = new Headers();
+            myHeaders.append("Authorization", "Bearer " + localStorage.getItem("accessToken"));
+            myHeaders.append("Content-Type", "application/json");
+
+            var raw = JSON.stringify({
+                "title": this.state.input.title_update,
+                "price": this.state.input.price_update,
+                "inStock": this.state.input.instock_update,
+                "description": this.state.input.description_update,
+                "genre": this.state.input.genre_update,
+                "soldQty": this.state.input.soldQty_update,
+                "img": this.state.input.img_update
+            });
+
+            var requestOptions = {
+                method: 'PUT',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+
+            fetch("http://localhost:8080/items/" + product_id, requestOptions)
+                .then(response => response.text())
+                .then(result => console.log(result))
+                .catch(error => console.log('error', error));
+
+            alert("Product Modified")
+
+            this.props.parentCallBack();
+        }
+    }
+
+    //Validation
+    validate() {
+        let input = this.state.input;
+        let errors = {};
+        let isValid = true;
+
+        if (!input["title_update"]) {
+            isValid = false;
+            errors["title_update"] = "Please enter your product title.";
+        }
+
+        if (!input["price_update"]) {
+            isValid = false;
+            errors["price_update"] = "Please enter your product price.";
+        }
+
+        if (!input["instock_update"]) {
+            isValid = false;
+            errors["instock_update"] = "Please enter your product instock.";
+        }
+
+        if (!input["description_update"]) {
+            isValid = false;
+            errors["description_update"] = "Please enter your product description.";
+        }
+
+        if (!input["genre_update"]) {
+            isValid = false;
+            errors["genre_update"] = "Please enter your product genre.";
+        }
+
+        if (!input["soldQty_update"]) {
+            isValid = false;
+            errors["soldQty_update"] = "Please enter your product sold quantity.";
+        }
+
+        if (!input["img_update"]) {
+            isValid = false;
+            errors["img_update"] = "Please enter your image URL.";
+        }
+
+        this.setState({
+            errors: errors
+        });
+
+        return isValid;
     }
 
     render() {
@@ -50,7 +136,7 @@ export default class ModalUpdate extends Component {
                         </header>
                         {/* Modal Header */}
                         <div className="modal-body">
-                            <form className="form-modal" onSubmit={() => this.handleSubmit} >
+                            <form className="form-modal" >
                                 <div className="form-group">
                                     <div className="input-group">
                                         <div className="input-group-prepend">
@@ -59,15 +145,17 @@ export default class ModalUpdate extends Component {
                                             </span>
                                         </div>
                                         <input
-                                            type="title"
-                                            name="title"
+                                            type="text"
+                                            name="title_update"
+                                            // id="title_update"
                                             className="form-control input-sm"
                                             placeholder="Title"
-                                            defaultValue={updateProduct.title}
-                                            onChange={e => this.title = e.target.value}
+                                            // defaultValue={updateProduct.title}
+                                            value={this.state.input.title_update}
+                                            onChange={this.handleChange}
                                         />
                                     </div>
-                                    <span className="sp-mess" />
+                                    <div className="text-danger">{this.state.errors.title_update}</div>
                                 </div>
                                 <div className="form-group">
                                     <div className="input-group">
@@ -77,15 +165,17 @@ export default class ModalUpdate extends Component {
                                             </span>
                                         </div>
                                         <input
-                                            type="price"
-                                            name="price"
+                                            type="text"
+                                            name="price_update"
+                                            // id="price_update"
                                             className="form-control input-sm"
                                             placeholder="Price"
-                                            defaultValue={updateProduct.price}
-                                            onChange={e => this.price = e.target.value}
+                                            // defaultValue={updateProduct.price}
+                                            value={this.state.input.price_update}
+                                            onChange={this.handleChange}
                                         />
                                     </div>
-                                    <span className="sp-mess" />
+                                    <div className="text-danger">{this.state.errors.price_update}</div>
                                 </div>
                                 <div className="form-group">
                                     <div className="input-group">
@@ -95,15 +185,17 @@ export default class ModalUpdate extends Component {
                                             </span>
                                         </div>
                                         <input
-                                            type="instock"
-                                            name="instock"
+                                            type="text"
+                                            name="instock_update"
+                                            // id="instock_update"
                                             className="form-control input-sm"
                                             placeholder="Instock"
-                                            defaultValue={updateProduct.inStock}
-                                            onChange={e => this.inStock = e.target.value}
+                                            // defaultValue={updateProduct.inStock}
+                                            value={this.state.input.instock_update}
+                                            onChange={this.handleChange}
                                         />
                                     </div>
-                                    <span className="sp-mess" />
+                                    <div className="text-danger">{this.state.errors.instock_update}</div>
                                 </div>
                                 <div className="form-group">
                                     <div className="input-group">
@@ -113,15 +205,17 @@ export default class ModalUpdate extends Component {
                                             </span>
                                         </div>
                                         <input
-                                            type="description"
-                                            name="description"
+                                            type="text"
+                                            name="description_update"
+                                            // id="description_update"
                                             className="form-control input-sm"
                                             placeholder="Description"
-                                            onChange={e => this.description = e.target.value}
-                                            defaultValue={updateProduct.description}
+                                            // defaultValue={updateProduct.description}
+                                            value={this.state.input.description_update}
+                                            onChange={this.handleChange}
                                         />
                                     </div>
-                                    <span className="sp-mess" />
+                                    <div className="text-danger">{this.state.errors.description_update}</div>
                                 </div>
                                 <div className="form-group">
                                     <div className="input-group">
@@ -131,15 +225,17 @@ export default class ModalUpdate extends Component {
                                             </span>
                                         </div>
                                         <input
-                                            type="genre"
-                                            name="genre"
+                                            type="text"
+                                            name="genre_update"
+                                            // id="genre_update"
                                             className="form-control input-sm"
                                             placeholder="Genre"
-                                            onChange={e => this.genre = e.target.value}
-                                            defaultValue={updateProduct.genre}
+                                            // defaultValue={updateProduct.genre}
+                                            value={this.state.input.genre_update}
+                                            onChange={this.handleChange}
                                         />
                                     </div>
-                                    <span className="sp-mess" />
+                                    <div className="text-danger">{this.state.errors.genre_update}</div>
                                 </div>
                                 <div className="form-group">
                                     <div className="input-group">
@@ -149,15 +245,17 @@ export default class ModalUpdate extends Component {
                                             </span>
                                         </div>
                                         <input
-                                            type="soldQty"
-                                            name="soldQty"
+                                            type="text"
+                                            name="soldQty_update"
+                                            // id="soldQty_update"
                                             className="form-control input-sm"
                                             placeholder="Sold Quantity"
-                                            onChange={e => this.soldQty = e.target.value}
-                                            defaultValue={updateProduct.soldQty}
+                                            // defaultValue={updateProduct.soldQty}
+                                            value={this.state.input.soldQty_update}
+                                            onChange={this.handleChange}
                                         />
                                     </div>
-                                    <span className="sp-mess" />
+                                    <div className="text-danger">{this.state.errors.soldQty_update}</div>
                                 </div>
                                 <div className="form-group">
                                     <div className="input-group">
@@ -167,15 +265,17 @@ export default class ModalUpdate extends Component {
                                             </span>
                                         </div>
                                         <input
-                                            type="img"
-                                            name="img"
+                                            type="text"
+                                            name="img_update"
+                                            // id="img_update"
                                             className="form-control input-sm"
                                             placeholder="Image"
-                                            onChange={e => this.img = e.target.value}
-                                            defaultValue={updateProduct.img}
+                                            // defaultValue={updateProduct.img}
+                                            value={this.state.input.img_update}
+                                            onChange={this.handleChange}
                                         />
                                     </div>
-                                    <span className="sp-mess" />
+                                    <div className="text-danger">{this.state.errors.img_update}</div>
                                 </div>
                             </form>
                         </div>

@@ -24,31 +24,29 @@ export default class TransactionPage extends Component {
       })
       .catch(err => console.log(err));
 
-       
-      // Get user info
-      var myHeaders = new Headers();
-      myHeaders.append("Authorization", "Bearer " + localStorage.getItem('accessToken'));
-      var requestOptions = {
-          method: 'GET',
-          headers: myHeaders,
-          redirect: 'follow'
-      };
 
-      fetch("https://online-ordering-system-323618.as.r.appspot.com/user/name/" + localStorage.getItem('username'), requestOptions)
-          .then(response => (
-              response.text()
-          ))
-          .then(result => (
-              console.log("result = " + result),
-              this.setState({
-                  user: JSON.parse(result)
-              })
-          ))
-          .catch(error => (
-              console.log('error', error)
-          ));
+    // Get user info
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer " + localStorage.getItem('accessToken'));
+    var requestOptions = {
+      method: 'GET',
+      headers: myHeaders,
+      redirect: 'follow'
+    };
 
-    
+    fetch("https://online-ordering-system-323618.as.r.appspot.com/user/name/" + localStorage.getItem('username'), requestOptions)
+      .then(response => (
+        response.text()
+      ))
+      .then(result => {
+        console.log("result = " + result);
+        this.setState({
+          user: JSON.parse(result)
+        })
+      })
+      .catch(error => (
+        console.log('error', error)
+      ));
   }
 
   deleteCart = e => {
@@ -80,50 +78,50 @@ export default class TransactionPage extends Component {
               <div className="cartTableContainer">
                 <h1 className="CartPage">Transaction history</h1>
                 <div className="table-container">
-                <table className="cartTable">
-                  <tr>
-                    <th className="cart-table-th">Id</th>
-                    <th className="cart-table-th">Image</th>
-                    <th className="cart-table-th">Name</th>
-                    <th className="cart-table-th">Quantity</th>
-                    <th className="cart-table-th">Total price</th>
-                    <th className="cart-table-th">Purchase day</th>
-                  </tr>
-                  {/*CART Product component */}
-
-                  {userCartProducts.map(product => (
-                    <tr key={product.item.id}>
-                      <td className="cart-table-td">
-                        {product.item.id}
-                      </td>
-                      <td className="cart-table-td">
-                        <div className="hover02">
-                          <a href={`/product/${product.item.id}`}>
-                            <figure><img
-                              className="cartImage"
-                              src={product.item.img}
-                              alt={product.item.title}
-                            /></figure>
-                          </a>
-                        </div>
-
-                      </td>
-                      <td className="cart-table-td">
-                        <a href={`/product/${product.item.id}`}>{product.item.title}</a>
-
-                      </td>
-                      <td className="cart-table-td">{product.quantity}</td>
-                      <td className="cart-table-td">
-                        {product.total}$
-                      </td>
-                      <td className="cart-table-td">{product.purchaseTime}</td>
+                  <table className="cartTable">
+                    <tr>
+                      <th className="cart-table-th">Id</th>
+                      <th className="cart-table-th">Image</th>
+                      <th className="cart-table-th">Name</th>
+                      <th className="cart-table-th">Quantity</th>
+                      <th className="cart-table-th">Total price</th>
+                      <th className="cart-table-th">Purchase day</th>
                     </tr>
-                  ))
-                  }
-                </table>
+                    {/*CART Product component */}
+
+                    {userCartProducts.map(product => (
+                      <tr key={product.item.id}>
+                        <td className="cart-table-td">
+                          {product.item.id}
+                        </td>
+                        <td className="cart-table-td">
+                          <div className="hover02">
+                            <a href={`/product/${product.item.id}`}>
+                              <figure><img
+                                className="cartImage"
+                                src={product.item.img}
+                                alt={product.item.title}
+                              /></figure>
+                            </a>
+                          </div>
+
+                        </td>
+                        <td className="cart-table-td">
+                          <a href={`/product/${product.item.id}`}>{product.item.title}</a>
+
+                        </td>
+                        <td className="cart-table-td">{product.quantity}</td>
+                        <td className="cart-table-td">
+                          {product.total}$
+                        </td>
+                        <td className="cart-table-td">{product.purchaseTime}</td>
+                      </tr>
+                    ))
+                    }
+                  </table>
 
                 </div>
-                
+
               </div>
             </div>
           </div>

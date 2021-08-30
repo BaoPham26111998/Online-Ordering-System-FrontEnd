@@ -5,51 +5,76 @@ import '../modal.css';
 
 import './style.css'
 
-import DataServices from 'services/index.js';
-
 export default class UserAccount extends Component {
     state = {}
 
     constructor(props) {
         super(props)
         this.state = {
-            users: {},
-            username: '',
-            name: '',
-            email: '',
-            passsword: '',
+            users: [],
+            input: {
+                username_admin: '',
+                name_admin: '',
+                email_admin: '',
+                password_admin: '',
+                confirm_password_admin: ''
+            },
+            errors: {},
+            registerSuccess: false,
+            mess: ''
         }
 
-        this.registerAdmin = this.registerAdmin.bind(this);
+        this.handleChange = this.handleChange.bind(this);
     }
 
     componentDidMount() {
         this.getAllUsers();
     }
 
+    //Input Field Handle Change
+    handleChange(e) {
+        let input = this.state.input;
+        input[e.target.name] = e.target.value;
+
+        this.setState({
+            input
+        });
+    }
+
     //Add New Admin Account
-    registerAdmin = e => {
+    registerAdmin = (e) => {
         e.preventDefault();
 
-        const data = {
-            username: this.username,
-            name: this.name,
-            email: this.email,
-            passsword: this.password,
-            // confirm_password: this.confirmPassword
+        if (this.validate()) {
+            var myHeaders = new Headers();
+            myHeaders.append("Authorization", "Bearer " + localStorage.getItem("accessToken"));
+            myHeaders.append("Content-Type", "application/json");
+
+            var raw = JSON.stringify({
+                "username": this.state.input.username_admin,
+                "name": this.state.input.name_admin,
+                "email": this.state.input.email_admin,
+                "password": this.state.input.password_admin,
+            });
+
+            console.log(raw)
+
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+
+            fetch("http://localhost:8080/register/admin", requestOptions)
+                .then(response => response.text())
+                .then(result => console.log(result))
+                .catch(error => console.log('error', error));
+
+            alert("Account Created")
+
+            this.getAllUsers();
         }
-
-        console.log(data)
-
-        DataServices.postAdmin(data).then((res) => {
-            console.log(res);
-            console.log(data)
-        }).catch(err => {
-            console.log(err);
-            console.log(data)
-        })
-
-        alert("Account Created")
     }
 
     //Get User Data
@@ -63,29 +88,75 @@ export default class UserAccount extends Component {
             redirect: 'follow'
         };
 
-        fetch("https://online-ordering-system-323618.as.r.appspot.com/users", requestOptions)
+        fetch("http://localhost:8080/users", requestOptions)
             .then(response => response.text())
-            .then(result => (
-                // console.log("result: " + result),
-                this.setState({
+            .then(result => {
+                this.setState(() => ({
                     users: JSON.parse(result)
-                })
-            ))
+                }))
+            })
             .catch(error => console.log('error', error));
     }
 
+    //Display User
     renderHTML = () => {
         if (this.state.users && this.state.users.length > 0) {
             return this.state.users.map((user) => {
                 return (
                     <tr key={user.id}>
-                        <User deleteUser={this.deleteUser} user={user} />
+                        <User user={user} />
                     </tr>
                 );
             });
         };
 
     };
+
+    //Validation
+    validate() {
+        let input = this.state.input;
+        let errors = {};
+        let isValid = true;
+
+        if (!input["username_admin"]) {
+            isValid = false;
+            errors["username_admin"] = "Please enter your username.";
+        }
+
+        if (!input["name_admin"]) {
+            isValid = false;
+            errors["name_admin"] = "Please enter your name.";
+        }
+
+        if (!input["email_admin"]) {
+            isValid = false;
+            errors["email_admin"] = "Please enter your email Address.";
+        }
+
+        if (!input["password_admin"]) {
+            isValid = false;
+            errors["password_admin"] = "Please enter your password.";
+        }
+
+        if (!input["confirm_password_admin"]) {
+            isValid = false;
+            errors["confirm_password_admin"] = "Please enter your confirm password.";
+        }
+
+        if (typeof input["password_admin"] !== "undefined" && typeof input["confirm_password_admin"] !== "undefined") {
+
+            if (input["password_admin"] !== input["confirm_password_admin"]) {
+                isValid = false;
+                errors["confirm_password_admin"] = "Passwords don't match.";
+            }
+        }
+
+        this.setState({
+            errors: errors
+        });
+
+        return isValid;
+    }
 
     render() {
         return (
@@ -156,7 +227,6 @@ export default class UserAccount extends Component {
                                                 </tr>
                                             </thead>
                                             <tbody id="tableDanhSach">
-                                                {/* <td>{this.state.user.id}</td> */}
                                                 {this.renderHTML()}
                                             </tbody>
                                         </table>
@@ -195,12 +265,15 @@ export default class UserAccount extends Component {
                                                 </span>
                                             </div>
                                             <input
-                                                type="msnv"
-                                                name="msnv"
-                                                id="msnv"
+                                                type="text"
+                                                name="username_admin"
+                                                id="username_admin"
                                                 className="form-control input-sm"
                                                 placeholder="Username"
+                                                value={this.state.input.username_admin}
+                                                onChange={this.handleChange}
                                             />
+                                            <div className="text-danger">{this.state.errors.username_admin}</div>
                                         </div>
                                         <span className="sp-thongbao" id="tbMaNV" />
                                     </div>
@@ -212,14 +285,16 @@ export default class UserAccount extends Component {
                                                 </span>
                                             </div>
                                             <input
-                                                type="name"
-                                                name="name"
-                                                id="name"
+                                                type="text"
+                                                name="name_admin"
+                                                id="name_admin"
                                                 className="form-control input-sm"
                                                 placeholder="Name"
+                                                value={this.state.input.name_admin}
+                                                onChange={this.handleChange}
                                             />
+                                            <div className="text-danger">{this.state.errors.name_admin}</div>
                                         </div>
-                                        <span className="sp-thongbao" id="tbTen" />
                                     </div>
                                     <div className="form-group">
                                         <div className="input-group">
@@ -229,14 +304,16 @@ export default class UserAccount extends Component {
                                                 </span>
                                             </div>
                                             <input
-                                                type="email"
-                                                name="email"
-                                                id="email"
+                                                type="text"
+                                                name="email_admin"
+                                                id="email_admin"
                                                 className="form-control input-sm"
                                                 placeholder="Email"
+                                                value={this.state.input.email_admin}
+                                                onChange={this.handleChange}
                                             />
+                                            <div className="text-danger">{this.state.errors.email_admin}</div>
                                         </div>
-                                        <span className="sp-thongbao" id="tbEmail" />
                                     </div>
                                     <div className="form-group">
                                         <div className="input-group">
@@ -247,13 +324,34 @@ export default class UserAccount extends Component {
                                             </div>
                                             <input
                                                 type="password"
-                                                name="password"
-                                                id="password"
+                                                name="password_admin"
+                                                id="password_admin"
                                                 className="form-control input-sm"
                                                 placeholder="Password"
+                                                value={this.state.input.password_admin}
+                                                onChange={this.handleChange}
                                             />
+                                            <div className="text-danger">{this.state.errors.password_admin}</div>
                                         </div>
-                                        <span className="sp-thongbao" id="tbMatKhau" />
+                                    </div>
+                                    <div className="form-group">
+                                        <div className="input-group">
+                                            <div className="input-group-prepend">
+                                                <span className="input-group-text">
+                                                    <i className="fa fa-key" />
+                                                </span>
+                                            </div>
+                                            <input
+                                                type="password"
+                                                name="confirm_password_admin"
+                                                id="confirm_password_admin"
+                                                className="form-control input-sm"
+                                                placeholder="Confirm Password"
+                                                value={this.state.input.confirm_password_admin}
+                                                onChange={this.handleChange}
+                                            />
+                                            <div className="text-danger">{this.state.errors.confirm_password_admin}</div>
+                                        </div>
                                     </div>
                                 </form>
                             </div>
