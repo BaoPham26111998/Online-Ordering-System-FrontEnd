@@ -214,8 +214,6 @@ export default class ProductDetail extends Component {
     )}
     
   }
-<<<<<<< HEAD
+
 }
-=======
-}
->>>>>>> 053f3f5b2849340ac86d81908a864928de410aff
+

@@ -6,29 +6,34 @@ import "@testing-library/jest-dom"
 
 afterEach(cleanup);
 
+//////////////////////////////////    ITEM UNIT TEST   ///////////////////////////////////////////////////////
+
+
+
 
 // ///////////////////////////////////////////////////////////////////////////////
-// Unit test for get all items
-test('Test Get All Items', async () => {
+// Unit test for get all orders
+test('Test Get All Orders', async () => {
     // Get all items
-    let res = await axiosMock.get('https://online-ordering-system-323618.as.r.appspot.com/items');
+    let res = await axiosMock.get('https://online-ordering-system-323618.as.r.appspot.com/orders');
     let data = res.data;
-    console.log("Item data length: " + data.length)
-    // Test if item length is > 1
+    console.log("Order data length: " + data.length)
+    // Test if order length is > 1
     expect(data.length).toBeGreaterThan(1)
 })
 
 
 
+
 // ///////////////////////////////////////////////////////////////////////////////
-// Unit test for add item
-test("Test add item", async () => {
+// Unit test for add orders
+test('Test Add Orders', async () => {
     // Login to get access token
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
     var urlencoded = new URLSearchParams();
-    urlencoded.append("email", "admin@admin.com");
+    urlencoded.append("email", "testcart@testcart.com");
     urlencoded.append("password", "password");
 
     var requestOptions = {
@@ -55,13 +60,14 @@ test("Test add item", async () => {
     myHeaders.append("Content-Type", "application/json");
     // Create a data set for an item    
     var raw = JSON.stringify({
-        "title": "test-add",
-        "price": 15.00,
-        "inStock": 0,
-        "description": "test-product",
-        "genre": "test-gerne",
-        "soldQty": 0,
-        "img": "https://assets.fireside.fm/file/fireside-images/podcasts/images/b/bc7f1faf-8aad-4135-bb12-83a8af679756/cover.jpg?v=3"
+        'quantity': 1,
+        'status': "Outstanding",
+        'item': {
+        'id': 8,
+      },
+      'user': {
+        'id': 852
+      }
     });
     // Add item with method POST through rest API
     var requestOptions = {
@@ -71,31 +77,30 @@ test("Test add item", async () => {
         redirect: 'follow'
     };
 
-    await fetch("https://online-ordering-system-323618.as.r.appspot.com/items/", requestOptions)
+    await fetch("https://online-ordering-system-323618.as.r.appspot.com/order", requestOptions)
         .then(response => response.text())
         .then(result => console.log(result))
         .catch(error => console.log('error', error));
-    // GET item by name through rest API
-    let res = await axiosMock.get("https://online-ordering-system-323618.as.r.appspot.com/items/title=" + "test-add")
+    
+    // GET item by user id through rest API
+    let res = await axiosMock.get("https://online-ordering-system-323618.as.r.appspot.com/orders/user=852")
     let itemdata = JSON.stringify(res.data)
     itemdata = JSON.parse(itemdata)
-    console.log("item title: " + itemdata[0].title)
-    // Test if the name from the url data is equal to the added name
-    expect(itemdata[0].title).toEqual("test-add")
+    // console.log("test add order id: "+itemdata[0].item.id)
+    expect(itemdata[0].item.id).toEqual(8)
+    
 })
-
-
 
 
 // ///////////////////////////////////////////////////////////////////////////////
 // Unit test for update item
-test("test update item", async () => {
+test("test update order", async () => {
     // Login to get the access token
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
     var urlencoded = new URLSearchParams();
-    urlencoded.append("email", "admin@admin.com");
+    urlencoded.append("email", "testcart@testcart.com");
     urlencoded.append("password", "password");
 
     var requestOptions = {
@@ -121,51 +126,57 @@ test("test update item", async () => {
     var myHeaders = new Headers();
     myHeaders.append("Authorization", "Bearer " + localStorage.getItem("accessToken"));
     myHeaders.append("Content-Type", "application/json");
-
+    // Set the data to update
     var raw = JSON.stringify({
-        "title": "test-update-item",
-        "price": 15.00,
-        "inStock": 0,
-        "description": "test-update-item",
-        "genre": "RGP",
-        "soldQty": 1,
-        "img": "https://assets.fireside.fm/file/fireside-images/podcasts/images/b/bc7f1faf-8aad-4135-bb12-83a8af679756/cover.jpg?v=3"
+        'quantity': 1,
+        'status': 'Paid',
+        'item': {
+        'id': 8,
+      },
+      'user': {
+        'id': 852
+      }
     });
-
+    // Update the data with method PUT through rest API
     var requestOptions = {
         method: 'PUT',
         headers: myHeaders,
         body: raw,
         redirect: 'follow'
     };
-
-    let res = await axiosMock.get("https://online-ordering-system-323618.as.r.appspot.com/items/title=" + "test-add")
+    // Get ID from the test-add item
+    let res = await axiosMock.get("https://online-ordering-system-323618.as.r.appspot.com/orders/user=852")
     let itemdata = JSON.stringify(res.data)
     itemdata = JSON.parse(itemdata)
-    console.log("item id: " + itemdata[0].id)
+    console.log(itemdata[0].id)
 
-    await fetch("https://online-ordering-system-323618.as.r.appspot.com/items/" + itemdata[0].id, requestOptions)
+    // Update the order using the est-add titem id
+    await fetch("https://online-ordering-system-323618.as.r.appspot.com/order/"+itemdata[0].id ,requestOptions)
         .then(response => response.text())
         .then(result => console.log(result))
         .catch(error => console.log('error', error));
 
-    let res1 = await axiosMock.get("https://online-ordering-system-323618.as.r.appspot.com/items/title=" + "test-update-item")
+    let res1 = await axiosMock.get("https://online-ordering-system-323618.as.r.appspot.com/orders/user=852")
     let updateItemData = JSON.stringify(res1.data)
     updateItemData = JSON.parse(updateItemData)
-    expect(updateItemData[0].title).toEqual("test-update-item")
+
+    // Check if the title change from test-add ---> test-update-item
+    expect(updateItemData[0].status).toEqual("Paid")
 
 })
 
 
 
+
 // ///////////////////////////////////////////////////////////////////////////////
-// Unit test for delete item
-test("test delete item", async () => {
+// Unit test for delete order
+test('Test Delete Orders', async () => {
+    // Login to get access token
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
     var urlencoded = new URLSearchParams();
-    urlencoded.append("email", "admin@admin.com");
+    urlencoded.append("email", "testcart@testcart.com");
     urlencoded.append("password", "password");
 
     var requestOptions = {
@@ -186,35 +197,34 @@ test("test delete item", async () => {
             localStorage.setItem("accessToken", result.accessToken)
             localStorage.setItem("username", result.username)
         });
+    // Implement the access token to header
     var myHeaders = new Headers();
     myHeaders.append("Authorization", "Bearer " + localStorage.getItem("accessToken"));
-
+    myHeaders.append("Content-Type", "application/json");
+    
+    // Delete an order with method DELETE through rest API
     var requestOptions = {
         method: 'DELETE',
         headers: myHeaders,
         redirect: 'follow'
     };
-
-    let res = await axiosMock.get("https://online-ordering-system-323618.as.r.appspot.com/items/title=" + "test-update-item")
+    
+    let res = await axiosMock.get("https://online-ordering-system-323618.as.r.appspot.com/orders/user=852")
     let itemdata = JSON.stringify(res.data)
     itemdata = JSON.parse(itemdata)
-    console.log("item title: " + itemdata[0].id)
 
-    await fetch("https://online-ordering-system-323618.as.r.appspot.com/items/" + itemdata[0].id, requestOptions)
+
+    await fetch("https://online-ordering-system-323618.as.r.appspot.com/order/"+itemdata[0].id, requestOptions)
         .then(response => response.text())
         .then(result => console.log(result))
         .catch(error => console.log('error', error));
-
-    let res1 = await axiosMock.get("https://online-ordering-system-323618.as.r.appspot.com/items/title=" + "test-update-item")
+    
+    let res1 = await axiosMock.get("https://online-ordering-system-323618.as.r.appspot.com/orders/user=852")
     let updateItemData = JSON.stringify(res1.data)
     updateItemData = JSON.parse(updateItemData)
+    // Test if the test-update-item 
     expect(updateItemData.length).toEqual(0)
-
 })
-
-
-
-
 
 
 

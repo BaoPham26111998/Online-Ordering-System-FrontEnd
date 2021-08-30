@@ -54,7 +54,7 @@ export default class Register extends Component {
                 redirect: 'follow'
             };
 
-            fetch("http://localhost:8080/register", requestOptions)
+            fetch("https://online-ordering-system-323618.as.r.appspot.com/register", requestOptions)
                 .then(response => {
                     if (response.ok) {
                         this.setState({
