@@ -28,7 +28,7 @@ select.form-control {
 input.w3-input {
   width: 10rem;
   margin-left: 1rem;
-  height: 2.5rem;
+  height: 24px;
   font-weight: bold;
   font-size: 1.5rem;
 }
@@ -45,12 +45,12 @@ button.apply-search {
   text-decoration: none;
   font-size: 1rem;
   margin-left: 0.5rem;
-  /* margin-top: 3rem; */
-  height: 2.5rem;
+  margin-top: 3rem;
+  height: auto;
 }
 
 button.apply-search:hover {
-  /* transition: all 0.2s ease-in-out; */
+  transition: all 0.2s ease-in-out;
   background: #fff;
   color: blue;
   font-weight: bold;
@@ -68,12 +68,12 @@ button.cancel-search {
   text-decoration: none;
   font-size: 1rem;
   margin-left: 0.5rem;
-  /* margin-top: 3rem; */
-  height: 2.5rem;
+  margin-top: 3rem;
+  height: auto;
 }
 
 button.cancel-search:hover {
-  /* transition: all 0.2s ease-in-out; */
+  transition: all 0.2s ease-in-out;
   background: #fff;
   color: red;
   font-weight: bold;
@@ -104,15 +104,10 @@ button.cancel-search:hover {
   border-top: 10px solid white;
 }
 
-.input-group.input-group-sm{
-  height: 2.5rem;
-}
-
 input.info-border.bg-dark.text-white.form-control {
-  /* margin-top: 3rem; */
-  height: 2.5rem;
-  width: 15rem;
-  
+  margin-top: 3rem;
+  height: 25px;
+  margin-left: 0.5rem;
 }
 
 button.gerne-button {
@@ -127,9 +122,8 @@ button.btn.btn-Secondary {
   color: white;
 }
 .dropdown.btn-group {
-  /* margin-top: 3rem; */
+  margin-top: 3rem;
   margin-right: 1rem;
-  height: 2.5rem;
 }
 
 .btn.btn-sm.btn-outline-primary {

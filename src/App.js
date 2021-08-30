@@ -59,11 +59,6 @@ class App extends Component {
         <AdminProtectedRoute path="/admin/users" component={UserAccount} />
         <AdminProtectedRoute path="/admin/transactions" component={TransactionAdmin} />
 
-        {/* <Route exact path="/admin" component={AdminTemplate} />
-        <Route path="/admin/products" component={ProductAdmin} />
-        <Route path="/admin/users" component={UserAccount} />
-        <Route path="/admin/transactions" component={TransactionAdmin} /> */}
-
         {/* Forgot Password Page */}
         <Route path="/forgot" component={Forgot} />
 

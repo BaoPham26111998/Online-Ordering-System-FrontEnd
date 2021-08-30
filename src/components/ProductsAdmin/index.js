@@ -1,13 +1,7 @@
 import React, { Component } from "react";
-// import ModalUpdate from "components/ModalUpdate"
 import './style.css'
 
 export default class Product extends Component {
-    // sendData = (event) => {
-    //     this.props.parentCallback(this.props.product);
-    //     event.preventDefault();
-    // }
-
     render() {
         const { deleteProductById, product } = this.props;
         var data_target = "#modalUpdate" + product.id;

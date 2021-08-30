@@ -26,28 +26,28 @@ export default class CartPage extends Component {
       })
       .catch(err => console.log(err));
 
-       // Get user info
-       var myHeaders = new Headers();
-       myHeaders.append("Authorization", "Bearer " + localStorage.getItem('accessToken'));
-       var requestOptions = {
-           method: 'GET',
-           headers: myHeaders,
-           redirect: 'follow'
-       };
- 
-       fetch("https://online-ordering-system-323618.as.r.appspot.com/user/name/" + localStorage.getItem('username'), requestOptions)
-           .then(response => (
-               response.text()
-           ))
-           .then(result => (
-               console.log("result = " + result),
-               this.setState({
-                   user: JSON.parse(result)
-               })
-           ))
-           .catch(error => (
-               console.log('error', error)
-           ));
+    // Get user info
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer " + localStorage.getItem('accessToken'));
+    var requestOptions = {
+      method: 'GET',
+      headers: myHeaders,
+      redirect: 'follow'
+    };
+
+    fetch("https://online-ordering-system-323618.as.r.appspot.com/user/name/" + localStorage.getItem('username'), requestOptions)
+      .then(response => (
+        response.text()
+      ))
+      .then(result => {
+        console.log("result = " + result);
+        this.setState({
+          user: JSON.parse(result)
+        })
+      })
+      .catch(error => (
+        console.log('error', error)
+      ));
   }
 
   deleteCart = e => {

@@ -9,7 +9,7 @@ class ProductHome extends Component {
             products: []
         }
     }
-    
+
     componentDidMount() {
         DataServices.getItems()
             .then((response) => {
@@ -27,21 +27,19 @@ class ProductHome extends Component {
                         product =>
                             <div key={product.id} className="card">
                                 <div className="hover01">
-                                <a href={`/product/${product.id}`}>
-                                    <figure><img
-                                        className="medium"
-                                        src={product.img}
-                                        alt={product.title}
-                                    /></figure>
-                                </a>
+                                    <a href={`/product/${product.id}`}>
+                                        <figure><img
+                                            className="medium"
+                                            src={product.img}
+                                            alt={product.title}
+                                        /></figure>
+                                    </a>
                                 </div>
-                                
+
                                 <div className="card-body">
                                     <a href={`/product/${product.id}`}>
                                         <p className="game-name" >{product.title}</p>
                                     </a>
-                                    {/* <Rating rating={product.rating}
-                                        numReviews={product.numReviews}></Rating> */}
                                     <div className="price">${product.price}</div>
                                 </div>
                             </div>
