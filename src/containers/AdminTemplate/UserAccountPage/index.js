@@ -88,8 +88,6 @@ export default class UserAccount extends Component {
     };
 
     render() {
-        console.log(this.state.users)
-
         return (
             <>
                 <div className="content">

@@ -30,7 +30,7 @@ export default class TransactionAdmin extends Component {
             redirect: 'follow'
         };
 
-        fetch("http://localhost:8080/orders", requestOptions)
+        fetch("https://online-ordering-system-323618.as.r.appspot.com/orders", requestOptions)
             .then(response => response.text())
             .then(result => console.log(result))
             .catch(error => console.log('error', error));
