@@ -36,7 +36,7 @@ export default class SidebarAdmin extends Component {
                     <SidebarHeader>
                         <div className="admin_logo">
                             <p className="display-4">Welcome to Admin Template</p>
-                            <p className="text-white name_admin">SCP GAMING</p>
+                            <Link className="text-white name_admin" to="">SCP GAMING</Link>
                         </div>
                     </SidebarHeader>
                     <SidebarContent>
