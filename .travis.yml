@@ -3,11 +3,4 @@ node_js: 14.17.3
 
 install: 
   npm ci
-
-# deploy: 
-#   provider: pages
-#   skip-cleanup: true
-#   github-token: $GITHUB_TOKEN
-#   local_dir: build
-#   on:
-#     branch: main
+  npm run test
