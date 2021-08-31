@@ -38,8 +38,8 @@ export default class Product extends Component {
                 <span className="ei98_95_30_40">${price} </span>
                 <span className="ei98_95_30_45 text-primary">In Stock: {inStock} | Sold: {soldQty} </span>
                 <span className="ei98_95_30_41">{genre}</span>
-                <button className="btn btn-danger button-spec button-del" onClick={deleteProductById.bind(this, id)}><i className="fa fa-trash"></i></button>
-                <button className="btn btn-success button-spec button-upd" id="btnThem" data-toggle="modal" data-target={data_target} ><i className="fa fa-edit" ></i></button>
+                <button className="btn btn-danger button-spec button-del text-white" onClick={deleteProductById.bind(this, id)}><i className="fa fa-trash"></i></button>
+                <button className="btn btn-success button-spec button-upd text-white" id="btnThem" data-toggle="modal" data-target={data_target} ><i className="fa fa-edit" ></i></button>
             </>
         )
     }

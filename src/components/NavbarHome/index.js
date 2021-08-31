@@ -57,7 +57,27 @@ export default class NavbarHome extends Component {
             return <Redirect to={'/login'} />
         }
 
-        if (this.state.isLogin === true) {
+        if ((this.state.isLogin === true) && (this.state.userRole === "user_admin")) {
+            return (
+                <header className="homepage-header">
+                    <div className="header row">
+                        <div>
+                            <Link className="brand" to="/" href="index.html">SCP Gaming </Link>
+                        </div>
+                        <div>
+                            <Link className="register" to="/account" href="Register.html">Welcome {this.state.userRole}</Link>
+                            <Link className="register" to="/admin" href="Register.html">Admin</Link>
+                            <Link className="register" to="/login" href="Register.html" onClick={this.logout}>Logout</Link>
+                        </div>
+                    </div>
+                    <div>
+                        <Navbar></Navbar>
+                    </div>
+                </header>
+            )
+        }
+
+        if ((this.state.isLogin === true) && (this.state.userRole !== "user_admin")) {
             return (
                 <header className="homepage-header">
                     <div className="header row">
