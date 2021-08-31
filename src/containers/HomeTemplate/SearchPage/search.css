@@ -53,13 +53,6 @@ button.apply-search {
   height: auto;
 }
 
-button.apply-search:hover {
-  transition: all 0.2s ease-in-out;
-  background: #fff;
-  color: blue;
-  font-weight: bold;
-}
-
 button.cancel-search {
   border-radius: 4px;
   background: white;
@@ -76,12 +69,6 @@ button.cancel-search {
   height: auto;
 }
 
-button.cancel-search:hover {
-  transition: all 0.2s ease-in-out;
-  background: #fff;
-  color: red;
-  font-weight: bold;
-}
 
 .page-num {
   width: 45px;
