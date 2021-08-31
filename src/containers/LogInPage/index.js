@@ -120,10 +120,10 @@ export default class LogIn extends Component {
             )
         }
 
-        if((redirected === true)){
-            if(this.state.userRole === 'user_admin'){
+        if ((redirected === true)) {
+            if (this.state.userRole === 'user_admin') {
                 return <Redirect to={'/admin'} />
-            }else{
+            } else {
                 return <Redirect to={''} />
             }
         }
@@ -147,6 +147,9 @@ export default class LogIn extends Component {
                             <button className="btn btn-primary btn-block" type="button" onClick={this.login}>Log In</button>
                             <br />
                             {error}
+                            <p className="forgot-password text-right">
+                                <Link className="mr-3" to={''}>Home</Link>
+                            </p>
                             <p className="forgot-password text-right">
                                 <Link to={'/forgot'}>Forgot Password?</Link>
                             </p>
