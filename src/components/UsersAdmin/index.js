@@ -27,7 +27,6 @@ export default class User extends Component {
                 <td >{user.email}</td>
                 {role}
                 {lock}
-                <td><button className="btn btn-danger" ><i className="fa fa-trash"></i></button></td>
             </>
         )
     }

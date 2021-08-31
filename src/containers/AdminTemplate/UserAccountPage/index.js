@@ -278,9 +278,6 @@ export default class UserAccount extends Component {
                                                     <th>Email</th>
                                                     <th>Role</th>
                                                     <th>Locked</th>
-                                                    <th>
-                                                        <em className="fa fa-cog" />
-                                                    </th>
                                                 </tr>
                                             </thead>
                                             <tbody id="tableDanhSach">
